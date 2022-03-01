@@ -25,12 +25,12 @@ logger = logging.getLogger(__name__)
 pgsql = ops.lib.use("pgsql", 1, "postgresql-charmers@lists.launchpad.net")
 
 
-class DatabaseIntegratorOperatorCharm(CharmBase):
+class PostgresProviderCharm(CharmBase):
     DB_NAME = "magma_dev"
 
     def __init__(self, *args):
         super().__init__(*args)
-        self.framework.observe(self.on["magma-db"].relation_changed, self._on_relation_joined)
+        self.framework.observe(self.on["postgres-provider"].relation_changed, self._on_relation_joined)
         
         self._db = pgsql.PostgreSQLClient(self.charm, "db")
         self.framework.observe(
@@ -88,4 +88,4 @@ class DatabaseIntegratorOperatorCharm(CharmBase):
             return None
 
 if __name__ == "__main__":
-    main(DatabaseIntegratorOperatorCharm)
+    main(PostgresProviderCharm)

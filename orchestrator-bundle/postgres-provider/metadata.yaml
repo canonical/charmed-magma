@@ -13,11 +13,19 @@ summary: |
 
 # TEMPLATE-TODO: replace with containers for your workload (delete for non-k8s)
 containers:
-  httpbin:
-    resource: httpbin-image
+  database-integrator-operator:
+    resource: database-integrator-operator-image
 
 # TEMPLATE-TODO: each container defined above must specify an oci-image resource
 resources:
-  httpbin-image:
+  database-integrator-operator-image:
     type: oci-image
-    description: OCI image for httpbin (kennethreitz/httpbin)
+    description: OCI image for database-integrator-operator
+
+provides:
+  postgres-provider:
+    interface: db-connection
+
+requires:
+  db:
+    interface: pgsql
