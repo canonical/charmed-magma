@@ -46,7 +46,7 @@ class MagmaOrc8rCertifierCharm(CharmBase):
     ALERTMANAGER_CONFIGURER_URL = "http://orc8r-alertmanager:9101"
 
     def __init__(self, *args):
-        """An instance of this object everytime an event occurs."""
+        """An instance of this object everytime an event occurs"""
         super().__init__(*args)
         self._container_name = self._service_name = "magma-orc8r-certifier"
         self._container = self.unit.get_container(self._container_name)
