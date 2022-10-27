@@ -1,5 +1,4 @@
-
-![Magma](images/magma-logo-purple.svg){ width="300" }
+<a href="url"><img src="images/magma-logo-purple.svg" align="left" width="300" ></a>
 
 **Magma** is an open source 4G and 5G core network. Use it to operate your own private mobile 
 network. Magma enables better connectivity by:
