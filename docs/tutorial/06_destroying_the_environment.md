@@ -1,4 +1,4 @@
-## 6. Destroying the environment
+# 6. Destroying the environment
 
 First, destroy the 3 virtual machines that we created:
 
