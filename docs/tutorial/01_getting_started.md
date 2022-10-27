@@ -2,7 +2,7 @@
 
 ## Requirements
 
-This tutorial has been written to work on Ubuntu computer:
+This tutorial has been written to work on Ubuntu:
 
 - **:material-ubuntu: Operating system**: Ubuntu 20.04
 - **:octicons-cpu-16: CPU**: 10 cores
@@ -11,7 +11,7 @@ This tutorial has been written to work on Ubuntu computer:
 
 ## Installing dependencies
 
-First, open a terminal window and install Juju, Multipass and kubectl.
+First, open a terminal window and install [Juju](https://juju.is/), [Multipass](https://multipass.run/) and [Kubectl](https://kubernetes.io/docs/reference/kubectl/) using snap.
 
 ```bash
 sudo snap install juju
@@ -21,7 +21,7 @@ sudo snap install kubectl --classic
 
 ## Creating the environment
 
-First, create 3 virtual machines using multipass.
+Create 3 virtual machines using multipass.
 
 ```bash
 ubuntu@host:~$ multipass launch --name magma-orchestrator --mem=8G --disk=40G --cpus=6 20.04
@@ -48,14 +48,14 @@ Now, connect to the virtual machine that we named `magma-orchestrator`:
 ubuntu@host:~$ multipass shell magma-orchestrator
 ```
 
-Then install MicroK8s and configure the network:
+Then, install [MicroK8s](https://microk8s.io/) and configure the network:
 
 ```bash
 ubuntu@magma-orchestrator:~$ sudo snap install microk8s --channel=1.22/stable --classic
 ubuntu@magma-orchestrator:~$ sudo ufw default allow routed
 ```
 
-Add the ubuntu user to the microk8s group:
+Add the ubuntu user to the MicroK8s group:
 
 ```bash
 ubuntu@magma-orchestrator:~$ sudo usermod -a -G microk8s ubuntu
@@ -63,7 +63,7 @@ ubuntu@magma-orchestrator:~$ sudo chown -f -R ubuntu ~/.kube
 ubuntu@magma-orchestrator:~$ newgrp microk8s
 ```
 
-Enable the following microk8s add-ons:
+Enable the following MicroK8s add-ons:
 
 ```bash
 ubuntu@magma-orchestrator:~$ microk8s enable dns storage
