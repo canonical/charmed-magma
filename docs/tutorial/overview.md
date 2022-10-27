@@ -4,18 +4,8 @@
 
     This tutorial is under construction! :construction:
 
-## Overview
-
-[Magma](https://magmacore.org/) is an open-source software platform that gives network operators 
-an open, flexible and extendable mobile core network solution.
-
-[Juju](https://juju.is/) is a tool used to deploy cloud infrastructure and applications and manage their operations 
-from Day 0 through Day 2.
-
-In this tutorial, we will use Juju to deploy the Magma 4G core as well as a simulated radio
+In this tutorial, we will use Juju to deploy Magma's 4G core network as well as a simulated radio
 and a cellphone from the [srsRAN](https://www.srslte.com/) project.
-
-## Content
 
 1. [Getting Started](01_getting_started.md)
 2. [Deploying Magma's network management software](02_deploying_magma_nms.md)

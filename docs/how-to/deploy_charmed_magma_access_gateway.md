@@ -1,12 +1,14 @@
 # Deploy Charmed Magma Access Gateway
 
-## System requirements
+## Requirements
 
-- **Processor**: x86-64 dual-core processor (around 2GHz clock speed or faster)
-- **Memory**: 4GB RAM
-- **Storage**: 32GB or greater SSD
-- **Networking**: At least two ethernet interfaces (**SGi** for internet connectivity and **S1** for enodeB connectivity)
-- **Operating System**: Ubuntu 20.04 LTS with Linux Kernel 5.4
+The Access Gateway must be installed on a Ubuntu machine with the following specifications:
+
+- **:material-ubuntu: Operating System**: Ubuntu 20.04 LTS with Linux Kernel 5.4
+- **:octicons-cpu-16: Processor**: x86-64 dual-core processor (around 2GHz clock speed or faster)
+- **:fontawesome-solid-memory: Memory**: 4GB RAM
+- **:material-harddisk: Storage**: 32GB or greater SSD
+- **:material-ethernet: Networking**: At least two ethernet interfaces (**SGi** for internet connectivity and **S1** for enodeB connectivity)
 
 
 !!! danger

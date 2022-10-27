@@ -1,8 +1,10 @@
 # Deploy Charmed Magma Orchestrator
 
-## System requirements
+## Requirements
 
-- **Kubernetes**: Minimum of 3 Nodes with 2 vCPUs and 8 GB of RAM each.
+The Access Gateway must be installed on a Kubernetes cluster with the following specifications:
+
+- **:material-kubernetes: Kubernetes**: A cluster with a minimum of 3 Nodes with 2 vCPUs and 8 GB of RAM each.
 
 ## Deploy the magma-orc8r bundle
 
@@ -38,16 +40,22 @@ The deployment is completed when all services are in the `Active-Idle` state.
 
 ## Import the admin operator HTTPS certificate
 
-Retrieve the PFX package and password that contains the certificates to authenticate against Magma Orchestrator:
+Retrieve the PFX package that contains the certificates to authenticate against Magma Orchestrator:
 
 ```bash
 juju scp --container="magma-orc8r-certifier" orc8r-certifier/0:/var/opt/magma/certs/admin_operator.pfx admin_operator.pfx
+```
+
+Retrieve the pfx package password:
+
+```bash
 juju run-action orc8r-certifier/leader get-pfx-package-password --wait
 ```
 
 !!! info
 
-    The pfx package was copied to your current working directory and can now be loaded in your browser.
+    The pfx package was copied to your current working directory. It can now be loaded in your browser or used
+    to make API calls to Magma orchestrator.
 
 ## Setup DNS
 
@@ -70,7 +78,7 @@ In your domain registrar, create A records for the following Kubernetes services
 
 Get the master organization's username and password:
 
-```bash title=banana
+```bash
 juju run-action nms-magmalte/leader get-master-admin-credentials --wait
 ```
 

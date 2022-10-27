@@ -1,16 +1,22 @@
 # 1. Getting Started
 
-This tutorial has been written to work on a Ubuntu 20.04 computer with at least 16 GB of RAM, 10 
-CPU cores and 100 GB of storage.
+## Requirements
+
+This tutorial has been written to work on Ubuntu computer:
+
+- **:material-ubuntu: Operating system**: Ubuntu 20.04
+- **:octicons-cpu-16: CPU**: 10 cores
+- **:fontawesome-solid-memory: Memory**: 16 GB
+- **:material-ethernet: Storage**: 100 GB
 
 ## Installing dependencies
 
 First, open a terminal window and install Juju, Multipass and kubectl.
 
 ```bash
-ubuntu@host:~$ sudo snap install juju
-ubuntu@host:~$ sudo snap install multipass
-ubuntu@host:~$ sudo snap install kubectl --classic
+sudo snap install juju
+sudo snap install multipass
+sudo snap install kubectl --classic
 ```
 
 ## Creating the environment
