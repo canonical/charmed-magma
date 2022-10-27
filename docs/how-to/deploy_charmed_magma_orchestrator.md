@@ -2,9 +2,9 @@
 
 ## Requirements
 
-The Access Gateway must be installed on a Kubernetes cluster with the following specifications:
+The Orchestrator must be installed on a Kubernetes cluster with the following specifications:
 
-- **:material-kubernetes: Kubernetes**: A cluster with a minimum of 3 Nodes with 2 vCPUs and 8 GB of RAM each.
+- **:material-kubernetes: Kubernetes**: A cluster with a total of a minimum of 6 vCPUs and 16 GB of RAM.
 
 ## Deploy the magma-orc8r bundle
 
