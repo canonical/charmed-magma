@@ -119,7 +119,7 @@ In your host, create A records for the following Kubernetes services:  # TODO (a
 | `<orc8r-clientcert-nginx External IP>` | `controller.awesome.com`              | 
 | `<nginx-proxy External IP>`            | `*.nms.awesome.com`                   | 
 
-## Offer an application endpoint
+## Offering an application endpoint
 
 Offer an application endpoint that we will use later for our network core to 
 relate to our orchestrator:
@@ -128,7 +128,7 @@ relate to our orchestrator:
 ubuntu@host:~$ juju offer orc8r-nginx:orchestrator
 ```
 
-## Verify the deployment
+## Verifying the deployment
 
 Get the master organization's username and password:
 

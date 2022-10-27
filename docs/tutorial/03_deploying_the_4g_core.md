@@ -126,7 +126,7 @@ unit-magma-access-gateway-operator-0:
 
 Your `challenge-key` and `hardware-id` will be different from those here. We will use those soon.
 
-## Create a network in Magma Orchestrator
+## Creating a network in Magma Orchestrator
 
 First, create a network # TODO
 
@@ -134,7 +134,7 @@ Then, navigate to "Equipment" on the NMS via the left navigation bar, hit "Add G
 upper right, and fill out the multi-step modal form. Use the secrets from above for the 
 "Hardware UUID" and "Challenge Key" fields.
 
-## Verify the Access Gateway deployment
+## Verifying the Access Gateway deployment
 
 Verify that the Access Gateway is properly running:
 
