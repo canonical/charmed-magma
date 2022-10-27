@@ -1,0 +1,54 @@
+site_name: Charmed Magma
+repo_url: https://github.com/canonical/charmed-magma
+copyright: Canonical Ltd.
+
+nav:
+    - "Home": "index.md"
+    - "Tutorial":
+        - "Overview": "tutorial/overview.md"
+        - "1. Getting Started": "tutorial/01_getting_started.md"
+        - "2. Deploying Magma's network management software": "tutorial/02_deploying_magma_nms.md"
+        - "3. Deploying the 4G core": "tutorial/03_deploying_the_4g_core.md"
+        - "4. Deploying the radio simulator": "tutorial/04_deploying_the_radio_simulator.md"
+        - "5. Simulating user traffic": "tutorial/05_simulating_user_traffic.md"
+        - "6. Destroying the environment": "tutorial/06_destroying_the_environment.md"
+    - "How-to Guides":
+        - "Deploy Charmed Magma Orchestrator": 'how-to/deploy_charmed_magma_orchestrator.md'
+        - "Deploy Charmed Magma Access Gateway": 'how-to/deploy_charmed_magma_access_gateway.md'
+        - "Integrate Charmed Magma Access Gateway to Orchestrator": 'how-to/integrate_charmed_magma_access_gateway_to_orchestrator.md'
+        - "Integrate Charmed Magma Access Gateway to srsRAN": 'how-to/integrate_charmed_magma_access_gateway_to_srsRAN.md'
+
+theme:
+  name: material
+  logo: images/logo.png
+  favicon: images/logo.png
+  icon:
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+  features:
+    - navigation.expand
+    - content.tabs.link
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.emoji
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+extra_css:
+  - stylesheets/extra.css
