@@ -5,12 +5,18 @@
 The Orchestrator must be installed on a Kubernetes cluster with the following specifications:
 
 - **:material-kubernetes: Kubernetes**: A cluster with a total of a minimum of 6 vCPUs and 16 GB of RAM.
+- **:material-ubuntu: Juju**: A Juju controller with access to the Kubernetes cluster
+
+!!! note
+
+    If the Juju controller is running on your Kubernetes cluster, it should use a LoadBalancer
+    service type
 
 ## Deploy the magma-orc8r bundle
 
-From your Ubuntu machine, create an `overlay.yaml` file that contains the following content:
+Create an `overlay.yaml` file that contains the following content:
 
-```yaml
+```yaml title="overlay.yaml"
 applications:
   orc8r-certifier:
     options:
@@ -24,11 +30,9 @@ applications:
       ca-common-name: rootca.<your domain name>
 ```
 
-
 !!! warning
 
     This configuration is unsecure because it uses self-signed certificates.
-
 
 Deploy Orchestrator:
 
