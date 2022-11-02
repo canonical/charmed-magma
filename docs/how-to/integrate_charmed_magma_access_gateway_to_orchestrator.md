@@ -30,6 +30,6 @@ Run the following command:
 juju run-action magma-access-gateway-operator/<unit number> post-install-checks --wait
 ```
 
-!!! success
+!!! info
 
     Successful Access Gateway deployment will be indicated by the `Magma AGW post-installation checks finished successfully.` message.

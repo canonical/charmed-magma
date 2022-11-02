@@ -49,12 +49,13 @@ The Access Gateway must be installed on an Ubuntu machine with the following spe
       s1-ipv6-address: fd7d:3797:378b:a503::2/64
       dns: '["8.8.8.8", "208.67.222.222"]'
     ```
-    
+
+    !!! info
+        The interface names and IP addresses will need to be adjusted based on your specific machine.
+
     Deploy Magma Access Gateway:
 
     ```bash
     juju deploy magma-access-gateway-operator --config agw_config.yaml
     ```
 
-    !!! info
-        The interface names and IP addresses will need to be adjusted based on your specific machine.
