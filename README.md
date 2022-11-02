@@ -22,4 +22,4 @@ run on your personnal computer.
 standard monitoring tools.
 - **Automation**: Charmed Magma automates the initial setup and most operations.
 
-[Get started here](tutorial/overview.md)
+Read the official documentation [here](https://canonical.github.io/charmed-magma/).
