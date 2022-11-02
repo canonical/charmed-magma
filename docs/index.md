@@ -21,3 +21,5 @@ run on your personnal computer.
 - **Integrations**: Charmed Magma offers seamless integration between each component and with 
 standard monitoring tools.
 - **Automation**: Charmed Magma automates the initial setup and most operations.
+
+[Get started here](tutorial/overview.md){ .md-button }
