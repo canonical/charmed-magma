@@ -1,0 +1,194 @@
+# TODO: Review whole template before testing
+# TODO: Check Resource handler returned message: "The networkAcl ID 'AgwSrsNetworkACL' does not exist (Service: Ec2, Status Code: 400, Request ID: 3d3c0b0d-24a0-417d-818f-576f933b9fab)" (RequestToken: 8d2ee167-bd9f-530c-0d4d-3109c2cb4440, HandlerErrorCode: NotFound)
+# The following resource(s) failed to create: [SGIngressRule1, SGAgw]. The following resource(s) failed to update: [NACLEntry1].
+
+Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access into the resources
+    Type: AWS::EC2::KeyPair::KeyName
+Resources:
+  AgwSrsVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      InstanceTenancy: default
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: "AgwSrsVPC"
+
+  S1SrsPublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone: "us-west-1b"
+      MapPublicIpOnLaunch: true
+      VpcId: !Ref "AgwSrsVPC"
+      Tags:
+        - Key: Name
+          Value: "S1SrsSubnet - us-west-1b"
+
+  AgwPublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: "us-west-1c"
+      MapPublicIpOnLaunch: true
+      VpcId: !Ref "AgwSrsVPC"
+      Tags:
+        - Key: Name
+          Value: "AgwSubnet - us-west-1c"
+
+  AgwSrsIGW:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: "AgwSrsIGW"
+
+  AgwSrsNetworkACL:
+    Type: AWS::EC2::NetworkAcl
+    Properties:
+      VpcId: !Ref "AgwSrsVPC"
+      Tags:
+        - Key: Name
+          Value: "AgwNetworkACL"
+
+  AgwSrsRoutePublic:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref "AgwSrsVPC"
+      Tags:
+        - Key: Name
+          Value: "AgwSrsRoutePublic"
+
+  AGWEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-03f6d497fceb40069
+      KeyName: !Ref KeyName
+      Monitoring: false
+      UserData: "echo hello world"
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeleteOnTermination: true
+          Description: Primary network interface for srs
+          DeviceIndex: "0"
+          SubnetId: !Ref "AgwPublicSubnet"
+          GroupSet: [!Ref "SGAgw"]
+      Tags:
+        - Key: Name
+          Value: "AGWEC2Instance"
+
+  SrsEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-03f6d497fceb40069
+      KeyName: !Ref KeyName
+      Monitoring: false
+      UserData: "echo hello world"
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeleteOnTermination: true
+          Description: Primary network interface for srs
+          DeviceIndex: "0"
+          SubnetId: !Ref "S1SrsPublicSubnet"
+          GroupSet: [!Ref "SGsrs"]
+      Tags:
+        - Key: Name
+          Value: "SrsEC2Instance"
+
+  SGsrs:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Srs host security group
+      VpcId: !Ref "AgwSrsVPC"
+      Tags:
+        - Key: Name
+          Value: SrsHostSecurityGroup
+
+  SGIngressRule1:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      CidrIp: 0.0.0.0/0
+      Description: Allows all inbound traffic
+      GroupName: !Ref "SGsrs"
+      IpProtocol: -1
+
+  SGAgw:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Srs host security group
+      VpcId: !Ref "AgwSrsVPC"
+      Tags:
+        - Key: Name
+          Value: SrsHostSecurityGroup
+
+  # Same ingress rule for both security groups?
+  SGIngressRule2:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      CidrIp: 0.0.0.0/0
+      Description: Allows all inbound traffic
+      GroupName: !Ref "SGAgw"
+      IpProtocol: -1
+
+  NACLEntry1:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      CidrBlock: 0.0.0.0/0
+      Egress: true
+      Protocol: -1
+      RuleAction: allow
+      RuleNumber: 100
+      NetworkAclId: "AgwSrsNetworkACL"
+
+  NACLEntry2:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      CidrBlock: 0.0.0.0/0
+      Egress: false
+      Protocol: -1
+      RuleAction: allow
+      RuleNumber: 100
+      NetworkAclId: !Ref "AgwSrsNetworkACL"
+
+  subnetaclS1Srs:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      NetworkAclId: !Ref "AgwSrsNetworkACL"
+      SubnetId: !Ref "S1SrsPublicSubnet"
+
+  subnetaclSrs:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      NetworkAclId: !Ref "AgwSrsNetworkACL"
+      SubnetId: !Ref "AgwPublicSubnet"
+
+  IGWAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref "AgwSrsVPC"
+      InternetGatewayId: !Ref "AgwSrsIGW"
+
+  subnetRoutePublicS1Srs:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref "AgwSrsRoutePublic"
+      SubnetId: !Ref "S1SrsPublicSubnet"
+
+  subnetRoutePublicAgw:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref "AgwSrsRoutePublic"
+      SubnetId: !Ref "AgwPublicSubnet"
+
+  publicroute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      RouteTableId: !Ref "AgwSrsRoutePublic"
+      GatewayId: !Ref "AgwSrsIGW"
