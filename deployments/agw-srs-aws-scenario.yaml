@@ -1,11 +1,11 @@
-# TODO: Review whole template before testing
-# TODO: Check Resource handler returned message: "The networkAcl ID 'AgwSrsNetworkACL' does not exist (Service: Ec2, Status Code: 400, Request ID: 3d3c0b0d-24a0-417d-818f-576f933b9fab)" (RequestToken: 8d2ee167-bd9f-530c-0d4d-3109c2cb4440, HandlerErrorCode: NotFound)
-# The following resource(s) failed to create: [SGIngressRule1, SGAgw]. The following resource(s) failed to update: [NACLEntry1].
+# TODO: Working
+# TODO AGWEC2Instance: Value (us-west-1b) for parameter availabilityZone is invalid. Network interface 'eni-0e744e59ffa6404c0' is in the availability zone us-west-1c (Service: AmazonEC2; Status Code: 400; Error Code: InvalidParameterValue; Request ID: 93056364-6907-4ffd-9fb1-a51b958d6098; Proxy: null)
 
 Parameters:
   KeyName:
     Description: Name of an existing EC2 KeyPair to enable SSH access into the resources
     Type: AWS::EC2::KeyPair::KeyName
+
 Resources:
   AgwSrsVPC:
     Type: AWS::EC2::VPC
@@ -22,12 +22,13 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       CidrBlock: 10.0.0.0/24
-      AvailabilityZone: "us-west-1b"
+      AvailabilityZone: "us-west-1c"
       MapPublicIpOnLaunch: true
       VpcId: !Ref "AgwSrsVPC"
       Tags:
         - Key: Name
-          Value: "S1SrsSubnet - us-west-1b"
+          Value: "S1SrsSubnet"
+          # Value: "S1SrsSubnet - us-west-1b"
 
   AgwPublicSubnet:
     Type: AWS::EC2::Subnet
@@ -38,7 +39,8 @@ Resources:
       VpcId: !Ref "AgwSrsVPC"
       Tags:
         - Key: Name
-          Value: "AgwSubnet - us-west-1c"
+          Value: "AgwSubnet"
+          # Value: "AgwSubnet - us-west-1c"
 
   AgwSrsIGW:
     Type: AWS::EC2::InternetGateway
@@ -71,16 +73,55 @@ Resources:
       KeyName: !Ref KeyName
       Monitoring: false
       UserData: "echo hello world"
+      # SubnetId: !Ref AgwPublicSubnet
       NetworkInterfaces:
-        - AssociatePublicIpAddress: true
-          DeleteOnTermination: true
-          Description: Primary network interface for srs
-          DeviceIndex: "0"
-          SubnetId: !Ref "AgwPublicSubnet"
-          GroupSet: [!Ref "SGAgw"]
+        # - AssociatePublicIpAddress: true
+        #   DeleteOnTermination: true
+        #   Description: AGW SGi network interface.
+        #   DeviceIndex: "0"
+        #   SubnetId: !Ref "AgwPublicSubnet"
+        #   GroupSet: [!Ref "SGAgw"]
+        - NetworkInterfaceId: !Ref AGWSGiNetworkInterface
+          DeviceIndex: 0
+        - NetworkInterfaceId: !Ref AGWS1NetworkInterface
+          DeviceIndex: 1
       Tags:
         - Key: Name
           Value: "AGWEC2Instance"
+
+  AGWSGiNetworkInterface:
+    Type: AWS::EC2::NetworkInterface
+    Properties:
+      Description: AGW SGi network interface, internet access.
+      GroupSet: [!Ref "SGAgw"]
+      SubnetId: !Ref AgwPublicSubnet
+      Tags:
+        - Key: Name
+          Value: "AGWS1NetworkInterface"
+
+  EIPSGi:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+      Tags:
+        - Key: Name
+          Value: "SGi Elastic IP"
+
+  EIPSGiAssociation:
+    Type: AWS::EC2::EIPAssociation
+    Properties:
+      AllocationId: !GetAtt EIPSGi.AllocationId
+      NetworkInterfaceId: !Ref AGWSGiNetworkInterface
+
+  AGWS1NetworkInterface:
+    Type: AWS::EC2::NetworkInterface
+    Properties:
+      Description: AGW S1 network interface.
+      GroupSet: [!Ref "SGAgw"]
+      SubnetId: !Ref S1SrsPublicSubnet
+      Tags:
+        - Key: Name
+          Value: "AGWS1NetworkInterface"
 
   SrsEC2Instance:
     Type: AWS::EC2::Instance
@@ -90,6 +131,7 @@ Resources:
       KeyName: !Ref KeyName
       Monitoring: false
       UserData: "echo hello world"
+      # SubnetId: !Ref S1SrsPublicSubnet
       NetworkInterfaces:
         - AssociatePublicIpAddress: true
           DeleteOnTermination: true
@@ -106,35 +148,30 @@ Resources:
     Properties:
       GroupDescription: Srs host security group
       VpcId: !Ref "AgwSrsVPC"
+      SecurityGroupIngress:
+        - IpProtocol: -1
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          CidrIp: 0.0.0.0/0
       Tags:
         - Key: Name
           Value: SrsHostSecurityGroup
-
-  SGIngressRule1:
-    Type: AWS::EC2::SecurityGroupIngress
-    Properties:
-      CidrIp: 0.0.0.0/0
-      Description: Allows all inbound traffic
-      GroupName: !Ref "SGsrs"
-      IpProtocol: -1
 
   SGAgw:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Srs host security group
       VpcId: !Ref "AgwSrsVPC"
+      SecurityGroupIngress:
+        - IpProtocol: -1
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          CidrIp: 0.0.0.0/0
       Tags:
         - Key: Name
           Value: SrsHostSecurityGroup
-
-  # Same ingress rule for both security groups?
-  SGIngressRule2:
-    Type: AWS::EC2::SecurityGroupIngress
-    Properties:
-      CidrIp: 0.0.0.0/0
-      Description: Allows all inbound traffic
-      GroupName: !Ref "SGAgw"
-      IpProtocol: -1
 
   NACLEntry1:
     Type: AWS::EC2::NetworkAclEntry
@@ -144,7 +181,7 @@ Resources:
       Protocol: -1
       RuleAction: allow
       RuleNumber: 100
-      NetworkAclId: "AgwSrsNetworkACL"
+      NetworkAclId: !Ref "AgwSrsNetworkACL"
 
   NACLEntry2:
     Type: AWS::EC2::NetworkAclEntry
