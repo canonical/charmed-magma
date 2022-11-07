@@ -1,10 +1,66 @@
-# TODO: Working
-# TODO AGWEC2Instance: Value (us-west-1b) for parameter availabilityZone is invalid. Network interface 'eni-0e744e59ffa6404c0' is in the availability zone us-west-1c (Service: AmazonEC2; Status Code: 400; Error Code: InvalidParameterValue; Request ID: 93056364-6907-4ffd-9fb1-a51b958d6098; Proxy: null)
+# TODO: Review whole template.
+# TODO: Map AMIs for all available regions.
+# TODO: Change instance types from free tier, to the required ones.
+# TODO: AGW kernel downgrade
+# TODO: AGW EBS volume 20 GBS
 
 Parameters:
   KeyName:
     Description: Name of an existing EC2 KeyPair to enable SSH access into the resources
     Type: AWS::EC2::KeyPair::KeyName
+
+Mappings:
+  RegionMap:
+    af-south-1:
+      Ubuntu2004LTS: "ami-042995beac9ec5140"
+    ap-east-1:
+      Ubuntu2004LTS: "ami-07b3aa6c08b0caae1"
+    ap-northeast-1:
+      Ubuntu2004LTS: "ami-0d745f1ee4bb88b89"
+    ap-northeast-2:
+      Ubuntu2004LTS: "ami-05a5333b72d3d1c93"
+    ap-northeast-3:
+      Ubuntu2004LTS: "ami-0eb4557358e2c9386"
+    ap-south-1:
+      Ubuntu2004LTS: "ami-0340ea71c538887c3"
+    ap-southeast-1:
+      Ubuntu2004LTS: "ami-0fbb51b4aa5671449"
+    ap-southeast-2:
+      Ubuntu2004LTS: "ami-030a8d0e06463671c"
+    ap-southeast-3:
+      Ubuntu2004LTS: "ami-029497464bf11fc26"
+    ca-central-1:
+      Ubuntu2004LTS: "ami-0ab6f6340b2a4fb77"
+    cn-north-1:
+      Ubuntu2004LTS: "ami-0741e7b8b4fb0001c"
+    cn-northwest-1:
+      Ubuntu2004LTS: "ami-0883e8062ff31f727"
+    eu-central-1:
+      Ubuntu2004LTS: "ami-0d0dd86aa7fe3c8a9"
+    eu-north-1:
+      Ubuntu2004LTS: "ami-051a4a0c60c88f085"
+    eu-south-1:
+      Ubuntu2004LTS: "ami-0da797cba39f716ea"
+    eu-west-1:
+      Ubuntu2004LTS: "ami-04e2e94de097d3986"
+    eu-west-2:
+      Ubuntu2004LTS: "ami-08d3a4ad06c8a70fe"
+    eu-west-3:
+      Ubuntu2004LTS: "ami-018de3a6e45331551"
+    me-central-1:
+      Ubuntu2004LTS: "ami-0dd8d47397d44ff85"
+    me-south-1:
+      Ubuntu2004LTS: "ami-057c0cd91677477f8"
+    sa-east-1:
+      Ubuntu2004LTS: "ami-07e7afb5e1e58e8da"
+    us-east-1:
+      Ubuntu2004LTS: "ami-01d08089481510ba2"
+    us-east-2:
+      Ubuntu2004LTS: "ami-0066d036f9777ec38"
+    us-west-1:
+      Ubuntu2004LTS: "ami-064562725417500be"
+    us-west-2:
+      Ubuntu2004LTS: "ami-0e6dff8bde9a09539"
 
 Resources:
   AgwSrsVPC:
@@ -27,8 +83,7 @@ Resources:
       VpcId: !Ref "AgwSrsVPC"
       Tags:
         - Key: Name
-          Value: "S1SrsSubnet"
-          # Value: "S1SrsSubnet - us-west-1b"
+          Value: "S1SrsSubnet - us-west-1c"
 
   AgwPublicSubnet:
     Type: AWS::EC2::Subnet
@@ -39,8 +94,7 @@ Resources:
       VpcId: !Ref "AgwSrsVPC"
       Tags:
         - Key: Name
-          Value: "AgwSubnet"
-          # Value: "AgwSubnet - us-west-1c"
+          Value: "AgwSubnet - us-west-1c"
 
   AgwSrsIGW:
     Type: AWS::EC2::InternetGateway
@@ -69,18 +123,17 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: t2.micro
-      ImageId: ami-03f6d497fceb40069
+      # ImageId: ami-03f6d497fceb40069
+      ImageId:
+        Fn::FindInMap:
+          - RegionMap
+          - !Ref AWS::Region
+          - Ubuntu2004LTS
+      # KernelId" : String
       KeyName: !Ref KeyName
       Monitoring: false
       UserData: "echo hello world"
-      # SubnetId: !Ref AgwPublicSubnet
       NetworkInterfaces:
-        # - AssociatePublicIpAddress: true
-        #   DeleteOnTermination: true
-        #   Description: AGW SGi network interface.
-        #   DeviceIndex: "0"
-        #   SubnetId: !Ref "AgwPublicSubnet"
-        #   GroupSet: [!Ref "SGAgw"]
         - NetworkInterfaceId: !Ref AGWSGiNetworkInterface
           DeviceIndex: 0
         - NetworkInterfaceId: !Ref AGWS1NetworkInterface
@@ -127,11 +180,15 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: t2.micro
-      ImageId: ami-03f6d497fceb40069
+      # ImageId: ami-03f6d497fceb40069
+      ImageId:
+        Fn::FindInMap:
+          - RegionMap
+          - !Ref AWS::Region
+          - Ubuntu2004LTS
       KeyName: !Ref KeyName
       Monitoring: false
       UserData: "echo hello world"
-      # SubnetId: !Ref S1SrsPublicSubnet
       NetworkInterfaces:
         - AssociatePublicIpAddress: true
           DeleteOnTermination: true
