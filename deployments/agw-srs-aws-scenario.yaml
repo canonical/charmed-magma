@@ -1,8 +1,6 @@
 # TODO: Review whole template.
-# TODO: Map AMIs for all available regions.
 # TODO: Change instance types from free tier, to the required ones.
-# TODO: AGW kernel downgrade
-# TODO: AGW EBS volume 20 GBS
+# TODO: AGW kernel downgrade.
 
 Parameters:
   KeyName:
@@ -133,6 +131,10 @@ Resources:
       KeyName: !Ref KeyName
       Monitoring: false
       UserData: "echo hello world"
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: 40
       NetworkInterfaces:
         - NetworkInterfaceId: !Ref AGWSGiNetworkInterface
           DeviceIndex: 0
