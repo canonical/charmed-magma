@@ -94,85 +94,72 @@ variable "key_name" {
 resource "aws_vpc" "agw_srs_vpc" {
   cidr_block = "10.0.0.0/16"
   instance_tenancy = "default"
-  enable_dns_support = True
-  enable_dns_hostnames = True
-  tags = [
-    {
-      Key = "Name"
-      Value = "AgwSrsVPC"
-    }
-  ]
+  enable_dns_support = true
+  enable_dns_hostnames = true
+  tags = {
+    Key = "Name"
+    Value = "AgwSrsVPC"
+  }
 }
 
 resource "aws_subnet" "s1_srs_public_subnet" {
   cidr_block = "10.0.0.0/24"
   availability_zone = "us-west-1c"
-  map_public_ip_on_launch = True
+  map_public_ip_on_launch = true
   vpc_id = aws_vpc.agw_srs_vpc.arn
-  tags = [
-    {
-      Key = "Name"
-      Value = "S1SrsSubnet - us-west-1c"
-    }
-  ]
+  tags = {
+    Key = "Name"
+    Value = "S1SrsSubnet - us-west-1c"
+  }
 }
 
 resource "aws_subnet" "agw_public_subnet" {
   cidr_block = "10.0.1.0/24"
   availability_zone = "us-west-1c"
-  map_public_ip_on_launch = True
+  map_public_ip_on_launch = true
   vpc_id = aws_vpc.agw_srs_vpc.arn
-  tags = [
-    {
-      Key = "Name"
-      Value = "AgwSubnet - us-west-1c"
-    }
-  ]
+  tags = {
+    Key = "Name"
+    Value = "AgwSubnet - us-west-1c"
+  }
 }
 
 resource "aws_internet_gateway" "agw_srs_igw" {
-  tags = [
-    {
-      Key = "Name"
-      Value = "AgwSrsIGW"
-    }
-  ]
+  tags = {
+    Key = "Name"
+    Value = "AgwSrsIGW"
+  }
 }
 
 resource "aws_network_acl" "agw_srs_network_acl" {
   vpc_id = aws_vpc.agw_srs_vpc.arn
-  tags = [
-    {
-      Key = "Name"
-      Value = "AgwNetworkACL"
-    }
-  ]
+  tags = {
+    Key = "Name"
+    Value = "AgwNetworkACL"
+  }
 }
 
 resource "aws_route_table" "agw_srs_route_public" {
   vpc_id = aws_vpc.agw_srs_vpc.arn
-  tags = [
-    {
-      Key = "Name"
-      Value = "AgwSrsRoutePublic"
-    }
-  ]
+  tags = {
+    Key = "Name"
+    Value = "AgwSrsRoutePublic"
+  }
 }
 
 resource "aws_instance" "agwec2_instance" {
-  instance_type = "t2.micro"
   // CF Property(ImageId) = local.mappings["RegionMap"][data.aws_region.current.name]["Ubuntu2004LTS"]
+  ami = local.mappings["RegionMap"][data.aws_region.current.name]["Ubuntu2004LTS"] // Manually changed
+  instance_type = "t2.micro"
   key_name = var.key_name
-  monitoring = False
+  monitoring = false
   user_data = "echo hello world"
-  ebs_block_device = [
-    {
-      DeviceName = "/dev/sda1"
-      Ebs = {
-        VolumeSize = 40
-      }
+  ebs_block_device = {
+    DeviceName = "/dev/sda1"
+    Ebs = {
+      VolumeSize = 40
     }
-  ]
+  }
   network_interface = [
     {
       network_interface_id = aws_network_interface.agws_gi_network_interface.arn
@@ -183,12 +170,10 @@ resource "aws_instance" "agwec2_instance" {
       device_index = 1
     }
   ]
-  tags = [
-    {
-      Key = "Name"
-      Value = "AGWEC2Instance"
-    }
-  ]
+  tags = {
+    Key = "Name"
+    Value = "AGWEC2Instance"
+  }
 }
 
 resource "aws_network_interface" "agws_gi_network_interface" {
@@ -196,23 +181,21 @@ resource "aws_network_interface" "agws_gi_network_interface" {
   // CF Property(GroupSet) = [
   //   aws_security_group.sg_agw.arn
   // ]
+  security_groups = [aws_security_group.sg_agw.arn]
   subnet_id = aws_subnet.agw_public_subnet.id
-  tags = [
-    {
-      Key = "Name"
-      Value = "AGWS1NetworkInterface"
-    }
-  ]
+  tags = {
+    Key = "Name"
+    Value = "AGWS1NetworkInterface"
+  }
 }
 
 resource "aws_eip" "eips_gi" {
   // CF Property(Domain) = "vpc"
-  tags = [
-    {
+  domain = "vpc"
+  tags = {
       Key = "Name"
       Value = "SGi Elastic IP"
-    }
-  ]
+  }
 }
 
 resource "aws_eip_association" "eips_gi_association" {
@@ -225,90 +208,79 @@ resource "aws_network_interface" "agws1_network_interface" {
   // CF Property(GroupSet) = [
   //   aws_security_group.sg_agw.arn
   // ]
+  security_groups = [aws_security_group.sg_agw.arn]
   subnet_id = aws_subnet.s1_srs_public_subnet.id
-  tags = [
-    {
-      Key = "Name"
-      Value = "AGWS1NetworkInterface"
-    }
-  ]
+  tags = {
+    Key = "Name"
+    Value = "AGWS1NetworkInterface"
+  }
 }
 
 resource "aws_instance" "srs_ec2_instance" {
   instance_type = "t2.micro"
   // CF Property(ImageId) = local.mappings["RegionMap"][data.aws_region.current.name]["Ubuntu2004LTS"]
+  ami = local.mappings["RegionMap"][data.aws_region.current.name]["Ubuntu2004LTS"]
   key_name = var.key_name
-  monitoring = False
+  monitoring = false
   user_data = "echo hello world"
   network_interface = [
     {
-      AssociatePublicIpAddress =       // CF Property(AssociatePublicIpAddress) = True
-      delete_on_termination = True
-      Description =       // CF Property(Description) = "Primary network interface for srs"
+      // AssociatePublicIpAddress =       // CF Property(AssociatePublicIpAddress) = true
+      associate_public_ip_address = true
+      delete_on_termination = true
+      // Description =       // CF Property(Description) = "Primary network interface for srs"
+      // description = "Primary network interface for srs"
       device_index = "0"
       network_interface_id = aws_subnet.s1_srs_public_subnet.id
-      GroupSet =       // CF Property(GroupSet) = [
+      // GroupSet =       // CF Property(GroupSet) = [
       //   aws_security_group.s_gsrs.arn
       // ]
+      security_groups = [aws_security_group.s_gsrs.arn]
     }
   ]
-  tags = [
-    {
-      Key = "Name"
-      Value = "SrsEC2Instance"
-    }
-  ]
+  tags = {
+    Key = "Name"
+    Value = "SrsEC2Instance"
+  }
 }
 
 resource "aws_security_group" "s_gsrs" {
   description = "Srs host security group"
   vpc_id = aws_vpc.agw_srs_vpc.arn
-  ingress = [
-    {
-      protocol = -1
-      cidr_blocks = "0.0.0.0/0"
-    }
-  ]
-  egress = [
-    {
-      protocol = -1
-      cidr_blocks = "0.0.0.0/0"
-    }
-  ]
-  tags = [
-    {
-      Key = "Name"
-      Value = "SrsHostSecurityGroup"
-    }
-  ]
+  ingress = {
+    protocol = -1
+    cidr_blocks = "0.0.0.0/0"
+  }
+  egress = {
+    protocol = -1
+    cidr_blocks = "0.0.0.0/0"
+  }
+  tags = {
+    Key = "Name"
+    Value = "SrsHostSecurityGroup"
+  }
 }
 
 resource "aws_security_group" "sg_agw" {
   description = "Srs host security group"
   vpc_id = aws_vpc.agw_srs_vpc.arn
-  ingress = [
-    {
-      protocol = -1
-      cidr_blocks = "0.0.0.0/0"
-    }
-  ]
-  egress = [
-    {
-      protocol = -1
-      cidr_blocks = "0.0.0.0/0"
-    }
-  ]
-  tags = [
-    {
-      Key = "Name"
-      Value = "SrsHostSecurityGroup"
-    }
-  ]
+  ingress = {
+    protocol = -1
+    cidr_blocks = "0.0.0.0/0"
+  }
+  egress = {
+    protocol = -1
+    cidr_blocks = "0.0.0.0/0"
+  }
+  tags = {
+    Key = "Name"
+    Value = "SrsHostSecurityGroup"
+  }
 }
 
 resource "aws_network_acl" "nacl_entry1" {
   // CF Property(CidrBlock) = "0.0.0.0/0"
-  egress = True
+  egress = true
   // CF Property(Protocol) = -1
   // CF Property(RuleAction) = "allow"
   // CF Property(RuleNumber) = 100
@@ -317,7 +289,7 @@ resource "aws_network_acl" "nacl_entry1" {
 
 resource "aws_network_acl" "nacl_entry2" {
   // CF Property(CidrBlock) = "0.0.0.0/0"
-  egress = False
+  egress = false
   // CF Property(Protocol) = -1
   // CF Property(RuleAction) = "allow"
   // CF Property(RuleNumber) = 100
