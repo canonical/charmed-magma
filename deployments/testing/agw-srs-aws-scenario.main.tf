@@ -109,9 +109,7 @@ variable "aws_region" {
 
 resource "aws_vpc" "agw_srs_vpc" {
   cidr_block = "10.0.0.0/16"
-  instance_tenancy = "default"
-  enable_dns_support = true
-  enable_dns_hostnames = true
+  // enable_dns_hostnames = true // Do we need it? What it is?
   tags = {
     Key = "Name"
     Value = "AgwSrsVPC"
@@ -122,7 +120,7 @@ resource "aws_subnet" "s1_srs_public_subnet" {
   cidr_block = "10.0.0.0/24"
   availability_zone = "us-west-1c"
   map_public_ip_on_launch = true
-  vpc_id = aws_vpc.agw_srs_vpc.arn
+  vpc_id = aws_vpc.agw_srs_vpc.id
   tags = {
     Key = "Name"
     Value = "S1SrsSubnet - us-west-1c"
@@ -133,7 +131,7 @@ resource "aws_subnet" "agw_public_subnet" {
   cidr_block = "10.0.1.0/24"
   availability_zone = "us-west-1c"
   map_public_ip_on_launch = true
-  vpc_id = aws_vpc.agw_srs_vpc.arn
+  vpc_id = aws_vpc.agw_srs_vpc.id
   tags = {
     Key = "Name"
     Value = "AgwSubnet - us-west-1c"
@@ -149,7 +147,7 @@ resource "aws_internet_gateway" "agw_srs_igw" {
 }
 
 resource "aws_network_acl" "agw_srs_network_acl" {
-  vpc_id = aws_vpc.agw_srs_vpc.arn
+  vpc_id = aws_vpc.agw_srs_vpc.id
   tags = {
     Key = "Name"
     Value = "AgwNetworkACL"
@@ -157,7 +155,7 @@ resource "aws_network_acl" "agw_srs_network_acl" {
 }
 
 resource "aws_route_table" "agw_srs_route_public" {
-  vpc_id = aws_vpc.agw_srs_vpc.arn
+  vpc_id = aws_vpc.agw_srs_vpc.id
   tags = {
     Key = "Name"
     Value = "AgwSrsRoutePublic"
@@ -175,11 +173,11 @@ resource "aws_instance" "agwec2_instance" {
     volume_size = 40
   }
   network_interface {
-      network_interface_id = aws_network_interface.agws_gi_network_interface.arn
       device_index = 0
+      network_interface_id = aws_network_interface.agws_gi_network_interface.id
   }
   network_interface {
-      network_interface_id = aws_network_interface.agws1_network_interface.arn
+      network_interface_id = aws_network_interface.agws1_network_interface.id
       device_index = 1
   }
   tags = {
@@ -189,11 +187,8 @@ resource "aws_instance" "agwec2_instance" {
 }
 
 resource "aws_network_interface" "agws_gi_network_interface" {
-  description = "AGW SGi network interface, internet access."
-  // CF Property(GroupSet) = [
-  //   aws_security_group.sg_agw.arn
-  // ]
-  security_groups = [aws_security_group.sg_agw.arn]
+  description = "AGW SGi network interface (internet access)."
+  security_groups = [aws_security_group.sg_agw_sgi.arn]
   subnet_id = aws_subnet.agw_public_subnet.id
   tags = {
     Key = "Name"
@@ -203,7 +198,6 @@ resource "aws_network_interface" "agws_gi_network_interface" {
 
 // TODO: Make sure we're attaching the EIP to the SGi interface
 resource "aws_eip" "eips_gi" {
-  // CF Property(Domain) = "vpc"
   tags = {
       Key = "Name"
       Value = "SGi Elastic IP"
@@ -212,12 +206,12 @@ resource "aws_eip" "eips_gi" {
 
 resource "aws_eip_association" "eips_gi_association" {
   allocation_id = aws_eip.eips_gi.allocation_id
-  network_interface_id = aws_network_interface.agws_gi_network_interface.arn
+  network_interface_id = aws_network_interface.agws_gi_network_interface.id
 }
 
 resource "aws_network_interface" "agws1_network_interface" {
   description = "AGW S1 network interface."
-  security_groups = [aws_security_group.sg_agw.arn]
+  security_groups = [aws_security_group.s_gsrs.arn] // TODO: change network interface
   subnet_id = aws_subnet.s1_srs_public_subnet.id
   tags = {
     Key = "Name"
@@ -231,12 +225,9 @@ resource "aws_instance" "srs_ec2_instance" {
   key_name = var.key_name
   monitoring = false
   user_data = "echo hello world"
-  associate_public_ip_address = true // Check whether this is correct
-  vpc_security_group_ids = [aws_security_group.s_gsrs.arn]
   network_interface {
-      delete_on_termination = true
-      device_index = "0"
-      network_interface_id = aws_subnet.s1_srs_public_subnet.id
+    device_index = "0"
+    network_interface_id = aws_network_interface.srs_network_interface.id
   }
   tags = {
     Key = "Name"
@@ -244,9 +235,19 @@ resource "aws_instance" "srs_ec2_instance" {
   }
 }
 
+resource "aws_network_interface" "srs_network_interface" {
+  description = "srs network interface."
+  security_groups = [aws_security_group.s_gsrs.arn]
+  subnet_id = aws_subnet.s1_srs_public_subnet.id
+  tags = {
+    Key = "Name"
+    Value = "srsNetworkInterface"
+  }
+}
+
 resource "aws_security_group" "s_gsrs" {
-  description = "Srs host security group"
-  vpc_id = aws_vpc.agw_srs_vpc.arn
+  description = "Srs - S1 ifaces security group"
+  vpc_id = aws_vpc.agw_srs_vpc.id
   ingress {
     description = "Allow all traffic to srs"
     from_port = 0
@@ -267,9 +268,9 @@ resource "aws_security_group" "s_gsrs" {
   }
 }
 
-resource "aws_security_group" "sg_agw" {
-  description = "Srs host security group"
-  vpc_id = aws_vpc.agw_srs_vpc.arn
+resource "aws_security_group" "sg_agw_sgi" {
+  description = "SGi AGW iface security group"
+  vpc_id = aws_vpc.agw_srs_vpc.id
   ingress {
     description = "Allow all traffic to agw"
     from_port = 0
@@ -291,6 +292,7 @@ resource "aws_security_group" "sg_agw" {
 }
 
 resource "aws_network_acl" "nacl_entry1" {
+  vpc_id = aws_vpc.agw_srs_vpc.id
   egress {
     from_port = 0
     to_port = 0
@@ -299,12 +301,11 @@ resource "aws_network_acl" "nacl_entry1" {
     protocol = "-1"
     cidr_block = "0.0.0.0/0"
   }
-  vpc_id = aws_network_acl.agw_srs_network_acl.id
 }
 
 // Duplicated with the resource above?
 resource "aws_network_acl" "nacl_entry2" {
-  // CF Property(CidrBlock) = "0.0.0.0/0"
+  vpc_id = aws_vpc.agw_srs_vpc.id
   egress {
     from_port = 0
     to_port = 0
@@ -312,8 +313,7 @@ resource "aws_network_acl" "nacl_entry2" {
     action = "allow"
     protocol = "-1"
     cidr_block = "0.0.0.0/0"
-  }
-  vpc_id = aws_network_acl.agw_srs_network_acl.id
+  } 
 }
 
 resource "aws_network_acl_association" "subnetacl_s1_srs" {
