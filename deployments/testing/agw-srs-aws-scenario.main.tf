@@ -2,7 +2,18 @@
 # TODO: Change instance types from free tier, to the actual required ones.
 # TODO: AGW kernel downgrade.
 
-data "aws_region" "current" {}
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "4.38.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = var.aws_region
+}
 
 locals {
   mappings = {
@@ -91,6 +102,11 @@ variable "key_name" {
   type = string
 }
 
+variable "aws_region" {
+  description = "Region to deploy resources in"
+  type = string
+}
+
 resource "aws_vpc" "agw_srs_vpc" {
   cidr_block = "10.0.0.0/16"
   instance_tenancy = "default"
@@ -125,6 +141,7 @@ resource "aws_subnet" "agw_public_subnet" {
 }
 
 resource "aws_internet_gateway" "agw_srs_igw" {
+  vpc_id = aws_vpc.agw_srs_vpc.id
   tags = {
     Key = "Name"
     Value = "AgwSrsIGW"
@@ -148,28 +165,23 @@ resource "aws_route_table" "agw_srs_route_public" {
 }
 
 resource "aws_instance" "agwec2_instance" {
-  // CF Property(ImageId) = local.mappings["RegionMap"][data.aws_region.current.name]["Ubuntu2004LTS"]
-  ami = local.mappings["RegionMap"][data.aws_region.current.name]["Ubuntu2004LTS"] // Manually changed
+  ami = local.mappings["RegionMap"][var.aws_region]["Ubuntu2004LTS"] // Manually changed
   instance_type = "t2.micro"
   key_name = var.key_name
   monitoring = false
   user_data = "echo hello world"
-  ebs_block_device = {
-    DeviceName = "/dev/sda1"
-    Ebs = {
-      VolumeSize = 40
-    }
+  ebs_block_device {
+    device_name = "/dev/sda1"
+    volume_size = 40
   }
-  network_interface = [
-    {
+  network_interface {
       network_interface_id = aws_network_interface.agws_gi_network_interface.arn
       device_index = 0
-    },
-    {
+  }
+  network_interface {
       network_interface_id = aws_network_interface.agws1_network_interface.arn
       device_index = 1
-    }
-  ]
+  }
   tags = {
     Key = "Name"
     Value = "AGWEC2Instance"
@@ -189,9 +201,9 @@ resource "aws_network_interface" "agws_gi_network_interface" {
   }
 }
 
+// TODO: Make sure we're attaching the EIP to the SGi interface
 resource "aws_eip" "eips_gi" {
   // CF Property(Domain) = "vpc"
-  domain = "vpc"
   tags = {
       Key = "Name"
       Value = "SGi Elastic IP"
@@ -205,9 +217,6 @@ resource "aws_eip_association" "eips_gi_association" {
 
 resource "aws_network_interface" "agws1_network_interface" {
   description = "AGW S1 network interface."
-  // CF Property(GroupSet) = [
-  //   aws_security_group.sg_agw.arn
-  // ]
   security_groups = [aws_security_group.sg_agw.arn]
   subnet_id = aws_subnet.s1_srs_public_subnet.id
   tags = {
@@ -218,26 +227,17 @@ resource "aws_network_interface" "agws1_network_interface" {
 
 resource "aws_instance" "srs_ec2_instance" {
   instance_type = "t2.micro"
-  // CF Property(ImageId) = local.mappings["RegionMap"][data.aws_region.current.name]["Ubuntu2004LTS"]
-  ami = local.mappings["RegionMap"][data.aws_region.current.name]["Ubuntu2004LTS"]
+  ami = local.mappings["RegionMap"][var.aws_region]["Ubuntu2004LTS"]
   key_name = var.key_name
   monitoring = false
   user_data = "echo hello world"
-  network_interface = [
-    {
-      // AssociatePublicIpAddress =       // CF Property(AssociatePublicIpAddress) = true
-      associate_public_ip_address = true
+  associate_public_ip_address = true // Check whether this is correct
+  vpc_security_group_ids = [aws_security_group.s_gsrs.arn]
+  network_interface {
       delete_on_termination = true
-      // Description =       // CF Property(Description) = "Primary network interface for srs"
-      // description = "Primary network interface for srs"
       device_index = "0"
       network_interface_id = aws_subnet.s1_srs_public_subnet.id
-      // GroupSet =       // CF Property(GroupSet) = [
-      //   aws_security_group.s_gsrs.arn
-      // ]
-      security_groups = [aws_security_group.s_gsrs.arn]
-    }
-  ]
+  }
   tags = {
     Key = "Name"
     Value = "SrsEC2Instance"
@@ -247,13 +247,19 @@ resource "aws_instance" "srs_ec2_instance" {
 resource "aws_security_group" "s_gsrs" {
   description = "Srs host security group"
   vpc_id = aws_vpc.agw_srs_vpc.arn
-  ingress = {
+  ingress {
+    description = "Allow all traffic to srs"
+    from_port = 0
+    to_port = 0
     protocol = -1
-    cidr_blocks = "0.0.0.0/0"
+    cidr_blocks = ["0.0.0.0/0"]
   }
-  egress = {
+  egress {
+    description = "Allow all from srs"
+    from_port = 0
+    to_port = 0
     protocol = -1
-    cidr_blocks = "0.0.0.0/0"
+    cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
     Key = "Name"
@@ -264,13 +270,19 @@ resource "aws_security_group" "s_gsrs" {
 resource "aws_security_group" "sg_agw" {
   description = "Srs host security group"
   vpc_id = aws_vpc.agw_srs_vpc.arn
-  ingress = {
+  ingress {
+    description = "Allow all traffic to agw"
+    from_port = 0
+    to_port = 0
     protocol = -1
-    cidr_blocks = "0.0.0.0/0"
+    cidr_blocks = ["0.0.0.0/0"]
   }
-  egress = {
+  egress {
+    description = "Allow all from agw"
+    from_port = 0
+    to_port = 0
     protocol = -1
-    cidr_blocks = "0.0.0.0/0"
+    cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
     Key = "Name"
@@ -279,20 +291,28 @@ resource "aws_security_group" "sg_agw" {
 }
 
 resource "aws_network_acl" "nacl_entry1" {
-  // CF Property(CidrBlock) = "0.0.0.0/0"
-  egress = true
-  // CF Property(Protocol) = -1
-  // CF Property(RuleAction) = "allow"
-  // CF Property(RuleNumber) = 100
+  egress {
+    from_port = 0
+    to_port = 0
+    rule_no = 100
+    action = "allow"
+    protocol = "-1"
+    cidr_block = "0.0.0.0/0"
+  }
   vpc_id = aws_network_acl.agw_srs_network_acl.id
 }
 
+// Duplicated with the resource above?
 resource "aws_network_acl" "nacl_entry2" {
   // CF Property(CidrBlock) = "0.0.0.0/0"
-  egress = false
-  // CF Property(Protocol) = -1
-  // CF Property(RuleAction) = "allow"
-  // CF Property(RuleNumber) = 100
+  egress {
+    from_port = 0
+    to_port = 0
+    rule_no = 200
+    action = "allow"
+    protocol = "-1"
+    cidr_block = "0.0.0.0/0"
+  }
   vpc_id = aws_network_acl.agw_srs_network_acl.id
 }
 
@@ -304,10 +324,6 @@ resource "aws_network_acl_association" "subnetacl_s1_srs" {
 resource "aws_network_acl_association" "subnetacl_srs" {
   network_acl_id = aws_network_acl.agw_srs_network_acl.id
   subnet_id = aws_subnet.agw_public_subnet.id
-}
-
-resource "aws_ec2_transit_gateway_vpc_attachment" "igw_attachment" {
-  vpc_id = aws_internet_gateway.agw_srs_igw.id
 }
 
 resource "aws_route_table_association" "subnet_route_public_s1_srs" {
