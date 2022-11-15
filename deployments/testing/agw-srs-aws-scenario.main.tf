@@ -188,7 +188,7 @@ resource "aws_instance" "agwec2_instance" {
 
 resource "aws_network_interface" "agws_gi_network_interface" {
   description = "AGW SGi network interface (internet access)."
-  security_groups = [aws_security_group.sg_agw_sgi.arn]
+  security_groups = [aws_security_group.sg_agw_sgi.id]
   subnet_id = aws_subnet.agw_public_subnet.id
   tags = {
     Key = "Name"
@@ -211,7 +211,7 @@ resource "aws_eip_association" "eips_gi_association" {
 
 resource "aws_network_interface" "agws1_network_interface" {
   description = "AGW S1 network interface."
-  security_groups = [aws_security_group.s_gsrs.arn] // TODO: change network interface
+  security_groups = [aws_security_group.s_gsrs.id] // TODO: change network interface
   subnet_id = aws_subnet.s1_srs_public_subnet.id
   tags = {
     Key = "Name"
@@ -237,7 +237,7 @@ resource "aws_instance" "srs_ec2_instance" {
 
 resource "aws_network_interface" "srs_network_interface" {
   description = "srs network interface."
-  security_groups = [aws_security_group.s_gsrs.arn]
+  security_groups = [aws_security_group.s_gsrs.id]
   subnet_id = aws_subnet.s1_srs_public_subnet.id
   tags = {
     Key = "Name"
