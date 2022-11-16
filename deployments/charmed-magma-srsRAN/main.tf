@@ -77,6 +77,17 @@ resource "juju_application" "orc8r-analytics" {
   }
 }
 
+resource "juju_application" "orc8r-bootstrapper" {
+  name = "orc8r-bootstrapper"
+  trust = true
+  model = juju_model.orchestrator.name
+
+  charm {
+    name = "magma-orc8r-bootstrapper"
+    channel = "beta"
+  }
+}
+
 resource "juju_application" "orc8r-certifier" {
   name = "orc8r-certifier"
   trust = true
