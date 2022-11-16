@@ -1,7 +1,12 @@
 variable "domain" {
   type = string
 }
-variable "cloud_name" {
+
+variable "orchestrator_cloud_name" {
+  type = string
+}
+
+variable "agw-srsran_cloud_name" {
   type = string
 }
 
@@ -16,11 +21,15 @@ terraform {
 
 provider "juju" {}
 
+################################################################################
+############################ K8S CHARMS ########################################
+################################################################################
+
 resource "juju_model" "orchestrator" {
   name = "orchestrator"
 
   cloud {
-    name   = var.cloud_name
+    name   = var.orchestrator_cloud_name
   }
 }
 
@@ -646,7 +655,7 @@ resource "juju_integration" "orc8r-nginx_orc8r-certifier" {
   }
 }
 
-resource "juju_integration" "orc8r-nginx_orc8r-certifier" {
+resource "juju_integration" "orc8r-nginx_orc8r-certifier--cert-controller" {
   model = juju_model.orchestrator.name
   application {
     name     = juju_application.orc8r-nginx.name
@@ -658,7 +667,7 @@ resource "juju_integration" "orc8r-nginx_orc8r-certifier" {
   }
 }
 
-resource "juju_integration" "orc8r-nginx_orc8r-certifier" {
+resource "juju_integration" "orc8r-nginx_orc8r-certifier--cert-root-ca" {
   model = juju_model.orchestrator.name
   application {
     name     = juju_application.orc8r-nginx.name
@@ -694,7 +703,7 @@ resource "juju_integration" "orc8r-orchestrator_orc8r-certifier" {
   }
 }
 
-resource "juju_integration" "orc8r-orchestrator_orc8r-certifier" {
+resource "juju_integration" "orc8r-orchestrator_orc8r-certifier--magma-orc8r-certifier" {
   model = juju_model.orchestrator.name
   application {
     name     = juju_application.orc8r-orchestrator.name
@@ -778,7 +787,7 @@ resource "juju_integration" "orc8r-prometheus_orc8r-prometheus-cache" {
   }
 }
 
-resource "juju_integration" "orc8r-prometheus_orc8r-prometheus-cache" {
+resource "juju_integration" "orc8r-prometheus_orc8r-prometheus-cache--metrics-endpoint" {
   model = juju_model.orchestrator.name
   application {
     name     = juju_application.orc8r-prometheus.name
@@ -873,3 +882,33 @@ resource "juju_integration" "orc8r-user-grafana_nms-magmalte" {
     endpoint = "grafana-auth"
   }
 }
+
+################################################################################
+######################## MACHINE CHARMS ########################################
+################################################################################
+
+resource "juju_model" "agw-srsran" {
+  name = "agw-srsran"
+  cloud {
+    name   = var.agw-srsran_cloud_name
+  }
+}
+
+resource "juju_application" "agw" {
+	name = "access-gateway"
+	model = juju_model.agw-srsran.name
+	charm {
+		name = "magma-access-gateway-operator"
+		channel = "beta"
+	}
+}
+
+resource "juju_application" "srsran" {
+	name = "srsran"
+	model = juju_model.agw-srsran.name
+	charm {
+		name = "charmed-osm-srs-enb-ue"
+		channel = "edge"
+	}
+}
+
