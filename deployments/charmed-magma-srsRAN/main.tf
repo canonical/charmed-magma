@@ -14,12 +14,41 @@ terraform {
   required_providers {
     juju = {
       source  = "juju/juju"
-      version = "0.4.1"
+      version = "0.4.3"
     }
   }
 }
 
 provider "juju" {}
+
+################################################################################  
+######################## MACHINE CHARMS ########################################
+################################################################################
+
+resource "juju_model" "agw-srsran" {
+  name = "agw-srsran"
+  cloud {
+    name   = var.agw-srsran_cloud_name
+  }
+}
+
+resource "juju_application" "agw" {
+	name = "access-gateway"
+	model = juju_model.agw-srsran.name
+	charm {
+		name = "magma-access-gateway-operator"
+		channel = "beta"
+	}
+}
+
+resource "juju_application" "srsran" {
+	name = "srsran"
+	model = juju_model.agw-srsran.name
+	charm {
+		name = "charmed-osm-srs-enb-ue"
+		channel = "edge"
+	}
+}
 
 ################################################################################
 ############################ K8S CHARMS ########################################
@@ -893,33 +922,3 @@ resource "juju_integration" "orc8r-user-grafana_nms-magmalte" {
     endpoint = "grafana-auth"
   }
 }
-
-################################################################################
-######################## MACHINE CHARMS ########################################
-################################################################################
-
-resource "juju_model" "agw-srsran" {
-  name = "agw-srsran"
-  cloud {
-    name   = var.agw-srsran_cloud_name
-  }
-}
-
-resource "juju_application" "agw" {
-	name = "access-gateway"
-	model = juju_model.agw-srsran.name
-	charm {
-		name = "magma-access-gateway-operator"
-		channel = "beta"
-	}
-}
-
-resource "juju_application" "srsran" {
-	name = "srsran"
-	model = juju_model.agw-srsran.name
-	charm {
-		name = "charmed-osm-srs-enb-ue"
-		channel = "edge"
-	}
-}
-
