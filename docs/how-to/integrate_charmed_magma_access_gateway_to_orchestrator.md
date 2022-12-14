@@ -17,7 +17,7 @@ juju relate magma-access-gateway-operator [[<controller>:]<user>/]<model-name>.o
 Fetch the Access Gateway's `Hardware ID` and `Challenge Key`:
 
 ```bash
-juju run-action magma-access-gateway-operator/<unit number> get-access-gateway-secrets --wait
+juju run magma-access-gateway-operator/<unit number> get-access-gateway-secrets
 ```
 
 Navigate to "Equipment" on the NMS via the left navigation bar, hit "Add Gateway" on the upper right, and fill out the multi-step modal form. Use the secrets from above for the "Hardware UUID" and "Challenge Key" fields.
@@ -27,7 +27,7 @@ Navigate to "Equipment" on the NMS via the left navigation bar, hit "Add Gateway
 Run the following command:
 
 ```bash
-juju run-action magma-access-gateway-operator/<unit number> post-install-checks --wait
+juju run magma-access-gateway-operator/<unit number> post-install-checks
 ```
 
 !!! info
