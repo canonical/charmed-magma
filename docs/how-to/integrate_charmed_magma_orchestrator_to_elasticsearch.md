@@ -1,10 +1,9 @@
-# Integrate Charmed Magma Orchestrator to ElasticSearch
+# Integrate Charmed Magma Orchestrator to Elasticsearch
 
 ## Requirements
 
- - ElasticSearch instance (**not part of the `magma-orc8r` bundle**) supporting both `HTTP` 
-and `HTTPS` requests
- - Connectivity between the Orchestrator and the ElasticSearch
+ - Elasticsearch instance supporting both `HTTP` and `HTTPS` requests
+ - Connectivity between the Orchestrator and the Elasticsearch
 
 ## Integration
 

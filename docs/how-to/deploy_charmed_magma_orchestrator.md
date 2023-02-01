@@ -43,8 +43,8 @@ applications:
 
 !!! info
     
-    ElasticSearch is not part of the magma-orc8r bundle and needs to be deployed separately. 
-    For details regarding ElasticSearch integration please visit [Integrate Charmed Magma Orchestrator to ElasticSearch](integrate_charmed_magma_orchestrator_to_elasticsearch.md)
+    Elasticsearch is not part of the magma-orc8r bundle and needs to be deployed separately. 
+    For details regarding Elasticsearch integration please visit [Integrate Charmed Magma Orchestrator to Elasticsearch](integrate_charmed_magma_orchestrator_to_elasticsearch.md)
 
 Deploy Orchestrator:
 
