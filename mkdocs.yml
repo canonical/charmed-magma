@@ -9,6 +9,7 @@ nav:
         - "Deploy Charmed Magma Access Gateway": 'how-to/deploy_charmed_magma_access_gateway.md'
         - "Integrate Charmed Magma Access Gateway to Orchestrator": 'how-to/integrate_charmed_magma_access_gateway_to_orchestrator.md'
         - "Integrate Charmed Magma Access Gateway to srsRAN": 'how-to/integrate_charmed_magma_access_gateway_to_srsRAN.md'
+        - "Integrate Charmed Magma Orchestrator to ElasticSearch": 'how-to/integrate_charmed_magma_orchestrator_to_elasticsearch.md'
 
 theme:
   name: material

@@ -22,8 +22,6 @@ applications:
     options:
     domain: <your domain name>
     elasticsearch-url: <your elasticsearch https url>
-    fluentd-chunk-limit-size: "2M"
-    fluentd-queue-limit-length: 8
   orc8r-certifier:
     options:
       domain: <your domain name>
@@ -45,8 +43,8 @@ applications:
 
 !!! info
     
-    Elasticsearch is not part of the magma-orc8r bundle and needs to be deployed prior to deploying 
-    the bundle. Elasticsearch needs to support both `http` and `https` requests.
+    ElasticSearch is not part of the magma-orc8r bundle and needs to be deployed separately. 
+    For details regarding ElasticSearch integration please visit [Integrate Charmed Magma Orchestrator to ElasticSearch](integrate_charmed_magma_orchestrator_to_elasticsearch.md)
 
 Deploy Orchestrator:
 
