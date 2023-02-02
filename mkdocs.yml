@@ -1,5 +1,5 @@
 site_name: Charmed Magma
-repo_url: https://github.com/canonical/charmed-magma
+repo_url: https://github.com/canonical/charmed-magma/latest
 copyright: Canonical Ltd.
 
 nav:
@@ -45,6 +45,10 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
+
+extra:
+  version:
+    provider: mike
 
 extra_css:
   - stylesheets/extra.css
