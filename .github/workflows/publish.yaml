@@ -14,8 +14,12 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.10.4
-      - name: Install Python dependencies
-        run: python3 -m pip install -r 'requirements-doc.txt'
+      - name: Install mkdocs
+        run: python3 -m pip install mkdocs
+      - name: Install mkdocs-material
+        run: python3 -m pip install mkdocs-material
+      - name: Install mike
+        run: python3 -m pip install mike
       - name: Checkout main
         uses: actions/checkout@v2
 
