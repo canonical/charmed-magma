@@ -18,10 +18,12 @@ jobs:
         uses: actions/checkout@v2
       - name: Install Python dependencies
         run: python3 -m pip install -r 'requirements-doc.txt'
-      - name: Deploy docs
+      - name: Configure Git user
+        run: |
+          git config --local user.email "github-actions-bot@users.noreply.github.com"
+          git config --local user.name "github-actions-bot"
+      - name: mike deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GIT_COMMITTER_NAME: "github-actions-bot"
-          GIT_COMMITTER_EMAIL: "github-actions-bot@users.noreply.github.com"
         run: |
-          mike deploy --push ${{ github.ref_name }}
+          mike deploy ${{ github.ref_name }}
