@@ -21,7 +21,7 @@ jobs:
       - name: Deploy docs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GIT_COMMITTER_NAME: ${{GITHUB_ACTOR}}
-          GIT_COMMITTER_EMAIL: ${{GITHUB_ACTOR}@users.noreply.${GITHUB_DOMAIN:-"github.com"}}
+          GIT_COMMITTER_NAME: "github-actions-bot"
+          GIT_COMMITTER_EMAIL: "github-actions-bot@users.noreply.github.com"
         run: |
           mike deploy --push ${{ github.ref_name }}
