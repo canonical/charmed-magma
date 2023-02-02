@@ -9,22 +9,24 @@
       
       
       
+        <link rel="prev" href="../deploy_charmed_magma_orchestrator/">
       
-        <link rel="next" href="how-to/deploy_charmed_magma_orchestrator/">
       
-      <link rel="icon" href="images/logo.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.10">
+        <link rel="next" href="../integrate_charmed_magma_access_gateway_to_orchestrator/">
+      
+      <link rel="icon" href="../../images/logo.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.6">
     
     
       
-        <title>Charmed Magma</title>
+        <title>Deploy Charmed Magma Access Gateway - Charmed Magma</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.0d440cfe.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.558e4712.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.2505c338.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
       
       
   
@@ -81,9 +83,9 @@
       
     
     
-      <link rel="stylesheet" href="stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -108,7 +110,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#charmed-magma" class="md-skip">
+        <a href="#deploy-charmed-magma-access-gateway" class="md-skip">
           Skip to content
         </a>
       
@@ -126,9 +128,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="Charmed Magma" class="md-header__button md-logo" aria-label="Charmed Magma" data-md-component="logo">
+    <a href="../.." title="Charmed Magma" class="md-header__button md-logo" aria-label="Charmed Magma" data-md-component="logo">
       
-  <img src="images/logo.png" alt="logo">
+  <img src="../../images/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -144,7 +146,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Deploy Charmed Magma Access Gateway
             
           </span>
         </div>
@@ -223,9 +225,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Charmed Magma" class="md-nav__button md-logo" aria-label="Charmed Magma" data-md-component="logo">
+    <a href="../.." title="Charmed Magma" class="md-nav__button md-logo" aria-label="Charmed Magma" data-md-component="logo">
       
-  <img src="images/logo.png" alt="logo">
+  <img src="../../images/logo.png" alt="logo">
 
     </a>
     Charmed Magma
@@ -251,21 +253,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
         Home
       </a>
-      
     </li>
   
 
@@ -276,25 +268,25 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-        
-      
-      <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
       
       
-        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_2" tabindex="0" aria-expanded="true">
           How-to Guides
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="How-to Guides" data-md-level="1">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           How-to Guides
@@ -307,7 +299,7 @@
   
   
     <li class="md-nav__item">
-      <a href="how-to/deploy_charmed_magma_orchestrator/" class="md-nav__link">
+      <a href="../deploy_charmed_magma_orchestrator/" class="md-nav__link">
         Deploy Charmed Magma Orchestrator
       </a>
     </li>
@@ -319,11 +311,59 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="how-to/deploy_charmed_magma_access_gateway/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Deploy Charmed Magma Access Gateway
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Deploy Charmed Magma Access Gateway
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-magma-access-gateway" class="md-nav__link">
+    Install Magma Access Gateway
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -335,7 +375,7 @@
   
   
     <li class="md-nav__item">
-      <a href="how-to/integrate_charmed_magma_access_gateway_to_orchestrator/" class="md-nav__link">
+      <a href="../integrate_charmed_magma_access_gateway_to_orchestrator/" class="md-nav__link">
         Integrate Charmed Magma Access Gateway to Orchestrator
       </a>
     </li>
@@ -349,7 +389,7 @@
   
   
     <li class="md-nav__item">
-      <a href="how-to/integrate_charmed_magma_access_gateway_to_srsRAN/" class="md-nav__link">
+      <a href="../integrate_charmed_magma_access_gateway_to_srsRAN/" class="md-nav__link">
         Integrate Charmed Magma Access Gateway to srsRAN
       </a>
     </li>
@@ -383,6 +423,28 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-magma-access-gateway" class="md-nav__link">
+    Install Magma Access Gateway
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -400,27 +462,60 @@
 
 
 
-<p><img alt="Magma" src="images/magma-logo-purple.svg" width="300" /></p>
-<p><strong>Magma</strong> is an open source 4G and 5G core network. Use it to operate your own private mobile 
-network. Magma enables better connectivity by:</p>
+<h1 id="deploy-charmed-magma-access-gateway">Deploy Charmed Magma Access Gateway</h1>
+<h2 id="requirements">Requirements</h2>
+<p>The Access Gateway must be installed on an Ubuntu machine with the following specifications:</p>
 <ul>
-<li>Allowing operators to offer cellular service without vendor lock-in with a modern, open source core network.</li>
-<li>Enabling operators to manage their networks more efficiently with more automation, less downtime, better predictability, and more agility to add new services and applications.</li>
-<li>Enabling federation between existing MNOs and new infrastructure providers for expanding rural infrastructure.</li>
-<li>Allowing operators who are constrained with licensed spectrum to add capacity and reach by using Wi-Fi and CBRS.</li>
+<li><strong><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 12a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-7.66-4.26c.58.33 1.31.13 1.66-.44.31-.57.12-1.3-.46-1.64-.57-.33-1.31-.16-1.64.44-.33.57-.13 1.31.44 1.64m-2.46 7.76c-.53 0-1.03-.11-1.47-.32l-.84 1.5c.7.32 1.48.54 2.31.54.49 0 .95-.07 1.4-.19.08-.49.36-.93.82-1.19.46-.27.98-.29 1.44-.12.89-.87 1.46-2.06 1.55-3.39l-1.71-.02a3.506 3.506 0 0 1-3.5 3.19m0-7c1.84 0 3.34 1.39 3.5 3.19l1.71-.03a5.209 5.209 0 0 0-1.55-3.38c-.46.17-.99.14-1.44-.12-.46-.26-.74-.71-.82-1.19-.45-.12-.91-.19-1.4-.19-.83 0-1.61.19-2.31.54l.84 1.5c.44-.21.94-.32 1.47-.32M8.37 12c0-1.19.59-2.24 1.49-2.87L9 7.65a5.217 5.217 0 0 0-2.17 3.04c.38.31.62.78.62 1.31s-.24 1-.62 1.31A5.195 5.195 0 0 0 9 16.34l.86-1.47c-.9-.63-1.49-1.68-1.49-2.87m5.97 4.26c-.57.33-.77 1.06-.44 1.64.33.57 1.07.77 1.64.44.58-.34.77-1.07.46-1.64-.35-.58-1.08-.77-1.66-.44M5.76 10.8c-.66 0-1.2.54-1.2 1.2 0 .66.54 1.2 1.2 1.2.67 0 1.2-.54 1.2-1.2 0-.66-.53-1.2-1.2-1.2Z"/></svg></span> Operating System</strong>: Ubuntu 20.04 LTS with Linux Kernel 5.4</li>
+<li><strong><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.5.75V2h3V.75a.75.75 0 0 1 1.5 0V2h1.25c.966 0 1.75.784 1.75 1.75V5h1.25a.75.75 0 0 1 0 1.5H14v3h1.25a.75.75 0 0 1 0 1.5H14v1.25A1.75 1.75 0 0 1 12.25 14H11v1.25a.75.75 0 0 1-1.5 0V14h-3v1.25a.75.75 0 0 1-1.5 0V14H3.75A1.75 1.75 0 0 1 2 12.25V11H.75a.75.75 0 0 1 0-1.5H2v-3H.75a.75.75 0 0 1 0-1.5H2V3.75C2 2.784 2.784 2 3.75 2H5V.75a.75.75 0 0 1 1.5 0Zm5.75 11.75a.25.25 0 0 0 .25-.25v-8.5a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25ZM5.75 5h4.5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-.75.75h-4.5a.75.75 0 0 1-.75-.75v-4.5A.75.75 0 0 1 5.75 5Zm.75 4.5h3v-3h-3Z"/></svg></span> Processor</strong>: x86-64 dual-core processor (around 2GHz clock speed or faster)</li>
+<li><strong><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M64 64C28.7 64 0 92.7 0 128v7.4c0 6.8 4.4 12.6 10.1 16.3C23.3 160.3 32 175.1 32 192s-8.7 31.7-21.9 40.3C4.4 236 0 241.8 0 248.6V320h576v-71.4c0-6.8-4.4-12.6-10.1-16.3-13.2-8.6-21.9-23.4-21.9-40.3s8.7-31.7 21.9-40.3c5.7-3.7 10.1-9.5 10.1-16.3V128c0-35.3-28.7-64-64-64H64zm512 288H0v64c0 17.7 14.3 32 32 32h48v-32c0-8.8 7.2-16 16-16s16 7.2 16 16v32h96v-32c0-8.8 7.2-16 16-16s16 7.2 16 16v32h96v-32c0-8.8 7.2-16 16-16s16 7.2 16 16v32h96v-32c0-8.8 7.2-16 16-16s16 7.2 16 16v32h48c17.7 0 32-14.3 32-32v-64zM192 160v64c0 17.7-14.3 32-32 32s-32-14.3-32-32v-64c0-17.7 14.3-32 32-32s32 14.3 32 32zm128 0v64c0 17.7-14.3 32-32 32s-32-14.3-32-32v-64c0-17.7 14.3-32 32-32s32 14.3 32 32zm128 0v64c0 17.7-14.3 32-32 32s-32-14.3-32-32v-64c0-17.7 14.3-32 32-32s32 14.3 32 32z"/></svg></span> Memory</strong>: 4GB RAM</li>
+<li><strong><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m6 2a6 6 0 0 0-6 6c0 3.31 2.69 6 6.1 6l-.88-2.23a1.01 1.01 0 0 1 .37-1.37l.86-.5a1.01 1.01 0 0 1 1.37.37l1.92 2.42A5.977 5.977 0 0 0 18 10a6 6 0 0 0-6-6m0 5a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1m-5 9a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1m5.09-4.73 2.49 6.31 2.59-1.5-4.22-5.31-.86.5Z"/></svg></span> Storage</strong>: 32GB or greater SSD</li>
+<li><strong><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 15h2v3h2v-3h2v3h2v-3h2v3h2V9h-4V6H9v3H5v9h2v-3M4.38 3h15.25A2.37 2.37 0 0 1 22 5.38v14.25A2.37 2.37 0 0 1 19.63 22H4.38A2.37 2.37 0 0 1 2 19.63V5.38C2 4.06 3.06 3 4.38 3Z"/></svg></span> Networking</strong>: At least two ethernet interfaces (<strong>SGi</strong> for internet connectivity and <strong>S1</strong> for enodeB connectivity)</li>
 </ul>
-<p>To learn more about Magma, visit the official <a href="https://magmacore.org/">website</a>.</p>
-<h1 id="charmed-magma">Charmed Magma</h1>
-<p><strong>Charmed Magma</strong> is a distribution of Magma published by Canonical built to work with 
-<a href="https://juju.is/">Juju</a>. It is the easiest way to operate Magma. It provides the simplest setup, integration and 
-lifecycle management options.</p>
-<ul>
-<li><strong>Works on all clouds</strong>: Charmed Magma is not opinionated about your choice of cloud. It can also 
-run on your personnal computer.</li>
-<li><strong>Integrations</strong>: Charmed Magma offers seamless integration between each component and with 
-standard monitoring tools.</li>
-<li><strong>Automation</strong>: Charmed Magma automates the initial setup and most operations.</li>
-</ul>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Installing this charm will affect the target computer's networking configuration. Make sure it is installed on designated hardware (personal computers are strongly discouraged).</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Some clouds like AWS use newer kernel versions by default. If you want to downgrade your kernel, please refer to the following <a href="https://discourse.ubuntu.com/t/how-to-downgrade-the-kernel-on-ubuntu-20-04-to-the-5-4-lts-version/26459">guide</a>.</p>
+</div>
+<h2 id="install-magma-access-gateway">Install Magma Access Gateway</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Option 1: DHCP network configuration</label><label for="__tabbed_1_2">Option 2: Static network configuration</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Deploy Magma Access Gateway:
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>deploy<span class="w"> </span>magma-access-gateway-operator<span class="w"> </span>--config<span class="w"> </span><span class="nv">sgi</span><span class="o">=</span>enp0s1<span class="w"> </span>--config<span class="w"> </span><span class="nv">s1</span><span class="o">=</span>enp0s2
+</code></pre></div></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The interface names will need to be adjusted based on your specific machine.</p>
+</div>
+</div>
+<div class="tabbed-block">
+<p>Create a file called <code>agw_config.yaml</code> that contains the following content:</p>
+<div class="highlight"><pre><span></span><code><span class="nn">---</span>
+<span class="nt">magma-access-gateway-operator</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">sgi</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">enp0s1</span>
+<span class="w">  </span><span class="nt">sgi-ipv4-address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.0.2/24</span>
+<span class="w">  </span><span class="nt">sgi-ipv4-gateway</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.0.1</span>
+<span class="w">  </span><span class="nt">sgi-ipv6-address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fd7d:3797:378b:a502::2/64</span>
+<span class="w">  </span><span class="nt">sgi-ipv6-gateway</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fd7d:3797:378b:a502::1</span>
+<span class="w">  </span><span class="nt">s1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">enp0s2</span>
+<span class="w">  </span><span class="nt">s1-ipv4-address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.1.2/24</span>
+<span class="w">  </span><span class="nt">s1-ipv6-address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fd7d:3797:378b:a503::2/64</span>
+<span class="w">  </span><span class="nt">dns</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;[&quot;8.8.8.8&quot;,</span><span class="nv"> </span><span class="s">&quot;208.67.222.222&quot;]&#39;</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The interface names and IP addresses will need to be adjusted based on your specific machine.</p>
+</div>
+<p>Deploy Magma Access Gateway:</p>
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>deploy<span class="w"> </span>magma-access-gateway-operator<span class="w"> </span>--config<span class="w"> </span>agw_config.yaml
+</code></pre></div>
+</div>
+</div>
+</div>
 
 
 
@@ -464,10 +559,10 @@ standard monitoring tools.</li>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.expand", "content.tabs.link"], "search": "assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.e5c33ebb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.6df46069.min.js"></script>
+      <script src="../../assets/javascripts/bundle.51d95adb.min.js"></script>
       
     
   </body>
