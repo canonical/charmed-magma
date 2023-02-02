@@ -1,6 +1,9 @@
 name: Publish docs via GitHub Pages
 on:
   push:
+    branches:
+      - main
+      - 1.6
 
 jobs:
   build:
@@ -16,7 +19,6 @@ jobs:
       - name: Install Python dependencies
         run: python3 -m pip install -r 'requirements-doc.txt'
       - name: Deploy docs
-        if: github.ref_name == 'main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
