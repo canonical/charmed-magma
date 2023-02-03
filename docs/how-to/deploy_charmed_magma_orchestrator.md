@@ -18,9 +18,16 @@ Create an `overlay.yaml` file that contains the following content:
 
 ```yaml title="overlay.yaml"
 applications:
+  fluentd:
+    options:
+    domain: <your domain name>
+    elasticsearch-url: <your elasticsearch https url>
   orc8r-certifier:
     options:
       domain: <your domain name>
+  orc8r-eventd:
+    options:
+      elasticsearch-url: <your elasticsearch http url>
   orc8r-nginx:
     options:
       domain: <your domain name>
@@ -33,6 +40,11 @@ applications:
 !!! warning
 
     This configuration is unsecure because it uses self-signed certificates.
+
+!!! info
+    
+    Elasticsearch is not part of the magma-orc8r bundle and needs to be deployed separately. 
+    For details regarding Elasticsearch integration please visit [Integrate Charmed Magma Orchestrator to Elasticsearch](integrate_charmed_magma_orchestrator_to_elasticsearch.md)
 
 Deploy Orchestrator:
 
@@ -77,6 +89,7 @@ In your domain registrar, create A records for the following Kubernetes services
 | `<orc8r-nginx-proxy External IP>`      | `api.<your domain>`                     | 
 | `<orc8r-clientcert-nginx External IP>` | `controller.<your domain>`              | 
 | `<nginx-proxy External IP>`            | `*.nms.<your domain>`                   | 
+| `<fluentd External IP>`                | `fluentd.<your domain>`                 | 
 
 ## Verify the deployment
 
