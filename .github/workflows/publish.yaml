@@ -16,6 +16,8 @@ jobs:
           python-version: 3.10.4
       - name: Checkout main
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Install Python dependencies
         run: python3 -m pip install -r 'requirements-doc.txt'
       - name: Configure Git user
@@ -26,8 +28,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mike deploy ${{ github.ref_name }}
-      - name: Deploy docs
-        uses: mhausenblas/mkdocs-deploy-gh-pages@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          mike deploy --push ${{ github.ref_name }}
+
