@@ -1,0 +1,22 @@
+name: Create Pull Request
+
+on:
+  push:
+    branches:
+      - gh-pages
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create Pull Request
+        uses: devops-infra/action-pull-request@v0.5.3
+        with:
+          target_branch	: gh-pages
+          title: "Automatic Pull Request"
+          body: "This pull request was automatically created by GitHub Actions."
+          token: ${{ secrets.GITHUB_TOKEN }}
