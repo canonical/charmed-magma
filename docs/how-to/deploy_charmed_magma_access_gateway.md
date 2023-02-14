@@ -25,7 +25,7 @@ The Access Gateway must be installed on an Ubuntu machine with the following spe
     
     Deploy Magma Access Gateway:
     ``` bash
-    juju deploy magma-access-gateway-operator --config sgi=enp0s1 --config s1=enp0s2
+    juju deploy magma-access-gateway-operator --config sgi=enp0s1 --config s1=enp0s2 --channel=1.6/stable
     ```
     
     !!! info
@@ -56,6 +56,6 @@ The Access Gateway must be installed on an Ubuntu machine with the following spe
     Deploy Magma Access Gateway:
 
     ```bash
-    juju deploy magma-access-gateway-operator --config agw_config.yaml
+    juju deploy magma-access-gateway-operator --config agw_config.yaml --channel=1.6/stable
     ```
 
