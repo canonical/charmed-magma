@@ -6,8 +6,6 @@
 
 ![Get it from Charmhub](https://charmhub.io/static/images/badges/en/charmhub-black.svg)
 
-[Don't have Juju installed?](https://snapcraft.io/juju)
-
 **Magma** is an open source 4G and 5G core network. Use it to operate your own private mobile
 network. Magma enables better connectivity by:
 
