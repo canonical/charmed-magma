@@ -2,7 +2,6 @@
   <a href="https://magmacore.org/"><img src="docs/images/magma-logo-purple.svg" width="500" ></a>
   <p align="center"><a href="https://charmhub.io/magma-orc8r"><img src="https://charmhub.io/magma-orc8r/badge.svg" alt="magma orchestrator badge"/></p>
   <p align="center"><a href="https://charmhub.io/magma-access-gateway-operator"><img src="https://charmhub.io/magma-access-gateway-operator/badge.svg" alt="access gateway badge"/></p>
-  Charmed Magma
 </h1>
 
 ![Get it from Charmhub](https://charmhub.io/static/images/badges/en/charmhub-black.svg)
