@@ -110,7 +110,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#deploy-charmed-magma-orchestrator" class="md-skip">
+        <a href="#deploy-charmed-magma-orchestrator-16" class="md-skip">
           Skip to content
         </a>
       
@@ -518,7 +518,7 @@
 
 
 
-<h1 id="deploy-charmed-magma-orchestrator">Deploy Charmed Magma Orchestrator</h1>
+<h1 id="deploy-charmed-magma-orchestrator-16">Deploy Charmed Magma Orchestrator 1.6</h1>
 <h2 id="requirements">Requirements</h2>
 <p>The Orchestrator must be installed on a Kubernetes cluster with the following specifications:</p>
 <ul>
@@ -561,7 +561,7 @@ service type</p>
 For details regarding Elasticsearch integration please visit <a href="../integrate_charmed_magma_orchestrator_to_elasticsearch/">Integrate Charmed Magma Orchestrator to Elasticsearch</a></p>
 </div>
 <p>Deploy Orchestrator:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>deploy<span class="w"> </span>magma-orc8r<span class="w"> </span>--overlay<span class="w"> </span>overlay.yaml<span class="w"> </span>--trust<span class="w"> </span>--channel<span class="o">=</span>beta
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>deploy<span class="w"> </span>magma-orc8r<span class="w"> </span>--overlay<span class="w"> </span>overlay.yaml<span class="w"> </span>--trust<span class="w"> </span>--channel<span class="o">=</span><span class="m">1</span>.6/stable
 </code></pre></div>
 <p>The deployment is completed when all services are in the <code>Active-Idle</code> state.</p>
 <h2 id="import-the-admin-operator-https-certificate">Import the admin operator HTTPS certificate</h2>
