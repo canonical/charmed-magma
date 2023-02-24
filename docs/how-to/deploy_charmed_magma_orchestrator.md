@@ -5,7 +5,7 @@
 The Orchestrator must be installed on a Kubernetes cluster with the following specifications:
 
 - **:material-kubernetes: Kubernetes**: A cluster with a total of a minimum of 6 vCPUs and 16 GB of RAM.
-- **:material-ubuntu: Juju>=3**: A Juju controller with access to the Kubernetes cluster
+- **:material-ubuntu: Juju 2.9**: A Juju controller with access to the Kubernetes cluster
 
 !!! note
 
@@ -20,8 +20,8 @@ Create an `overlay.yaml` file that contains the following content:
 applications:
   fluentd:
     options:
-    domain: <your domain name>
-    elasticsearch-url: <your elasticsearch https url>
+      domain: <your domain name>
+      elasticsearch-url: <your elasticsearch https url>
   orc8r-certifier:
     options:
       domain: <your domain name>
@@ -96,7 +96,7 @@ In your domain registrar, create A records for the following Kubernetes services
 Get the master organization's username and password:
 
 ```bash
-juju run nms-magmalte/leader get-master-admin-credentials
+juju run-action nms-magmalte/leader get-master-admin-credentials --wait
 ```
 
 Confirm successful deployment by visiting `https://master.nms.<your domain>` and logging in
