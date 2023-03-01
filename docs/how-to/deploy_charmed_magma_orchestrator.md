@@ -65,7 +65,7 @@ juju scp --container="magma-orc8r-certifier" orc8r-certifier/0:/var/opt/magma/ce
 Retrieve the pfx package password:
 
 ```bash
-juju run orc8r-certifier/leader get-pfx-package-password
+juju run-action orc8r-certifier/leader get-pfx-package-password --wait
 ```
 
 !!! info
@@ -78,7 +78,7 @@ juju run orc8r-certifier/leader get-pfx-package-password
 Retrieve the services that need to be exposed:
 
 ```bash
-juju run orc8r-orchestrator/leader get-load-balancer-services
+juju run-action orc8r-orchestrator/leader get-load-balancer-services --wait
 ```
 
 In your domain registrar, create A records for the following Kubernetes services:
