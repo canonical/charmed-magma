@@ -15,7 +15,7 @@
         <link rel="next" href="../integrate_charmed_magma_access_gateway_to_srsRAN/">
       
       <link rel="icon" href="../../images/logo.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.14">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.15">
     
     
       
@@ -484,12 +484,12 @@
 <div class="highlight"><pre><span></span><code>juju<span class="w"> </span>relate<span class="w"> </span>magma-access-gateway-operator<span class="w"> </span><span class="o">[[</span>&lt;controller&gt;:<span class="o">]</span>&lt;user&gt;/<span class="o">]</span>&lt;model-name&gt;.orc8r-nginx
 </code></pre></div>
 <p>Fetch the Access Gateway's <code>Hardware ID</code> and <code>Challenge Key</code>:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>run<span class="w"> </span>magma-access-gateway-operator/&lt;unit<span class="w"> </span>number&gt;<span class="w"> </span>get-access-gateway-secrets
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>run-action<span class="w"> </span>magma-access-gateway-operator/&lt;unit<span class="w"> </span>number&gt;<span class="w"> </span>get-access-gateway-secrets<span class="w"> </span>--wait
 </code></pre></div>
 <p>Navigate to "Equipment" on the NMS via the left navigation bar, hit "Add Gateway" on the upper right, and fill out the multi-step modal form. Use the secrets from above for the "Hardware UUID" and "Challenge Key" fields.</p>
 <h2 id="verify-the-deployment">Verify the deployment</h2>
 <p>Run the following command:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>run<span class="w"> </span>magma-access-gateway-operator/&lt;unit<span class="w"> </span>number&gt;<span class="w"> </span>post-install-checks
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>run-action<span class="w"> </span>magma-access-gateway-operator/&lt;unit<span class="w"> </span>number&gt;<span class="w"> </span>post-install-checks<span class="w"> </span>--wait
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Info</p>

@@ -15,7 +15,7 @@
         <link rel="next" href="../deploy_charmed_magma_access_gateway/">
       
       <link rel="icon" href="../../images/logo.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.14">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.15">
     
     
       
@@ -568,7 +568,7 @@ For details regarding Elasticsearch integration please visit <a href="../integra
 <div class="highlight"><pre><span></span><code>juju<span class="w"> </span>scp<span class="w"> </span>--container<span class="o">=</span><span class="s2">&quot;magma-orc8r-certifier&quot;</span><span class="w"> </span>orc8r-certifier/0:/var/opt/magma/certs/admin_operator.pfx<span class="w"> </span>admin_operator.pfx
 </code></pre></div>
 <p>Retrieve the pfx package password:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>run<span class="w"> </span>orc8r-certifier/leader<span class="w"> </span>get-pfx-package-password
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>run-action<span class="w"> </span>orc8r-certifier/leader<span class="w"> </span>get-pfx-package-password<span class="w"> </span>--wait
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
@@ -577,7 +577,7 @@ to make API calls to Magma orchestrator.</p>
 </div>
 <h2 id="setup-dns">Setup DNS</h2>
 <p>Retrieve the services that need to be exposed:</p>
-<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>run<span class="w"> </span>orc8r-orchestrator/leader<span class="w"> </span>get-load-balancer-services
+<div class="highlight"><pre><span></span><code>juju<span class="w"> </span>run-action<span class="w"> </span>orc8r-orchestrator/leader<span class="w"> </span>get-load-balancer-services<span class="w"> </span>--wait
 </code></pre></div>
 <p>In your domain registrar, create A records for the following Kubernetes services:</p>
 <table>
