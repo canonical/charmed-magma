@@ -10,7 +10,7 @@ network. Magma enables better connectivity by:
 
 To learn more about Magma, visit the official [website](https://magmacore.org/).
 
-# Charmed Magma
+## Charmed Magma
 
 **Charmed Magma** is a distribution of Magma published by Canonical built to work with 
 [Juju](https://juju.is/). It is the easiest way to operate Magma. It provides the simplest setup, integration and 
