@@ -9,4 +9,4 @@ mkdocs serve
 
 ## Publishing
 
-Publishing is handled by github actions.
+Publishing is handled by GitHub actions.
