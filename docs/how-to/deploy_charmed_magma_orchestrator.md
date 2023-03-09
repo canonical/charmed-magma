@@ -5,7 +5,7 @@
 The Orchestrator must be installed on a Kubernetes cluster with the following specifications:
 
 - **:material-kubernetes: Kubernetes**: A cluster with a total of a minimum of 6 vCPUs and 16 GB of RAM.
-- **:material-ubuntu: Juju>=3**: A Juju controller with access to the Kubernetes cluster
+- **:material-ubuntu: Juju 2.9**: A Juju controller with access to the Kubernetes cluster
 
 !!! note
 
@@ -65,7 +65,7 @@ juju scp --container="magma-orc8r-certifier" orc8r-certifier/0:/var/opt/magma/ce
 Retrieve the pfx package password:
 
 ```bash
-juju run orc8r-certifier/leader get-pfx-package-password
+juju run-action orc8r-certifier/leader get-pfx-package-password --wait
 ```
 
 !!! info
@@ -78,7 +78,7 @@ juju run orc8r-certifier/leader get-pfx-package-password
 Retrieve the services that need to be exposed:
 
 ```bash
-juju run orc8r-orchestrator/leader get-load-balancer-services
+juju run-action orc8r-orchestrator/leader get-load-balancer-services --wait
 ```
 
 In your domain registrar, create A records for the following Kubernetes services:
@@ -96,8 +96,8 @@ In your domain registrar, create A records for the following Kubernetes services
 Get the master organization's username and password:
 
 ```bash
-juju run nms-magmalte/leader get-master-admin-credentials
+juju run-action nms-magmalte/leader get-master-admin-credentials --wait
 ```
 
-Confirm successful deployment by visiting `https://master.nms.<your domain>` and logging in
+Confirm successful deployment by visiting `https://host.nms.<your domain>` and logging in
 with the `admin-username` and `admin-password` outputted here.
