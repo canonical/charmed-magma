@@ -73,7 +73,7 @@ juju run-action magma-access-gateway-operator/0 get-access-gateway-secrets --wai
     * Gateway Description: `my-gateway`
     * Challenge Key: `<Challenge Key from the previous step>`
 4. Click on "Save and Continue"
-5. Click on `my-gateway`
+5. Click on "my-gateway"
 6. You should see your gateway's health go to "Good" after a few minutes
 
 ![Gateway Add]

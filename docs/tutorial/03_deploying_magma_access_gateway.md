@@ -25,13 +25,13 @@ Create a subnet called `S1`:
 aws ec2 create-subnet --vpc-id <your VPC ID> --cidr-block 172.31.126.0/28 --availability-zone us-east-2a --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=s1}]'
 ```
 
-Note the subnet ID and use it in the following command:
+Note the subnet ID and create a network interface on this subnet:
 
 ```console
 aws ec2 create-network-interface --subnet-id <your subnet ID>
 ```
 
-Add a network interface using the `S1` subnet to the EC2 machine:
+Attach the network interface to the EC2 instance:
 
 ```console
 aws ec2 attach-network-interface --network-interface-id <your network interface ID> --instance-id <your instance ID> --device-index 1
@@ -55,18 +55,19 @@ Create a new Juju model for machines:
 juju add-model edge aws/us-east-2
 ```
 
-Add the AWS instance as a Juju machine:
+Wait for the instance to boot up and be accessible via SSH, then add it as a Juju machine:
 
 ```console
-juju add-machine ssh:ubuntu@<AWS instance IP address>
+juju add-machine ssh:ubuntu@<EC2 instance IP address>
 ```
+
+Note the Juju machine ID and deploy Magma Access Gateway to it:
 
 ```console
-juju deploy magma-access-gateway-operator --config sgi=eth0 --config s1=eth1 --to 0
+juju deploy magma-access-gateway-operator --config sgi=eth0 --config s1=eth1 --to <Machine ID>
 ```
 
-You can see the deployment's status by running `juju status`. The deployment is completed when 
-the application is in the `Active-Idle` state. 
+You can see the deployment's status by running `juju status`. The deployment is completed when the application is in the `Active-Idle` state. 
 
 ```console
 ubuntu@host:~$ juju status

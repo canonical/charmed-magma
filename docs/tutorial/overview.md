@@ -1,7 +1,6 @@
 # Operate your own private mobile network with Magma
 
-In this tutorial, we will use Juju to deploy Magma's 4G core network as well as a simulated radio
-and a cellphone from the [srsRAN](https://www.srslte.com/) project.
+In this tutorial, we will use Juju to deploy Magma's 4G core network as well as a simulated radio and a cellphone from the [srsRAN](https://www.srslte.com/) project.
 
 1. [Getting Started](01_getting_started.md)
 2. [Deploying Magma Orchestrator](02_deploying_magma_orchestrator.md)
@@ -12,6 +11,13 @@ and a cellphone from the [srsRAN](https://www.srslte.com/) project.
 
 ## Requirements
 
-- **:material-aws:** An AWS account
-- **:material-dns:** A public domain
-- **:material-ubuntu:** A Ubuntu 22.04 LTS machine
+* **:material-aws:** An AWS account[^1]
+* **:material-dns:** A public domain
+* **:material-ubuntu:** A computer[^2] with the following software installed:
+    * [juju](https://juju.is/docs/olm/install-juju)
+    * [kubectl](https://kubernetes.io/docs/tasks/tools/)
+    * [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+    * [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
+
+[^1]: This tutorial uses AWS as the cloud provider. You can use any cloud provider that Juju supports. See [Juju Clouds](https://juju.is/docs/olm/juju-supported-clouds) for more information.
+[^2]: All the commands were tested from a Ubuntu 22.04 LTS machine.

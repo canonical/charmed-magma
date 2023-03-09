@@ -1,11 +1,9 @@
 # 2. Deploying Magma Orchestrator
 
-In this section, we will deploy Magma Orchestrator on AWS managed Kubernetes service (EKS) using Juju.
+In this section, we will deploy Magma Orchestrator on AWS's managed Kubernetes service (EKS) using Juju.
 
 !!! note
-    The following steps assume that you have a domain name registered with a DNS provider and that you have 
-    a hosted zone in AWS's Route53 associated with this domain. Everywhere you see `<your domain name>` in the
-    following steps, you should replace it with your domain name.
+    :material-dns: The following steps assume that you have a domain name registered with a DNS provider and that you have a hosted zone in AWS's Route53 associated with this domain. Everywhere you see `<your domain name>` in the following steps, you should replace it with your domain name.
 
 ## Create a Kubernetes cluster
 
@@ -15,7 +13,7 @@ Create a Kubernetes cluster on AWS using `eksctl`:
 eksctl create cluster --name magma-orc8r --region us-east-2 --node-type t2.xlarge
 ```
 
-You can check that the cluster is running by running `kubectl` commands (ex. `kubectl get nodes`).
+You can check that the cluster is running by running `kubectl get nodes`.
 
 Add the Kubernetes cloud to Juju:
 
@@ -208,8 +206,7 @@ Create the CNAME records in Route53:
 aws route53 change-resource-record-sets --hosted-zone-id <your hosted zone ID> --change-batch file://dns.json
 ```
 
-Now, navigate to `https://master.nms.<your domain name>`, you should receive a warning because we are
-using self-signed-certificates, click on "Proceed".
+Now, navigate to `https://master.nms.<your domain name>`, you should receive a warning because we are using self-signed-certificates, click on "Proceed".
 
 ## Verifying the deployment
 
@@ -221,5 +218,8 @@ juju run-action nms-magmalte/leader get-master-admin-credentials --wait
 
 Note the `admin-username` and `admin-password` values.
 
-Confirm successful deployment by visiting `https://master.nms.<your domain name>` and logging in
-with the `admin-username` and `admin-password` outputted here.
+Confirm successful deployment by visiting `https://master.nms.<your domain name>` and logging in with the `admin-username` and `admin-password` outputted here.
+
+![Login Page]
+
+[Login Page]: ../images/login_page.png
