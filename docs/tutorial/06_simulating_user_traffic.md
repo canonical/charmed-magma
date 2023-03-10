@@ -38,10 +38,14 @@ Add a subscriber to the network in Magma Orchestrator:
 6. Click on "Save"
 7. Click on "Save and Add Subscribers"
 
-## Run the simulation
+## Attach a User Equipment to the Network
 
-Attach a User Equipment (UE) to the Access Gateway:
+Attach a User Equipment (UE) to the Network:
 
 ```console
 juju run-action srs-enb-ue/2 attach-ue --string-args usim-imsi=001010000000001 usim-k=63BFA50EE6523365FF14C1F45F88737D usim-opc=63BFA50EE6523365FF14C1F45F88737D --wait
 ```
+
+## Run the simulation
+
+!!! TODO

@@ -31,6 +31,10 @@ Attach the network interface to the EC2 instance:
 aws ec2 attach-network-interface --network-interface-id <your network interface ID> --instance-id <your instance ID> --device-index 1
 ```
 
+## Configure Netplan to use the secondary network interface
+
+!!! TODO
+
 ## Deploy the srsRAN radio simulator
 
 Wait for the instance to boot up and be accessible via SSH, then add it as a Juju machine:
