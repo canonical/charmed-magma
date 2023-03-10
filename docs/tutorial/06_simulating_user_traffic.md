@@ -11,7 +11,7 @@ Create an Access Point Name (APN) in Magma Orchestrator:
 5. Fill in the following values:
       * APN ID: `default`
       * Class ID: `9`
-      * ARP Priority Level: `15
+      * ARP Priority Level: `15`
       * Max Required Bandwidth
            * Upload: `1000000`
            * Download: `1000000`

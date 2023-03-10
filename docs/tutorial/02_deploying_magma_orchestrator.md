@@ -192,12 +192,12 @@ Create a file named `dns.json` with the following content:
 !!! note
     Replace each resource record value with the ones received from the previous step using the following Service/Hostname scheme:
 
-    | Service                                | Hostname                              | 
-    |----------------------------------------|---------------------------------------|
-    | `<orc8r-bootstrap-nginx External IP>`  | `bootstrapper-controller.<your domain name>` | 
-    | `<orc8r-nginx-proxy External IP>`      | `api.<your domain name>`                     | 
-    | `<orc8r-clientcert-nginx External IP>` | `controller.<your domain name>`              | 
-    | `<nginx-proxy External IP>`            | `*.nms.<your domain name>`                   | 
+    | Service                                  | Hostname                              | 
+    |------------------------------------------|---------------------------------------|
+    | `<orc8r-bootstrap-nginx External FQDN>`  | `bootstrapper-controller.<your domain name>` | 
+    | `<orc8r-nginx-proxy External FQDN>`      | `api.<your domain name>`                     | 
+    | `<orc8r-clientcert-nginx External FQDN>` | `controller.<your domain name>`              | 
+    | `<nginx-proxy External FQDN>`            | `*.nms.<your domain name>`                   | 
 
 
 Create the CNAME records in Route53:
