@@ -52,7 +52,7 @@ juju run-action magma-access-gateway-operator/0 get-access-gateway-secrets --wai
 
 ### Create a network in the `magma-test` organization:
 
-1. Login to the `magma-test` organization at this address: `https://magma-test.nms.<your domain>`.
+1. Login to the `magma-test` organization at this address: `https://magma-test.nms.<your domain>`. Use the credentials from the previous step.
 2. On the left pane, click on "Networks"
 3. Click on "Add Network"
 4. Fill in the following values:
@@ -61,6 +61,16 @@ juju run-action magma-access-gateway-operator/0 get-access-gateway-secrets --wai
     * Description: `my-network`
     * Network Type: `LTE`
 5. Refresh the page. You should now see your network dashboard
+
+### Change the Network configuration
+
+1. Click on the "Networks" tab on the left pane
+2. Next to the "EPC" box, click on "Edit"
+3. Change the following values:
+    * MCC: `001`
+    * MNC: `01`
+    * TAC: `7`
+4. Click on "Save"
 
 ### Add the Access Gateway to the network
 
@@ -72,7 +82,7 @@ juju run-action magma-access-gateway-operator/0 get-access-gateway-secrets --wai
     * Hardware UUID: `<Hardware ID from the previous step>`
     * Gateway Description: `my-gateway`
     * Challenge Key: `<Challenge Key from the previous step>`
-4. Click on "Save and Continue"
+4. Click on "Save and Continue". You should ignore the next tabs and continue clicking on "Save and Continue".
 5. Click on "my-gateway"
 6. You should see your gateway's health go to "Good" after a few minutes
 
