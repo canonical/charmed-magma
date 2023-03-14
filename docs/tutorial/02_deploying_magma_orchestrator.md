@@ -7,13 +7,42 @@ In this section, we will deploy Magma Orchestrator on AWS's managed Kubernetes s
 
 ## Create a Kubernetes cluster
 
+### Create the Kubernetes cluster
+
 Create a Kubernetes cluster on AWS using `eksctl`:
 
 ```console
 eksctl create cluster --name magma-orc8r --region us-east-2 --node-type t2.xlarge
 ```
 
-You can check that the cluster is running by running `kubectl get nodes`.
+This step will take a couple of minutes. You can check that the cluster is running by running `kubectl get nodes`.
+
+### Add the EBS CSI addon to the Kubernetes cluster
+
+Create an IAM OIDC provider for your cluster:
+
+```console
+eksctl utils associate-iam-oidc-provider --cluster magma-orc8r --approve
+```
+
+Create an IAM service account:
+
+```console
+eksctl create iamserviceaccount \
+  --name ebs-csi-controller-sa \
+  --namespace kube-system \
+  --cluster magma-orc8r \
+  --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
+  --approve \
+  --role-only \
+  --role-name AmazonEKS_EBS_CSI_DriverRole
+```
+
+Add the `aws-ebs-csi-driver` addon to the Kubernetes cluster:
+
+```console
+eksctl create addon --name aws-ebs-csi-driver --cluster magma-orc8r --service-account-role-arn arn:aws:iam::<your IAM user ID>:role/AmazonEKS_EBS_CSI_DriverRole
+```
 
 Add the Kubernetes cloud to Juju:
 
@@ -99,7 +128,7 @@ tls-certificates-operator/0*      active    idle   10.1.50.121
 
 ## Configure Route53
 
-Retrieve the list of services for which DNS records are needed:
+Retrieve the list of load balancer Kubernetes services:
 
 ```console
 juju run-action orc8r-orchestrator/leader get-load-balancer-services --wait
@@ -129,7 +158,7 @@ The hostnames associated to each service will differ from those shown here.
 
 Create a file named `dns.json` with the following content:
 
-```json title="dns.json"
+```json title="dns.json" hl_lines="7 12 20 25 33 38 46 51"
 {
   "Comment": "CREATE CNAME records",
   "Changes": [
@@ -189,6 +218,8 @@ Create a file named `dns.json` with the following content:
 }
 ```
 
+Each <mark>highlighted line</mark> line needs to be modified.
+
 !!! note
     Replace each resource record value with the ones received from the previous step using the following Service/Hostname scheme:
 
@@ -198,7 +229,6 @@ Create a file named `dns.json` with the following content:
     | `<orc8r-nginx-proxy FQDN>`      | `api.<your domain name>`                     | 
     | `<orc8r-clientcert-nginx FQDN>` | `controller.<your domain name>`              | 
     | `<nginx-proxy FQDN>`            | `*.nms.<your domain name>`                   | 
-
 
 Create the CNAME records in Route53:
 

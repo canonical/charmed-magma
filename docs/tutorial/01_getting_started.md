@@ -1,12 +1,16 @@
 # 1. Getting Started
 
-## Bootstrap a Juju controller on AWS
+## Login to AWS
 
-From your computer where you have Juju 2.9 installed, add your AWS credentials to Juju:
+Login to AWS using the `aws` CLI:
 
 ```console
-juju add-credential aws
+aws configure
 ```
+
+You will be asked to provide your AWS credentials and the region. The rest of this tutorial assumes that the region is `us-east-2`.
+
+## Bootstrap a Juju controller on AWS
 
 Bootstrap a Juju controller on AWS:
 
