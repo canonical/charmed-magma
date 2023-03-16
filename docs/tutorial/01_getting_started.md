@@ -2,7 +2,7 @@
 
 ## Login to AWS
 
-Login to AWS using the `aws` CLI:
+Login to AWS using the AWS CLI:
 
 ```console
 aws configure

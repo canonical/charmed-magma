@@ -61,4 +61,4 @@ ping -I tun_srsue google.com
 ```
 
 !!!success Congratulations
-      You have a fully functioning 4G Network!
+      You have a fully functioning 4G Network :partying_face:

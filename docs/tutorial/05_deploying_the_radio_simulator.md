@@ -19,10 +19,10 @@ Replace the security group ID with one that allows SSH access and note the insta
 
 ## Attach a secondary network interface to the instance
 
-Using the same `S1` subnet that was created during step 3, create a new network interface:
+Using the same **S1** subnet that was created during step 3, create a new network interface:
 
 ```console
-aws ec2 create-network-interface --subnet-id <your subnet ID>
+aws ec2 create-network-interface --subnet-id <your subnet ID> --group <your security group>
 ```
 
 Attach the network interface to the EC2 instance:

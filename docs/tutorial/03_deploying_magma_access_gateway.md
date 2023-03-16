@@ -13,7 +13,7 @@ aws ec2 create-security-group --group-name "demo" --description "Allow SSH acces
 Note the `GroupId` and use it to add a rule that allows SSH access:
 
 ```console
-aws ec2 authorize-security-group-ingress --group-id <security group ID> --protocol tcp --port 22 --cidr x.x.x.x/x
+aws ec2 authorize-security-group-ingress --group-id <security group ID> --protocol -1 --port -1 --cidr 0.0.0.0/0
 ```
 
 ### Create an instance on AWS
@@ -43,7 +43,7 @@ Note this address, you will need it very soon.
 
 ### Attach a secondary network interface to the instance
 
-Create a subnet called `S1`:
+Create a subnet called **S1**:
 
 ```console
 aws ec2 create-subnet --vpc-id <your VPC ID> --cidr-block 172.31.126.0/28 --availability-zone us-east-2a --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=s1}]'
@@ -52,7 +52,7 @@ aws ec2 create-subnet --vpc-id <your VPC ID> --cidr-block 172.31.126.0/28 --avai
 Note the `SubnetId` and create a network interface on this subnet:
 
 ```console
-aws ec2 create-network-interface --subnet-id <your subnet ID>
+aws ec2 create-network-interface --subnet-id <your subnet ID> --group <your security group>
 ```
 
 Note the `NetworkInterfaceId` and use it to attach the network interface to the EC2 instance:
