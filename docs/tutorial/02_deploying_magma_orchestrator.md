@@ -238,7 +238,7 @@ aws route53 change-resource-record-sets --hosted-zone-id <your hosted zone ID> -
 
 Now, navigate to `https://master.nms.<your domain name>`, you should receive a warning because we are using self-signed-certificates, click on "Proceed".
 
-## Verifying the deployment
+## Login to Magma's Network Management System
 
 Get the master organization's username and password:
 

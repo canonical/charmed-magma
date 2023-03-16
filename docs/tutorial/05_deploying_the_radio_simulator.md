@@ -31,11 +31,7 @@ Attach the network interface to the EC2 instance:
 aws ec2 attach-network-interface --network-interface-id <your network interface ID> --instance-id <your instance ID> --device-index 1
 ```
 
-## Configure Netplan to use the secondary network interface
-
-!!! TODO
-
-## Deploy the srsRAN radio simulator
+## Add the machine to Juju
 
 Wait for the instance to boot up and be accessible via SSH, then add it as a Juju machine:
 
@@ -43,7 +39,42 @@ Wait for the instance to boot up and be accessible via SSH, then add it as a Juj
 juju add-machine ssh:ubuntu@<EC2 instance IP address>
 ```
 
-Note the Juju machine ID and deploy srsRAN to it:
+## Configure Netplan to use the secondary network interface
+
+SSH into the machine:
+
+```console
+juju ssh <Your instance ID>
+```
+
+Retrieve the mac address used by `eth1`:
+```console
+ip a show eth1
+```
+
+Create a file named `99-srsran.yaml` that contains the following content and move it over to `/etc/netplan/`:
+
+```yaml title="99-srsran.yaml"
+network:
+    ethernets:
+        eth1:
+            dhcp4: true
+            dhcp6: false
+            match:
+                macaddress: <eth1 interface mac address>
+            set-name: eth1
+    version: 2
+```
+
+Apply the netplan configuration:
+
+```console
+netplan apply
+```
+
+## Deploy the srsRAN radio simulator
+
+Deploy srsRAN to the machine:
 
 ```console
 juju deploy srs-enb-ue --channel=edge --to <Machine ID>

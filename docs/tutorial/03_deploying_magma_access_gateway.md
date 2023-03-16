@@ -4,19 +4,13 @@
 
 ### Create a security group for allowing SSH access
 
-Retrieve your default VPC ID:
-
-```console
-aws ec2 describe-vpcs --filters "Name=is-default,Values=true" --query 'Vpcs[*][VpcId]' --output text
-```
-
-Create a security group using this VPC ID:
+Create a security group in your default VPC:
 
 ```console
 aws ec2 create-security-group --group-name "demo" --description "Allow SSH access" --vpc-id <your VPC ID>
 ```
 
-Note the `GroupId` and use it to add a rule that allows ssh access:
+Note the `GroupId` and use it to add a rule that allows SSH access:
 
 ```console
 aws ec2 authorize-security-group-ingress --group-id <security group ID> --protocol tcp --port 22 --cidr x.x.x.x/x
@@ -69,13 +63,7 @@ aws ec2 attach-network-interface --network-interface-id <your network interface 
 
 ### Downgrade the Kernel on the instance
 
-Unfortunately, the default kernel on the AWS Ubuntu 20.04 AMI image is too new for Magma Access Gateway to work properly. We need to downgrade it to the LTS version `5.4.0`. SSH into the AWS instance using its public IP and follow the instructions in this [blog post](https://discourse.ubuntu.com/t/how-to-downgrade-the-kernel-on-ubuntu-20-04-to-the-5-4-lts-version/26459).
-
-The `GRUB_DEFAULT` entry in the GRUB menu should look like this:
-
-```console
-GRUB_DEFAULT='Advanced options for Ubuntu>Ubuntu, with Linux 5.4.0-1097-aws'
-```
+Unfortunately, the default kernel on the AWS Ubuntu 20.04 AMI image is too new for Magma Access Gateway to work properly. We need to downgrade it to the LTS version `5.4.0`. SSH into the AWS instance using its public IP and follow the instructions in this [blog post](https://discourse.ubuntu.com/t/how-to-downgrade-the-kernesl-on-ubuntu-20-04-to-the-5-4-lts-version/26459). In the end, the `GRUB_DEFAULT` entry in the GRUB menu should look like `'Advanced options for Ubuntu>Ubuntu, with Linux 5.4.0-1097-aws'`.
 
 ## Deploy Magma Access Gateway
 

@@ -8,7 +8,7 @@ The Access Gateway must be installed on an Ubuntu machine with the following spe
 - **:octicons-cpu-16: Processor**: x86-64 dual-core processor (around 2GHz clock speed or faster)
 - **:fontawesome-solid-memory: Memory**: 4GB RAM
 - **:material-harddisk: Storage**: 32GB or greater SSD
-- **:material-ethernet: Networking**: At least two ethernet interfaces (**SGi** for internet connectivity and **S1** for enodeB connectivity)
+- **:material-ethernet: Networking**: At least two ethernet interfaces using two different subnets (**SGi** for internet connectivity and **S1** for enodeB connectivity)
 
 
 !!! danger

@@ -43,9 +43,22 @@ Add a subscriber to the network in Magma Orchestrator:
 Attach a User Equipment (UE) to the Network:
 
 ```console
-juju run-action srs-enb-ue/2 attach-ue --string-args usim-imsi=001010000000001 usim-k=63BFA50EE6523365FF14C1F45F88737D usim-opc=63BFA50EE6523365FF14C1F45F88737D --wait
+juju run-action srs-enb-ue/2 attach-ue --string-args usim-imsi=001010000000001 usim-k=00112233445566778899aabbccddeeff usim-opc=63BFA50EE6523365FF14C1F45F88737D --wait
 ```
 
 ## Run the simulation
 
-!!! TODO
+SSH to the machine where srsRAN is running:
+
+```console
+juju ssh <your srsRAN machine ID>
+```
+
+Use the UE's interface to ping something on the internet, here you should expect no packet loss.
+
+```console
+ping -I tun_srsue google.com
+```
+
+!!!success Congratulations
+      You have a fully functioning 4G Network!

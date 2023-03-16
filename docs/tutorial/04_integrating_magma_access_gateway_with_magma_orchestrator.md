@@ -18,7 +18,6 @@ juju relate orc8r-nginx:orchestrator magma-access-gateway-operator
 Wait for the application to go back to `Active-Idle`:
 
 ```console
-
 ubuntu@host:~$ juju status
 Model  Controller     Cloud/Region   Version  SLA          Timestamp
 edge   aws-us-east-2  aws/us-east-2  2.9.42   unsupported  16:09:01-05:00
