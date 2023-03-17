@@ -76,7 +76,7 @@ juju add-model edge aws/us-east-2
 Wait for the instance to boot up and be accessible via SSH, then add it as a Juju machine:
 
 ```console
-juju add-machine ssh:ubuntu@<EC2 instance IP address>
+juju add-machine --private-key=<path to your private key> ssh:ubuntu@<EC2 instance IP address>
 ```
 
 Note the Juju machine ID and deploy Magma Access Gateway to it:

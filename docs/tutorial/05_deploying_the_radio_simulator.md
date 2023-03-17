@@ -36,7 +36,7 @@ aws ec2 attach-network-interface --network-interface-id <your network interface 
 Wait for the instance to boot up and be accessible via SSH, then add it as a Juju machine:
 
 ```console
-juju add-machine ssh:ubuntu@<EC2 instance IP address>
+juju add-machine --private-key=<path to your private key> ssh:ubuntu@<EC2 instance IP address>
 ```
 
 ## Configure Netplan to use the secondary network interface
