@@ -156,6 +156,17 @@ unit-orc8r-orchestrator-0:
 
 The hostnames associated to each service will differ from those shown here.
 
+!!! note
+    We will need to create CNAME DNS entries using the following mapping:
+
+    | Kubernetes LoadBalancer Service  | CNAME Entry                                  | 
+    |----------------------------------|----------------------------------------------|
+    | `<orc8r-bootstrap-nginx FQDN>`   | `bootstrapper-controller.<your domain name>` | 
+    | `<orc8r-nginx-proxy FQDN>`       | `api.<your domain name>`                     | 
+    | `<orc8r-clientcert-nginx FQDN>`  | `controller.<your domain name>`              | 
+    | `<nginx-proxy FQDN>`             | `*.nms.<your domain name>`                   | 
+
+
 Create a file named `dns.json` with the following content:
 
 ```json title="dns.json" hl_lines="7 12 20 25 33 38 46 51"
@@ -218,17 +229,7 @@ Create a file named `dns.json` with the following content:
 }
 ```
 
-Each <mark>highlighted line</mark> line needs to be modified.
-
-!!! note
-    Replace each resource record value with the ones received from the previous step using the following Service/Hostname scheme:
-
-    | Service                         | Hostname                                     | 
-    |---------------------------------|----------------------------------------------|
-    | `<orc8r-bootstrap-nginx FQDN>`  | `bootstrapper-controller.<your domain name>` | 
-    | `<orc8r-nginx-proxy FQDN>`      | `api.<your domain name>`                     | 
-    | `<orc8r-clientcert-nginx FQDN>` | `controller.<your domain name>`              | 
-    | `<nginx-proxy FQDN>`            | `*.nms.<your domain name>`                   | 
+Each <mark>highlighted line</mark> line needs to be modified using the mapping presented in the note above.
 
 Create the CNAME records in Route53:
 

@@ -38,6 +38,23 @@ Fetch the Access Gateway's `Hardware ID` and `Challenge Key` and note those valu
 juju run-action magma-access-gateway-operator/0 get-access-gateway-secrets --wait
 ```
 
+The output should look like:
+
+```console
+ubuntu@host:~$ juju run-action magma-access-gateway-operator/0 get-access-gateway-secrets --wait
+unit-magma-access-gateway-operator-0:
+  UnitId: magma-access-gateway-operator/0
+  id: "22"
+  results:
+    challenge-key: MHYwEAYHKoZIzj0CAQYFK4EEACIDYgAE4bFCLDcHSi0fmESrejkTdJlBk/Mi/z/30VoV3dYTwWmOo1+xBjUjnMMBpWWlUbmdyOaSk32xg4/Pa9gq6gBj37INrB2zbgBfi5kdHbyFzbuIjak919/m5739tIb3NCYR
+    hardware-id: 26236e99-f06d-4686-a888-696c7f2910c9
+  status: completed
+  timing:
+    completed: 2023-03-17 11:47:24 +0000 UTC
+    enqueued: 2023-03-17 11:47:20 +0000 UTC
+    started: 2023-03-17 11:47:23 +0000 UTC
+```
+
 ## Create a network in Magma Orchestrator
 
 ### Create a user in the `magma-test` organization:
@@ -78,9 +95,9 @@ juju run-action magma-access-gateway-operator/0 get-access-gateway-secrets --wai
 3. Fill in the following values:
     * Gateway Name: `my-gateway`
     * Gateway ID: `my-gateway`
-    * Hardware UUID: `<Hardware ID from the previous step>`
+    * Hardware UUID: `<Access Gateway Hardware ID>`
     * Gateway Description: `my-gateway`
-    * Challenge Key: `<Challenge Key from the previous step>`
+    * Challenge Key: `<Access Gateway Challenge Key>`
 4. Click on "Save and Continue". You should ignore the next tabs and continue clicking on "Save and Continue".
 5. Click on "my-gateway"
 6. You should see your gateway's health go to "Good" after a few minutes

@@ -89,15 +89,15 @@ You can see the deployment's status by running `juju status`. The deployment is 
 
 ```console
 ubuntu@host:~$ juju status
-Model    Controller        Cloud/Region         Version  SLA          Timestamp
-default  virtual-machines  localhost/localhost  2.9.35   unsupported  15:46:28-04:00
+Model  Controller     Cloud/Region   Version  SLA          Timestamp
+edge   aws-us-east-2  aws/us-east-2  2.9.42   unsupported  11:41:52Z
 
 App                            Version  Status  Scale  Charm                          Channel  Rev  Exposed  Message
-magma-access-gateway-operator           active      1  magma-access-gateway-operator  beta      14  no       
+magma-access-gateway-operator           active      1  magma-access-gateway-operator  stable    29  no       
 
 Unit                              Workload  Agent  Machine  Public address  Ports  Message
-magma-access-gateway-operator/0*  active    idle   0        10.24.157.241          
+magma-access-gateway-operator/0*  active    idle   0        18.188.161.66          
 
 Machine  State    Address        Inst id               Series  AZ  Message
-0        started  10.24.157.241  manual:10.24.157.241  focal       Manually provisioned machine
+0        started  18.188.161.66  manual:18.188.161.66  focal       Manually provisioned machine
 ```
