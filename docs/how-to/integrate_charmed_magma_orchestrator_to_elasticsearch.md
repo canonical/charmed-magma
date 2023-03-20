@@ -48,5 +48,4 @@
     juju config orc8r-eventd elasticsearch-url=<your elasticsearch http url>
     ```
 
-    Confirm changes by visiting `https://<your org name>.nms.<your domain>` and checking 
-    the `Events` chart of your network's dashboard.
+    Confirm changes by visiting `https://<your org name>.nms.<your domain>` and checking the `Events` chart of your network's dashboard.

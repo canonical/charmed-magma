@@ -12,18 +12,12 @@ In this section, we will deploy Magma Orchestrator on AWS's managed Kubernetes s
 Create a Kubernetes cluster on AWS using `eksctl`:
 
 ```console
-eksctl create cluster --name magma-orc8r --region us-east-2 --node-type t2.xlarge
+eksctl create cluster --name magma-orc8r --region us-east-2 --node-type t2.xlarge --with-oidc
 ```
 
 This step will take a couple of minutes. You can check that the cluster is running by running `kubectl get nodes`.
 
 ### Add the EBS CSI addon to the Kubernetes cluster
-
-Create an IAM OIDC provider for your cluster:
-
-```console
-eksctl utils associate-iam-oidc-provider --cluster magma-orc8r --approve
-```
 
 Create an IAM service account:
 
@@ -44,13 +38,13 @@ Add the `aws-ebs-csi-driver` addon to the Kubernetes cluster:
 eksctl create addon --name aws-ebs-csi-driver --cluster magma-orc8r --service-account-role-arn arn:aws:iam::<your IAM user ID>:role/AmazonEKS_EBS_CSI_DriverRole
 ```
 
+## Deploy Magma Orchestrator
+
 Add the Kubernetes cloud to Juju:
 
 ```console
 juju add-k8s eks-magma-orc8r --client --controller aws-us-east-2
 ```
-
-## Deploy Magma Orchestrator
 
 Create a Juju model:
 
@@ -229,7 +223,7 @@ Create a file named `dns.json` with the following content:
 }
 ```
 
-Each <mark>highlighted line</mark> line needs to be modified using the mapping presented in the note above.
+Each <mark>highlighted line</mark> needs to be modified using the mapping presented in the note above.
 
 Create the CNAME records in Route53:
 

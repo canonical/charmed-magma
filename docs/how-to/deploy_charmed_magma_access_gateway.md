@@ -21,11 +21,7 @@ The Access Gateway must be installed on an Ubuntu machine with the following spe
 
 !!! info
 
-    For small networks (i.e. 10 eNBs, 10 active subscribers), Magma can produce around 1 GB of logs
-    per week. Most of these logs will go to /var/log/journal. To avoid problems with insufficient 
-    disk space, it is recommended to configure log rotation for systemd-journald. 
-    For more information please visit 
-    [Ubuntu manuals](https://manpages.ubuntu.com/manpages/focal/man5/journald.conf.5.html).
+    For small networks (i.e. 10 eNBs, 10 active subscribers), Magma can produce around 1 GB of logs per week. Most of these logs will go to /var/log/journal. To avoid problems with insufficient disk space, it is recommended to configure log rotation for systemd-journald.  For more information please visit [Ubuntu manuals](https://manpages.ubuntu.com/manpages/focal/man5/journald.conf.5.html).
 
 ## Install Magma Access Gateway
 

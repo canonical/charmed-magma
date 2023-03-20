@@ -2,7 +2,7 @@
 
 ## Relate the Access Gateway with the Orchestrator
 
-Offer the orchestrator relation outside of the orchestrator model:
+Offer the orchestrator relation outside the orchestrator model:
 
 ```bash
 juju offer orc8r-nginx:orchestrator
