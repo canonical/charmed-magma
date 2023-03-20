@@ -17,6 +17,7 @@ nav:
     - "How-to Guides":
         - "Deploy Charmed Magma Orchestrator": 'how-to/deploy_charmed_magma_orchestrator.md'
         - "Deploy Charmed Magma Access Gateway": 'how-to/deploy_charmed_magma_access_gateway.md'
+        - "Import the Orchestrator admin operator certificate": 'how-to/import_the_orchestrator_admin_operator_certificate.md'
         - "Integrate Charmed Magma Access Gateway to Orchestrator": 'how-to/integrate_charmed_magma_access_gateway_to_orchestrator.md'
         - "Integrate Charmed Magma Access Gateway to srsRAN": 'how-to/integrate_charmed_magma_access_gateway_to_srsRAN.md'
         - "Integrate Charmed Magma Orchestrator to Elasticsearch": 'how-to/integrate_charmed_magma_orchestrator_to_elasticsearch.md'
