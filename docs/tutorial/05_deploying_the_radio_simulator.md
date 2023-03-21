@@ -56,14 +56,14 @@ Create a file named `99-srsran.yaml` that contains the following content and mov
 
 ```yaml title="99-srsran.yaml"
 network:
-    ethernets:
-        eth1:
-            dhcp4: true
-            dhcp6: false
-            match:
-                macaddress: <eth1 interface mac address>
-            set-name: eth1
-    version: 2
+  version: 2
+  ethernets:
+    eth1:
+      dhcp4: true
+      dhcp6: false
+      match:
+        macaddress: <eth1 interface mac address>
+      set-name: eth1
 ```
 
 Apply the netplan configuration:
