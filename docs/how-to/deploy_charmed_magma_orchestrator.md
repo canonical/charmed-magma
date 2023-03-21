@@ -9,8 +9,7 @@ The Orchestrator must be installed on a Kubernetes cluster with the following sp
 
 !!! note
 
-    If the Juju controller is running on your Kubernetes cluster, it should use a LoadBalancer
-    service type
+    If the Juju controller is running on your Kubernetes cluster, it should use a LoadBalancer service type
 
 ## Deploy the magma-orc8r bundle
 
@@ -43,8 +42,7 @@ applications:
 
 !!! info
     
-    Elasticsearch is not part of the magma-orc8r bundle and needs to be deployed separately. 
-    For details regarding Elasticsearch integration please visit [Integrate Charmed Magma Orchestrator to Elasticsearch](integrate_charmed_magma_orchestrator_to_elasticsearch.md)
+    Elasticsearch is not part of the magma-orc8r bundle and needs to be deployed separately. For details regarding Elasticsearch integration please visit [Integrate Charmed Magma Orchestrator to Elasticsearch](integrate_charmed_magma_orchestrator_to_elasticsearch.md)
 
 Deploy Orchestrator:
 
@@ -54,25 +52,6 @@ juju deploy magma-orc8r --overlay overlay.yaml --trust --channel=beta
 
 The deployment is completed when all services are in the `Active-Idle` state.
 
-## Import the admin operator HTTPS certificate
-
-Retrieve the PFX package that contains the certificates to authenticate against Magma Orchestrator:
-
-```bash
-juju scp --container="magma-orc8r-certifier" orc8r-certifier/0:/var/opt/magma/certs/admin_operator.pfx admin_operator.pfx
-```
-
-Retrieve the pfx package password:
-
-```bash
-juju run-action orc8r-certifier/leader get-pfx-package-password --wait
-```
-
-!!! info
-
-    The pfx package was copied to your current working directory. It can now be loaded in your browser or used
-    to make API calls to Magma orchestrator.
-
 ## Setup DNS
 
 Retrieve the services that need to be exposed:
@@ -81,7 +60,7 @@ Retrieve the services that need to be exposed:
 juju run-action orc8r-orchestrator/leader get-load-balancer-services --wait
 ```
 
-In your domain registrar, create A records for the following Kubernetes services:
+In your domain registrar, create DNS records for the following Kubernetes services:
 
 | Address                                | Hostname                                | 
 |----------------------------------------|-----------------------------------------|
@@ -99,5 +78,4 @@ Get the master organization's username and password:
 juju run-action nms-magmalte/leader get-master-admin-credentials --wait
 ```
 
-Confirm successful deployment by visiting `https://host.nms.<your domain>` and logging in
-with the `admin-username` and `admin-password` outputted here.
+Confirm successful deployment by visiting `https://master.nms.<your domain>` and logging in with the `admin-username` and `admin-password` outputted here.
