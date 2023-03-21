@@ -60,7 +60,7 @@ Retrieve the services that need to be exposed:
 juju run-action orc8r-orchestrator/leader get-load-balancer-services --wait
 ```
 
-In your domain registrar, create A records for the following Kubernetes services:
+In your domain registrar, create DNS records for the following Kubernetes services:
 
 | Address                                | Hostname                                | 
 |----------------------------------------|-----------------------------------------|
