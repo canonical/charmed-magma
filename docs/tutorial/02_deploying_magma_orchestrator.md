@@ -15,14 +15,7 @@ Create a Kubernetes cluster on AWS using `eksctl`:
 eksctl create cluster --name magma-orc8r --region us-east-2 --node-type t2.xlarge --with-oidc
 ```
 
-This step will take a couple of minutes. You can check that the cluster is running by running `kubectl get nodes`. The output should contain the Kubernetes nodes:
-
-```console
-ubuntu@host:~$ kubectl get nodes
-NAME                                           STATUS   ROLES    AGE   VERSION
-ip-192-168-13-177.us-east-2.compute.internal   Ready    <none>   20h   v1.25.6-eks-48e63af
-ip-192-168-68-139.us-east-2.compute.internal   Ready    <none>   20h   v1.25.6-eks-48e63af
-```
+This step will take a couple of minutes. You can check that the cluster is running by running `kubectl get nodes`.
 
 ### Add the EBS CSI addon to the Kubernetes cluster
 
