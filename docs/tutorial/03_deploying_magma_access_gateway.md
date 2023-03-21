@@ -2,21 +2,7 @@
 
 ## Create an EC2 instance on AWS
 
-### Create a security group for allowing SSH access
-
-Create a security group in your default VPC:
-
-```console
-aws ec2 create-security-group --group-name "demo" --description "Allow SSH access" --vpc-id <your VPC ID>
-```
-
-Note the `GroupId` and use it to add a rule that allows SSH access:
-
-```console
-aws ec2 authorize-security-group-ingress --group-id <security group ID> --protocol -1 --port -1 --cidr 0.0.0.0/0
-```
-
-### Create an instance on AWS
+### Create the EC2 instance
 
 Create an AWS EC2 instance running Ubuntu 20.04:
 
@@ -31,7 +17,7 @@ aws ec2 run-instances \
   --block-device-mapping "[ { \"DeviceName\": \"/dev/sda1\", \"Ebs\": { \"VolumeSize\": 50 } } ]"
 ```
 
-Replace `<your security group ID>` with the Security Group ID created in the step before and replace `<your ssh key name>` with the name of your ssh key.
+Replace `<your security group ID>` and `<your ssh key name>` with the appropriate values.
 
 Note the `InstanceId` of the created instance and use it to retrieve its public IP address:
 
@@ -42,12 +28,6 @@ aws ec2 describe-instances --filters "Name=instance-id,Values=<your instance ID>
 Note this address, you will need it very soon.
 
 ### Attach a secondary network interface to the instance
-
-Create a subnet called **S1**:
-
-```console
-aws ec2 create-subnet --vpc-id <your VPC ID> --cidr-block 172.31.126.0/28 --availability-zone us-east-2a --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=s1}]'
-```
 
 Note the `SubnetId` and create a network interface on this subnet:
 
