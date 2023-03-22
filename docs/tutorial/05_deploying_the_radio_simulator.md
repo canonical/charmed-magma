@@ -77,7 +77,7 @@ netplan apply
 Deploy srsRAN to the machine:
 
 ```console
-juju deploy srs-enb-ue --channel=edge --to <Machine ID>
+juju deploy srs-enb-ue --channel=edge --config bind-interface="eth1" --to <Machine ID>
 ```
 
 ## Integrate the radio simulator with Magma Access Gateway
