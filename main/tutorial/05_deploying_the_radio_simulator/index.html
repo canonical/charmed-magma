@@ -384,7 +384,7 @@
 </code></pre></div>
 <h2 id="deploy-the-srsran-radio-simulator">Deploy the srsRAN radio simulator</h2>
 <p>Deploy srsRAN to the machine:</p>
-<div class="highlight"><pre><span></span><code><span class="go">juju deploy srs-enb-ue --channel=edge --to &lt;Machine ID&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="go">juju deploy srs-enb-ue --channel=edge --config bind-interface="eth1" --to &lt;Machine ID&gt;</span>
 </code></pre></div>
 <h2 id="integrate-the-radio-simulator-with-magma-access-gateway">Integrate the radio simulator with Magma Access Gateway</h2>
 <div class="highlight"><pre><span></span><code><span class="go">juju relate srs-enb-ue:lte-core magma-access-gateway-operator:lte-core</span>
