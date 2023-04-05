@@ -59,7 +59,7 @@ unit-magma-access-gateway-operator-0:
 
 ### Create a user in the `magma-test` organization:
 
-1. Login to the `master` Orchestrator organization at this address: `https://master.nms.<your domain>`.
+1. Login to the `host` Orchestrator organization at this address: `https://host.nms.<your domain>`.
 2. Click on the :fontawesome-solid-user-plus: icon next to the `magma-test` organization
 3. Add a user with the following attributes:
     * email: `admin@juju.com`

@@ -47,7 +47,7 @@ applications:
 Deploy Orchestrator:
 
 ```bash
-juju deploy magma-orc8r --overlay overlay.yaml --trust --channel=beta
+juju deploy magma-orc8r --overlay overlay.yaml --trust
 ```
 
 The deployment is completed when all services are in the `Active-Idle` state.
@@ -72,10 +72,10 @@ In your domain registrar, create DNS records for the following Kubernetes servic
 
 ## Verify the deployment
 
-Get the master organization's username and password:
+Get the host organization's username and password:
 
 ```bash
-juju run-action nms-magmalte/leader get-master-admin-credentials --wait
+juju run-action nms-magmalte/leader get-host-admin-credentials --wait
 ```
 
-Confirm successful deployment by visiting `https://master.nms.<your domain>` and logging in with the `admin-username` and `admin-password` outputted here.
+Confirm successful deployment by visiting `https://host.nms.<your domain>` and logging in with the `admin-username` and `admin-password` outputted here.

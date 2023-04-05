@@ -43,5 +43,5 @@ Make sure to use a `cidr-block` that fits into your default VPC's block.
 Bootstrap a Juju controller on AWS:
 
 ```console
-juju bootstrap --config vpc-id=<your VPC ID> aws/us-east-2
+juju bootstrap aws/us-east-2
 ```

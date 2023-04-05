@@ -43,7 +43,7 @@ aws ec2 attach-network-interface --network-interface-id <your network interface 
 
 ### Downgrade the Kernel on the instance
 
-Unfortunately, the default kernel on the AWS Ubuntu 20.04 AMI image is too new for Magma Access Gateway to work properly. We need to downgrade it to the LTS version `5.4.0`. SSH into the AWS instance using its public IP and follow the instructions in this [blog post](https://discourse.ubuntu.com/t/how-to-downgrade-the-kernel-on-ubuntu-20-04-to-the-5-4-lts-version/26459). In the end, the `GRUB_DEFAULT` entry in the GRUB menu should look like `'Advanced options for Ubuntu>Ubuntu, with Linux 5.4.0-1097-aws'`.
+Unfortunately, the default kernel on the AWS Ubuntu 20.04 AMI image is too new for Magma Access Gateway to work properly. We need to downgrade it to the LTS version `5.4.0`. SSH into the AWS instance using its public IP and follow the instructions in this [blog post](https://discourse.ubuntu.com/t/how-to-downgrade-the-kernel-on-ubuntu-20-04-to-the-5-4-lts-version/26459). In the end, the `GRUB_DEFAULT` entry in the GRUB menu should look like `'Advanced options for Ubuntu>Ubuntu, with Linux 5.4.0-1099-aws'`.
 
 ## Deploy Magma Access Gateway
 
