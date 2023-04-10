@@ -231,19 +231,19 @@ Create the CNAME records in Route53:
 aws route53 change-resource-record-sets --hosted-zone-id <your hosted zone ID> --change-batch file://dns.json
 ```
 
-Now, navigate to `https://master.nms.<your domain name>`, you should receive a warning because we are using self-signed-certificates, click on "Proceed".
+Now, navigate to `https://host.nms.<your domain name>`, you should receive a warning because we are using self-signed-certificates, click on "Proceed".
 
 ## Login to Magma's Network Management System
 
-Get the master organization's username and password:
+Get the host organization's username and password:
 
 ```console
-juju run-action nms-magmalte/leader get-master-admin-credentials --wait
+juju run-action nms-magmalte/leader get-host-admin-credentials --wait
 ```
 
 Note the `admin-username` and `admin-password` values.
 
-Confirm successful deployment by visiting `https://master.nms.<your domain name>` and logging in with the `admin-username` and `admin-password` outputted here.
+Confirm successful deployment by visiting `https://host.nms.<your domain name>` and logging in with the `admin-username` and `admin-password` outputted here.
 
 ![Login Page]
 
