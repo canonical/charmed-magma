@@ -4,6 +4,3 @@
 [submodule "access-gateway"]
 	path = access-gateway
 	url = https://github.com/canonical/magma-access-gateway-operator
-[submodule "federation-gateway"]
-	path = federation-gateway
-	url = https://github.com/canonical/magma-federation-gateway
