@@ -1,4 +1,4 @@
-# Deploy Charmed Magma Orchestrator
+# Deploy Charmed Magma Orchestrator 1.8
 
 ## Requirements
 
@@ -47,7 +47,7 @@ applications:
 Deploy Orchestrator:
 
 ```bash
-juju deploy magma-orc8r --overlay overlay.yaml --trust
+juju deploy magma-orc8r --overlay overlay.yaml --trust --channel=1.8/stable
 ```
 
 The deployment is completed when all services are in the `Active-Idle` state.
