@@ -1,5 +1,7 @@
 # Deploy Charmed Magma Orchestrator 1.8
 
+# Deploy Charmed Magma Orchestrator 1.8
+
 ## Requirements
 
 The Orchestrator must be installed on a Kubernetes cluster with the following specifications:

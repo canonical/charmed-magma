@@ -1,5 +1,7 @@
 # Deploy Charmed Magma Access Gateway 1.8
 
+# Deploy Charmed Magma Access Gateway 1.8
+
 ## Requirements
 
 The Access Gateway must be installed on an Ubuntu machine with the following specifications:
