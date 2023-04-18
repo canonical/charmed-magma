@@ -321,19 +321,17 @@
 <h2 id="create-an-apn-in-magma-orchestrator">Create an APN in Magma Orchestrator</h2>
 <p>Create an Access Point Name (APN) in Magma Orchestrator:</p>
 <ol>
-<li>Login to <code>https://magma-test.&lt;your domain&gt;</code></li>
+<li>Login to <code>https://magma-test.nms.&lt;your domain&gt;</code></li>
 <li>Click on "Traffic" on the left panel</li>
 <li>Click on "APNs"</li>
 <li>Click on "Create New APN"</li>
-<li>Fill in the following values:<ul>
+<li>Fill in the following values:</li>
 <li>APN ID: <code>default</code></li>
 <li>Class ID: <code>9</code></li>
 <li>ARP Priority Level: <code>15</code></li>
 <li>Max Required Bandwidth<ul>
 <li>Upload: <code>1000000</code></li>
 <li>Download: <code>1000000</code></li>
-</ul>
-</li>
 </ul>
 </li>
 <li>ARP Pre-emption-Capability: <code>Disabled</code></li>
@@ -343,11 +341,11 @@
 <h2 id="add-a-network-subscriber">Add a network subscriber</h2>
 <p>Add a subscriber to the network in Magma Orchestrator:</p>
 <ol>
-<li>Login to <code>https://magma-test.&lt;your domain&gt;</code></li>
+<li>Login to <code>https://magma-test.nms.&lt;your domain&gt;</code></li>
 <li>Click on "Subscriber" on the left panel</li>
-<li>Click on "Add Subscriber"</li>
+<li>Click on "Add Subscribers"</li>
 <li>Click on "Add"</li>
-<li>Fill in the following values:<ul>
+<li>Fill in the following values:</li>
 <li>Subscriber Name: <code>IMSI001010000000001</code></li>
 <li>IMSI: <code>IMSI001010000000001</code></li>
 <li>Auth Key: <code>00112233445566778899aabbccddeeff</code></li>
@@ -355,8 +353,6 @@
 <li>Service: <code>ACTIVE</code></li>
 <li>Data Plan: <code>default</code></li>
 <li>Active APNs: <code>default</code></li>
-</ul>
-</li>
 <li>Click on "Save"</li>
 <li>Click on "Save and Add Subscribers"</li>
 </ol>
@@ -373,8 +369,8 @@
 </code></pre></div>
 <div class="admonition success congratulations">
 <p class="admonition-title">Success</p>
-<p>You have a fully functioning 4G Network <img alt="🥳" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f973.svg" title=":partying_face:"/></p>
 </div>
+<p>You have a fully functioning 4G Network <img alt="🥳" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f973.svg" title=":partying_face:"/></p>
 </article>
 </div>
 <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
