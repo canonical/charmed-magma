@@ -3,7 +3,7 @@
 In this section, we will deploy Magma Orchestrator on AWS's managed Kubernetes service (EKS) using Juju.
 
 !!! note
-    :material-dns: The following steps assume that you have a domain name registered with a DNS provider and that you have a hosted zone in AWS's Route53 associated with this domain. Everywhere you see `<your domain name>` in the following steps, you should replace it with your domain name.
+:material-dns: The following steps assume that you have a domain name registered with a DNS provider and that you have a hosted zone in AWS's Route53 associated with this domain. Everywhere you see `<your domain name>` in the following steps, you should replace it with your domain name.
 
 ## Create a Kubernetes cluster
 
@@ -84,40 +84,40 @@ magma-orchestrator  magma-orchestrator-k8s-localhost  magma-orchestrator-k8s/loc
 [...]
 
 Unit                              Workload  Agent  Address      Ports     Message
-nms-magmalte/0*                   active    idle   10.1.50.73             
-nms-nginx-proxy/0*                active    idle   10.1.50.75             
-orc8r-accessd/0*                  active    idle   10.1.50.76             
-orc8r-alertmanager-configurer/0*  active    idle   10.1.50.81             
-orc8r-alertmanager/0*             active    idle   10.1.50.77             
-orc8r-analytics/0*                active    idle   10.1.50.82             
-orc8r-bootstrapper/0*             active    idle   10.1.50.84             
-orc8r-certifier/0*                active    idle   10.1.50.87             
-orc8r-configurator/0*             active    idle   10.1.50.88             
-orc8r-ctraced/0*                  active    idle   10.1.50.89             
-orc8r-device/0*                   active    idle   10.1.50.90             
-orc8r-directoryd/0*               active    idle   10.1.50.91             
-orc8r-dispatcher/0*               active    idle   10.1.50.92             
-orc8r-eventd/0*                   active    idle   10.1.50.94             
-orc8r-ha/0*                       active    idle   10.1.50.95             
-orc8r-lte/0*                      active    idle   10.1.50.97             
-orc8r-metricsd/0*                 active    idle   10.1.50.99             
-orc8r-nginx/0*                    active    idle   10.1.50.102            
-orc8r-obsidian/0*                 active    idle   10.1.50.103            
-orc8r-orchestrator/0*             active    idle   10.1.50.106            
-orc8r-policydb/0*                 active    idle   10.1.50.107            
-orc8r-prometheus-cache/0*         active    idle   10.1.50.110            
-orc8r-prometheus-configurer/0*    active    idle   10.1.50.116            
-orc8r-prometheus/0*               active    idle   10.1.50.72             
-orc8r-service-registry/0*         active    idle   10.1.50.111            
-orc8r-smsd/0*                     active    idle   10.1.50.112            
-orc8r-state/0*                    active    idle   10.1.50.115            
-orc8r-streamer/0*                 active    idle   10.1.50.117            
-orc8r-subscriberdb-cache/0*       active    idle   10.1.50.119            
-orc8r-subscriberdb/0*             active    idle   10.1.50.118            
-orc8r-tenants/0*                  active    idle   10.1.50.120            
-orc8r-user-grafana/0*             active    idle   10.1.50.123            
+nms-magmalte/0*                   active    idle   10.1.50.73
+nms-nginx-proxy/0*                active    idle   10.1.50.75
+orc8r-accessd/0*                  active    idle   10.1.50.76
+orc8r-alertmanager-configurer/0*  active    idle   10.1.50.81
+orc8r-alertmanager/0*             active    idle   10.1.50.77
+orc8r-analytics/0*                active    idle   10.1.50.82
+orc8r-bootstrapper/0*             active    idle   10.1.50.84
+orc8r-certifier/0*                active    idle   10.1.50.87
+orc8r-configurator/0*             active    idle   10.1.50.88
+orc8r-ctraced/0*                  active    idle   10.1.50.89
+orc8r-device/0*                   active    idle   10.1.50.90
+orc8r-directoryd/0*               active    idle   10.1.50.91
+orc8r-dispatcher/0*               active    idle   10.1.50.92
+orc8r-eventd/0*                   active    idle   10.1.50.94
+orc8r-ha/0*                       active    idle   10.1.50.95
+orc8r-lte/0*                      active    idle   10.1.50.97
+orc8r-metricsd/0*                 active    idle   10.1.50.99
+orc8r-nginx/0*                    active    idle   10.1.50.102
+orc8r-obsidian/0*                 active    idle   10.1.50.103
+orc8r-orchestrator/0*             active    idle   10.1.50.106
+orc8r-policydb/0*                 active    idle   10.1.50.107
+orc8r-prometheus-cache/0*         active    idle   10.1.50.110
+orc8r-prometheus-configurer/0*    active    idle   10.1.50.116
+orc8r-prometheus/0*               active    idle   10.1.50.72
+orc8r-service-registry/0*         active    idle   10.1.50.111
+orc8r-smsd/0*                     active    idle   10.1.50.112
+orc8r-state/0*                    active    idle   10.1.50.115
+orc8r-streamer/0*                 active    idle   10.1.50.117
+orc8r-subscriberdb-cache/0*       active    idle   10.1.50.119
+orc8r-subscriberdb/0*             active    idle   10.1.50.118
+orc8r-tenants/0*                  active    idle   10.1.50.120
+orc8r-user-grafana/0*             active    idle   10.1.50.123
 postgresql-k8s/0*                 active    idle   10.1.50.126  5432/TCP  Pod configured
-tls-certificates-operator/0*      active    idle   10.1.50.121            
+tls-certificates-operator/0*      active    idle   10.1.50.121
 ```
 
 ## Configure Route53
@@ -151,15 +151,14 @@ unit-orc8r-orchestrator-0:
 The hostnames associated to each service will differ from those shown here.
 
 !!! note
-    We will need to create CNAME DNS entries using the following mapping:
+We will need to create CNAME DNS entries using the following mapping:
 
-    | Kubernetes LoadBalancer Service  | CNAME Entry                                  | 
+    | Kubernetes LoadBalancer Service  | CNAME Entry                                  |
     |----------------------------------|----------------------------------------------|
-    | `<orc8r-bootstrap-nginx FQDN>`   | `bootstrapper-controller.<your domain name>` | 
-    | `<orc8r-nginx-proxy FQDN>`       | `api.<your domain name>`                     | 
-    | `<orc8r-clientcert-nginx FQDN>`  | `controller.<your domain name>`              | 
-    | `<nginx-proxy FQDN>`             | `*.nms.<your domain name>`                   | 
-
+    | `<orc8r-bootstrap-nginx FQDN>`   | `bootstrapper-controller.<your domain name>` |
+    | `<orc8r-nginx-proxy FQDN>`       | `api.<your domain name>`                     |
+    | `<orc8r-clientcert-nginx FQDN>`  | `controller.<your domain name>`              |
+    | `<nginx-proxy FQDN>`             | `*.nms.<your domain name>`                   |
 
 Create a file named `dns.json` with the following content:
 
@@ -247,4 +246,4 @@ Confirm successful deployment by visiting `https://host.nms.<your domain name>` 
 
 ![Login Page]
 
-[Login Page]: ../images/login_page.png
+[login page]: ../images/login_page.png

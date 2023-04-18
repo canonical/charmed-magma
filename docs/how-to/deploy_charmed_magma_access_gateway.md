@@ -1,4 +1,4 @@
-# Deploy Charmed Magma Access Gateway
+# Deploy Charmed Magma Access Gateway 1.8
 
 ## Requirements
 
@@ -9,7 +9,6 @@ The Access Gateway must be installed on an Ubuntu machine with the following spe
 - **:fontawesome-solid-memory: Memory**: 4GB RAM
 - **:material-harddisk: Storage**: 32GB or greater SSD
 - **:material-ethernet: Networking**: At least two ethernet interfaces using two different subnets (**SGi** for internet connectivity and **S1** for enodeB connectivity)
-
 
 !!! danger
 
@@ -26,15 +25,14 @@ The Access Gateway must be installed on an Ubuntu machine with the following spe
 ## Install Magma Access Gateway
 
 === "Option 1: DHCP network configuration"
-    
+
     Deploy Magma Access Gateway:
     ``` bash
-    juju deploy magma-access-gateway-operator --config sgi=enp0s1 --config s1=enp0s2
+    juju deploy magma-access-gateway-operator --config sgi=enp0s1 --config s1=enp0s2 --channel 1.8/stable
     ```
-    
+
     !!! info
         The interface names will need to be adjusted based on your specific machine.
-
 
 === "Option 2: Static network configuration"
 
@@ -60,6 +58,5 @@ The Access Gateway must be installed on an Ubuntu machine with the following spe
     Deploy Magma Access Gateway:
 
     ```bash
-    juju deploy magma-access-gateway-operator --config agw_config.yaml
+    juju deploy magma-access-gateway-operator --config agw_config.yaml --channel 1.8/stable
     ```
-
