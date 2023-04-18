@@ -71,7 +71,7 @@ applications:
 Deploy Magma's Orchestrator with this overlay file:
 
 ```console
-juju deploy magma-orc8r --overlay overlay.yaml --trust
+juju deploy magma-orc8r --overlay overlay.yaml --trust --channel=1.8/stable
 ```
 
 You can see the deployment's status by running `juju status`. The deployment is completed when all units are in the `Active-Idle` state.

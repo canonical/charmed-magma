@@ -63,7 +63,7 @@ juju add-machine --private-key=<path to your private key> ssh:ubuntu@<EC2 instan
 Note the Juju machine ID and deploy Magma Access Gateway to it:
 
 ```console
-juju deploy magma-access-gateway-operator --config sgi=eth0 --config s1=eth1 --to <Machine ID>
+juju deploy magma-access-gateway-operator --config sgi=eth0 --config s1=eth1 --channel=1.8/stable --to <Machine ID>
 ```
 
 You can see the deployment's status by running `juju status`. The deployment is completed when the application is in the `Active-Idle` state.
