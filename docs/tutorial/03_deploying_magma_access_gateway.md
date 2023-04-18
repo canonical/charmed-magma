@@ -8,6 +8,7 @@ Create an AWS EC2 instance running Ubuntu 20.04:
 
 ```console
 aws ec2 run-instances \
+  --placement AvailabilityZone=us-east-2a \
   --security-group-ids <your security group ID> \
   --image-id ami-0568936c8d2b91c4e \
   --count 1 \
@@ -32,7 +33,7 @@ Note this address, you will need it very soon.
 Note the `SubnetId` and create a network interface on this subnet:
 
 ```console
-aws ec2 create-network-interface --subnet-id <your subnet ID> --group <your security group>
+aws ec2 create-network-interface --subnet-id <your subnet ID> --group <your security group> --tag-specifications 'ResourceType=network-interface,Tags=[{Key=Name,Value=agw-s1}]'
 ```
 
 Note the `NetworkInterfaceId` and use it to attach the network interface to the EC2 instance:
@@ -56,7 +57,7 @@ juju add-model edge aws/us-east-2
 Wait for the instance to boot up and be accessible via SSH, then add it as a Juju machine:
 
 ```console
-juju add-machine --private-key=<path to your private key> ssh:ubuntu@<EC2 instance IP address>
+juju add-machine --private-key=<path to your private key> ssh:ubuntu@<EC2 instance public IP address>
 ```
 
 Note the Juju machine ID and deploy Magma Access Gateway to it:
@@ -65,7 +66,7 @@ Note the Juju machine ID and deploy Magma Access Gateway to it:
 juju deploy magma-access-gateway-operator --config sgi=eth0 --config s1=eth1 --channel=1.8/stable --to <Machine ID>
 ```
 
-You can see the deployment's status by running `juju status`. The deployment is completed when the application is in the `Active-Idle` state. 
+You can see the deployment's status by running `juju status`. The deployment is completed when the application is in the `Active-Idle` state.
 
 ```console
 ubuntu@host:~$ juju status
@@ -73,10 +74,10 @@ Model  Controller     Cloud/Region   Version  SLA          Timestamp
 edge   aws-us-east-2  aws/us-east-2  2.9.42   unsupported  11:41:52Z
 
 App                            Version  Status  Scale  Charm                          Channel  Rev  Exposed  Message
-magma-access-gateway-operator           active      1  magma-access-gateway-operator  stable    29  no       
+magma-access-gateway-operator           active      1  magma-access-gateway-operator  stable    29  no
 
 Unit                              Workload  Agent  Machine  Public address  Ports  Message
-magma-access-gateway-operator/0*  active    idle   0        18.188.161.66          
+magma-access-gateway-operator/0*  active    idle   0        18.188.161.66
 
 Machine  State    Address        Inst id               Series  AZ  Message
 0        started  18.188.161.66  manual:18.188.161.66  focal       Manually provisioned machine

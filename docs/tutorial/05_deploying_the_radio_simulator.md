@@ -7,6 +7,7 @@ Create an AWS EC2 instance running Ubuntu 20.04:
 ```console
 aws ec2 run-instances \
   --security-group-ids <your security group> \
+  --placement AvailabilityZone=us-east-2a \
   --image-id ami-0568936c8d2b91c4e \
   --count 1 \
   --instance-type t2.xlarge \
@@ -22,7 +23,7 @@ Replace the security group ID with one that allows SSH access and note the insta
 Using the same **S1** subnet that was created during step 3, create a new network interface:
 
 ```console
-aws ec2 create-network-interface --subnet-id <your subnet ID> --group <your security group>
+aws ec2 create-network-interface --subnet-id <your subnet ID> --group <your security group> --tag-specifications 'ResourceType=network-interface,Tags=[{Key=Name,Value=radio-simulator-s1}]'
 ```
 
 Attach the network interface to the EC2 instance:
@@ -36,7 +37,7 @@ aws ec2 attach-network-interface --network-interface-id <your network interface 
 Wait for the instance to boot up and be accessible via SSH, then add it as a Juju machine:
 
 ```console
-juju add-machine --private-key=<path to your private key> ssh:ubuntu@<EC2 instance IP address>
+juju add-machine --private-key=<path to your private key> ssh:ubuntu@<EC2 instance public IP address>
 ```
 
 ## Configure Netplan to use the secondary network interface
@@ -48,6 +49,7 @@ juju ssh <Your instance ID>
 ```
 
 Retrieve the mac address used by `eth1`:
+
 ```console
 ip a show eth1
 ```
@@ -69,7 +71,7 @@ network:
 Apply the netplan configuration:
 
 ```console
-netplan apply
+sudo netplan apply
 ```
 
 ## Deploy the srsRAN radio simulator
