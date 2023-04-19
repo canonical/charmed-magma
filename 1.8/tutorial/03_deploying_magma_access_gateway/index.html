@@ -340,6 +340,7 @@
 <h3 id="create-the-ec2-instance">Create the EC2 instance</h3>
 <p>Create an AWS EC2 instance running Ubuntu 20.04:</p>
 <div class="highlight"><pre><span></span><code><span class="go">aws ec2 run-instances \</span>
+<span class="go">  --placement AvailabilityZone=us-east-2a \</span>
 <span class="go">  --security-group-ids &lt;your security group ID&gt; \</span>
 <span class="go">  --image-id ami-0568936c8d2b91c4e \</span>
 <span class="go">  --count 1 \</span>
@@ -355,7 +356,7 @@
 <p>Note this address, you will need it very soon.</p>
 <h3 id="attach-a-secondary-network-interface-to-the-instance">Attach a secondary network interface to the instance</h3>
 <p>Note the <code>SubnetId</code> and create a network interface on this subnet:</p>
-<div class="highlight"><pre><span></span><code><span class="go">aws ec2 create-network-interface --subnet-id &lt;your subnet ID&gt; --group &lt;your security group&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="go">aws ec2 create-network-interface --subnet-id &lt;your subnet ID&gt; --group &lt;your security group&gt; --tag-specifications 'ResourceType=network-interface,Tags=[{Key=Name,Value=agw-s1}]'</span>
 </code></pre></div>
 <p>Note the <code>NetworkInterfaceId</code> and use it to attach the network interface to the EC2 instance:</p>
 <div class="highlight"><pre><span></span><code><span class="go">aws ec2 attach-network-interface --network-interface-id &lt;your network interface ID&gt; --instance-id &lt;your instance ID&gt; --device-index 1</span>
@@ -367,21 +368,21 @@
 <div class="highlight"><pre><span></span><code><span class="go">juju add-model edge aws/us-east-2</span>
 </code></pre></div>
 <p>Wait for the instance to boot up and be accessible via SSH, then add it as a Juju machine:</p>
-<div class="highlight"><pre><span></span><code><span class="go">juju add-machine --private-key=&lt;path to your private key&gt; ssh:ubuntu@&lt;EC2 instance IP address&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="go">juju add-machine --private-key=&lt;path to your private key&gt; ssh:ubuntu@&lt;EC2 instance public IP address&gt;</span>
 </code></pre></div>
 <p>Note the Juju machine ID and deploy Magma Access Gateway to it:</p>
 <div class="highlight"><pre><span></span><code><span class="go">juju deploy magma-access-gateway-operator --config sgi=eth0 --config s1=eth1 --channel=1.8/stable --to &lt;Machine ID&gt;</span>
 </code></pre></div>
-<p>You can see the deployment's status by running <code>juju status</code>. The deployment is completed when the application is in the <code>Active-Idle</code> state. </p>
+<p>You can see the deployment's status by running <code>juju status</code>. The deployment is completed when the application is in the <code>Active-Idle</code> state.</p>
 <div class="highlight"><pre><span></span><code><span class="gp">ubuntu@host:~$ </span>juju<span class="w"> </span>status
 <span class="go">Model  Controller     Cloud/Region   Version  SLA          Timestamp</span>
 <span class="go">edge   aws-us-east-2  aws/us-east-2  2.9.42   unsupported  11:41:52Z</span>
 
 <span class="go">App                            Version  Status  Scale  Charm                          Channel  Rev  Exposed  Message</span>
-<span class="go">magma-access-gateway-operator           active      1  magma-access-gateway-operator  stable    29  no       </span>
+<span class="go">magma-access-gateway-operator           active      1  magma-access-gateway-operator  stable    29  no</span>
 
 <span class="go">Unit                              Workload  Agent  Machine  Public address  Ports  Message</span>
-<span class="go">magma-access-gateway-operator/0*  active    idle   0        18.188.161.66          </span>
+<span class="go">magma-access-gateway-operator/0*  active    idle   0        18.188.161.66</span>
 
 <span class="go">Machine  State    Address        Inst id               Series  AZ  Message</span>
 <span class="go">0        started  18.188.161.66  manual:18.188.161.66  focal       Manually provisioned machine</span>

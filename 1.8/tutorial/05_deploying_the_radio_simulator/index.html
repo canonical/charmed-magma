@@ -342,6 +342,7 @@
 <p>Create an AWS EC2 instance running Ubuntu 20.04:</p>
 <div class="highlight"><pre><span></span><code><span class="go">aws ec2 run-instances \</span>
 <span class="go">  --security-group-ids &lt;your security group&gt; \</span>
+<span class="go">  --placement AvailabilityZone=us-east-2a \</span>
 <span class="go">  --image-id ami-0568936c8d2b91c4e \</span>
 <span class="go">  --count 1 \</span>
 <span class="go">  --instance-type t2.xlarge \</span>
@@ -352,22 +353,22 @@
 <p>Replace the security group ID with one that allows SSH access and note the instance ID.</p>
 <h2 id="attach-a-secondary-network-interface-to-the-instance">Attach a secondary network interface to the instance</h2>
 <p>Using the same <strong>S1</strong> subnet that was created during step 3, create a new network interface:</p>
-<div class="highlight"><pre><span></span><code><span class="go">aws ec2 create-network-interface --subnet-id &lt;your subnet ID&gt; --group &lt;your security group&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="go">aws ec2 create-network-interface --subnet-id &lt;your subnet ID&gt; --group &lt;your security group&gt; --tag-specifications 'ResourceType=network-interface,Tags=[{Key=Name,Value=radio-simulator-s1}]'</span>
 </code></pre></div>
 <p>Attach the network interface to the EC2 instance:</p>
 <div class="highlight"><pre><span></span><code><span class="go">aws ec2 attach-network-interface --network-interface-id &lt;your network interface ID&gt; --instance-id &lt;your instance ID&gt; --device-index 1</span>
 </code></pre></div>
 <h2 id="add-the-machine-to-juju">Add the machine to Juju</h2>
 <p>Wait for the instance to boot up and be accessible via SSH, then add it as a Juju machine:</p>
-<div class="highlight"><pre><span></span><code><span class="go">juju add-machine --private-key=&lt;path to your private key&gt; ssh:ubuntu@&lt;EC2 instance IP address&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="go">juju add-machine --private-key=&lt;path to your private key&gt; ssh:ubuntu@&lt;EC2 instance public IP address&gt;</span>
 </code></pre></div>
 <h2 id="configure-netplan-to-use-the-secondary-network-interface">Configure Netplan to use the secondary network interface</h2>
 <p>SSH into the machine:</p>
 <div class="highlight"><pre><span></span><code><span class="go">juju ssh &lt;Your instance ID&gt;</span>
 </code></pre></div>
-<p>Retrieve the mac address used by <code>eth1</code>:
+<p>Retrieve the mac address used by <code>eth1</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="go">ip a show eth1</span>
-</code></pre></div></p>
+</code></pre></div>
 <p>Create a file named <code>99-srsran.yaml</code> that contains the following content and move it over to <code>/etc/netplan/</code>:</p>
 <div class="highlight"><span class="filename">99-srsran.yaml</span><pre><span></span><code><span class="nt">network</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
@@ -380,7 +381,7 @@
 <span class="w">      </span><span class="nt">set-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eth1</span>
 </code></pre></div>
 <p>Apply the netplan configuration:</p>
-<div class="highlight"><pre><span></span><code><span class="go">netplan apply</span>
+<div class="highlight"><pre><span></span><code><span class="go">sudo netplan apply</span>
 </code></pre></div>
 <h2 id="deploy-the-srsran-radio-simulator">Deploy the srsRAN radio simulator</h2>
 <p>Deploy srsRAN to the machine:</p>
