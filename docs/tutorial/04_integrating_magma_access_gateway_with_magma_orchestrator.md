@@ -1,4 +1,4 @@
-# 4. Integrating Magma Access Gateway with Magma Orchestrator 
+# 4. Integrating Magma Access Gateway with Magma Orchestrator
 
 ## Integrate Magma Access Gateway with Magma Orchestrator
 
@@ -23,10 +23,10 @@ Model  Controller     Cloud/Region   Version  SLA          Timestamp
 edge   aws-us-east-2  aws/us-east-2  2.9.42   unsupported  16:09:01-05:00
 
 App                            Version  Status  Scale  Charm                          Channel  Rev  Exposed  Message
-magma-access-gateway-operator           active      1  magma-access-gateway-operator  stable    29  no       
+magma-access-gateway-operator           active      1  magma-access-gateway-operator  stable    29  no
 
 Unit                              Workload  Agent  Machine  Public address  Ports  Message
-magma-access-gateway-operator/0*  active    idle   0        18.189.227.182         
+magma-access-gateway-operator/0*  active    idle   0        18.189.227.182
 
 Machine  State    Address         Inst id                Series  AZ  Message
 0        started  18.189.227.182  manual:18.189.227.182  focal       Manually provisioned machine
@@ -69,18 +69,17 @@ unit-magma-access-gateway-operator-0:
 ### Create a network in the `magma-test` organization:
 
 1. Login to the `magma-test` organization at this address: `https://magma-test.nms.<your domain>`. Use the credentials from the previous step.
-2. On the left pane, click on "Networks"
-3. Click on "Add Network"
-4. Fill in the following values:
+2. Click on "Add Network"
+3. Fill in the following values:
     * Network ID: `my-network`
     * Network Name: `my-network`
     * Description: `my-network`
     * Network Type: `lte`
-5. Refresh the page. You should now see your network dashboard
+4. Click on "Save"
 
 ### Change the Network configuration
 
-1. Click on the "Networks" tab on the left pane
+1. Click on the "Network" tab on the left pane
 2. Next to the "EPC" box, click on "Edit"
 3. Change the following values:
     * MCC: `001`
