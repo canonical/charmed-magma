@@ -8,7 +8,7 @@ The Access Gateway must be installed on an Ubuntu machine with the following spe
 - **Processor**: x86-64 dual-core processor (around 2GHz clock speed or faster)
 - **Memory**: 4GB RAM
 - **Storage**: 32GB or greater SSD
-- **Networking**: At least two ethernet interfaces using two different subnets (**SGi** for internet connectivity and **S1** for enodeB connectivity)
+- **Networking**: At least two ethernet interfaces using two different subnets (**SGi** for internet connectivity and **S1** for eNodeB connectivity)
 
 ```{danger}
 Installing this charm will affect the target computer's networking configuration. Make sure it is installed on designated hardware (personal computers are strongly discouraged).
@@ -19,7 +19,7 @@ Some clouds like AWS use newer kernel versions by default. If you want to downgr
 ```
 
 ```{note}
-For small networks (i.e. 10 eNBs, 10 active subscribers), Magma can produce around 1 GB of logs per week. Most of these logs will go to /var/log/journal. To avoid problems with insufficient disk space, it is recommended to configure log rotation for systemd-journald.  For more information please visit [Ubuntu manuals](https://manpages.ubuntu.com/manpages/focal/man5/journald.conf.5.html).
+For small networks (i.e. 10 eNodeBs, 10 active subscribers), Magma can produce around 1 GB of logs per week. Most of these logs will go to /var/log/journal. To avoid problems with insufficient disk space, it is recommended to configure log rotation for systemd-journald.  For more information please visit [Ubuntu manuals](https://manpages.ubuntu.com/manpages/focal/man5/journald.conf.5.html).
 ```
 
 ## Install Magma Access Gateway

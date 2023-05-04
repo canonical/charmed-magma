@@ -36,7 +36,7 @@ Create a subnet called **S1**:
 aws ec2 create-subnet --vpc-id <your VPC ID> --cidr-block 172.31.126.0/28 --availability-zone us-east-2a --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=s1}]'
 ```
 
-Make sure to use a `cidr-block` that fits into your default VPC's block.
+Make sure to use a `cidr-block` that fits into your default VPC block.
 
 ## Bootstrap a Juju controller on AWS
 

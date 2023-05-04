@@ -57,18 +57,18 @@ unit-magma-access-gateway-operator-0:
 
 ## Create a network in Magma Orchestrator
 
-### Create a user in the `magma-test` organization:
+### Create a user in the `magma-test` organisation:
 
-1. Login to the `host` Orchestrator organization at this address: `https://host.nms.<your domain>`.
-2. Click on the :fontawesome-solid-user-plus: icon next to the `magma-test` organization
+1. Login to the `host` Orchestrator organisation at this address: `https://host.nms.<your domain>`.
+2. Click on the user+ icon next to the `magma-test` organisation
 3. Add a user with the following attributes:
     * email: `admin@juju.com`
     * password: `password123`
     * role: `Super User`
 
-### Create a network in the `magma-test` organization:
+### Create a network in the `magma-test` organisation:
 
-1. Login to the `magma-test` organization at this address: `https://magma-test.nms.<your domain>`. Use the credentials from the previous step.
+1. Login to the `magma-test` organisation at this address: `https://magma-test.nms.<your domain>`. Use the credentials from the previous step.
 2. On the left pane, click on "Networks"
 3. Click on "Add Network"
 4. Fill in the following values:

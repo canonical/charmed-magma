@@ -54,7 +54,7 @@ SSH to the machine where srsRAN is running:
 juju ssh <your srsRAN machine ID>
 ```
 
-Use the UE's interface to ping something on the internet, here you should expect no packet loss.
+Use the UE interface to ping something on the internet, here you should expect no packet loss.
 
 ```{code-block} shell
 ping -I tun_srsue google.com
