@@ -6,7 +6,7 @@ We will start by login in with AWS, creating resources that will be needed throu
 
 Login to AWS using the AWS CLI:
 
-```console
+```{code-block} shell
 aws configure
 ```
 
@@ -18,13 +18,13 @@ You will be asked to provide your AWS credentials and the region. The rest of th
 
 Create a security group in your default AWS VPC:
 
-```console
+```{code-block} shell
 aws ec2 create-security-group --group-name "magma" --description "Allow All" --vpc-id <your VPC ID>
 ```
 
 Note the `GroupId` and use it to add a wildcard rule:
 
-```console
+```{code-block} shell
 aws ec2 authorize-security-group-ingress --group-id <security group ID> --protocol -1 --port -1 --cidr 0.0.0.0/0
 ```
 
@@ -32,16 +32,16 @@ aws ec2 authorize-security-group-ingress --group-id <security group ID> --protoc
 
 Create a subnet called **S1**:
 
-```console
+```{code-block} shell
 aws ec2 create-subnet --vpc-id <your VPC ID> --cidr-block 172.31.126.0/28 --availability-zone us-east-2a --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=s1}]'
 ```
 
-Make sure to use a `cidr-block` that fits into your default VPC's block.
+Make sure to use a `cidr-block` that fits into your default VPC block.
 
 ## Bootstrap a Juju controller on AWS
 
 Bootstrap a Juju controller on AWS:
 
-```console
+```{code-block} shell
 juju bootstrap aws/us-east-2
 ```

@@ -23,7 +23,7 @@ Create an Access Point Name (APN) in Magma Orchestrator:
 
 Add a subscriber to the network in Magma Orchestrator:
 
-1. Login to `https://magma-test.<your domain>`
+1. Login to `https://magma-test.nms.<your domain>`
 2. Click on "Subscriber" on the left panel
 3. Click on "Add Subscribers"
 4. Click on "Add"
@@ -42,7 +42,7 @@ Add a subscriber to the network in Magma Orchestrator:
 
 Attach a User Equipment (UE) to the Network:
 
-```console
+```{code-block} shell
 juju run-action srs-enb-ue/0 attach-ue --string-args usim-imsi=001010000000001 usim-k=00112233445566778899aabbccddeeff usim-opc=63BFA50EE6523365FF14C1F45F88737D --wait
 ```
 
@@ -50,15 +50,14 @@ juju run-action srs-enb-ue/0 attach-ue --string-args usim-imsi=001010000000001 u
 
 SSH to the machine where srsRAN is running:
 
-```console
+```{code-block} shell
 juju ssh <your srsRAN machine ID>
 ```
 
-Use the UE's interface to ping something on the internet, here you should expect no packet loss.
+Use the UE interface to ping something on the internet, here you should expect no packet loss.
 
-```console
+```{code-block} shell
 ping -I tun_srsue google.com
 ```
 
-!!!success Congratulations
-You have a fully functioning 4G Network :partying_face:
+Congratulations, you have a fully functioning 4G Network!
