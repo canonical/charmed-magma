@@ -73,7 +73,7 @@ In your domain registrar, create DNS records for the following Kubernetes servic
 
 ## Verify the deployment
 
-Get the host organisation's username and password:
+Get the host organization's username and password:
 
 ```{code-block} shell
 juju run-action nms-magmalte/leader get-host-admin-credentials --wait

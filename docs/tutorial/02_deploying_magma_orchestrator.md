@@ -241,7 +241,7 @@ Now, navigate to `https://host.nms.<your domain name>`, you should receive a war
 
 ## Login to Magma's Network Management System
 
-Get the host organisation's username and password:
+Get the host organization's username and password:
 
 ```{code-block} shell
 juju run-action nms-magmalte/leader get-host-admin-credentials --wait
