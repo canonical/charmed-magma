@@ -1,6 +1,0 @@
-[submodule "orchestrator"]
-	path = orchestrator
-	url = https://github.com/canonical/charmed-magma-orchestrator
-[submodule "access-gateway"]
-	path = access-gateway
-	url = https://github.com/canonical/magma-access-gateway-operator
