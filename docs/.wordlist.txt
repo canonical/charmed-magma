@@ -9,6 +9,16 @@ UI
 https
 MyST
 
+dns
+enodeb
+hostname
+kubernetes
+nms
+pfx
+orchestrator
+srsran
+uuid
+
 accumsan
 adipiscing
 aliqua
