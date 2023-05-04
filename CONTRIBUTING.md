@@ -3,10 +3,7 @@
 ## Build and test the documentation
 
 ```bash
-pip3 install -r requirements-doc.txt
-mkdocs serve
+cd docs
+make install
+make run
 ```
-
-## Publishing
-
-Publishing is handled by GitHub actions.

@@ -4,7 +4,7 @@
 
 Create an AWS EC2 instance running Ubuntu 20.04:
 
-```console
+```{code-block} shell
 aws ec2 run-instances \
   --security-group-ids <your security group> \
   --placement AvailabilityZone=us-east-2a \
@@ -22,13 +22,13 @@ Replace the security group ID with one that allows SSH access and note the insta
 
 Using the same **S1** subnet that was created during step 3, create a new network interface:
 
-```console
+```{code-block} shell
 aws ec2 create-network-interface --subnet-id <your subnet ID> --group <your security group> --tag-specifications 'ResourceType=network-interface,Tags=[{Key=Name,Value=radio-simulator-s1}]'
 ```
 
 Attach the network interface to the EC2 instance:
 
-```console
+```{code-block} shell
 aws ec2 attach-network-interface --network-interface-id <your network interface ID> --instance-id <your instance ID> --device-index 1
 ```
 
@@ -36,7 +36,7 @@ aws ec2 attach-network-interface --network-interface-id <your network interface 
 
 Wait for the instance to boot up and be accessible via SSH, then add it as a Juju machine:
 
-```console
+```{code-block} shell
 juju add-machine --private-key=<path to your private key> ssh:ubuntu@<EC2 instance public IP address>
 ```
 
@@ -44,19 +44,20 @@ juju add-machine --private-key=<path to your private key> ssh:ubuntu@<EC2 instan
 
 SSH into the machine:
 
-```console
+```{code-block} shell
 juju ssh <Your instance ID>
 ```
 
 Retrieve the mac address used by `eth1`:
 
-```console
+```{code-block} shell
 ip a show eth1
 ```
 
 Create a file named `99-srsran.yaml` that contains the following content and move it over to `/etc/netplan/`:
 
-```yaml title="99-srsran.yaml"
+```{code-block} yaml
+:caption: 99-srsran.yaml
 network:
   version: 2
   ethernets:
@@ -70,7 +71,7 @@ network:
 
 Apply the netplan configuration:
 
-```console
+```{code-block} shell
 sudo netplan apply
 ```
 
@@ -78,12 +79,12 @@ sudo netplan apply
 
 Deploy srsRAN to the machine:
 
-```console
+```{code-block} shell
 juju deploy srs-enb-ue --channel=edge --config bind-interface="eth1" --to <Machine ID>
 ```
 
 ## Integrate the radio simulator with Magma Access Gateway
 
-```console
+```{code-block} shell
 juju relate srs-enb-ue:lte-core magma-access-gateway-operator:lte-core
 ```

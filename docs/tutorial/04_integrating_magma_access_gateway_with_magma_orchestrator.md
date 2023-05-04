@@ -4,20 +4,20 @@
 
 Offer an application endpoint from Orchestrator:
 
-```console
+```{code-block} shell
 juju offer orc8r.orc8r-nginx:orchestrator
 juju consume orc8r.orc8r-nginx
 ```
 
 Relate Magma Access Gateway with Orchestrator:
 
-```console
+```{code-block} shell
 juju relate orc8r-nginx:orchestrator magma-access-gateway-operator
 ```
 
 Wait for the application to go back to `Active-Idle`:
 
-```console
+```{code-block} shell
 ubuntu@host:~$ juju status
 Model  Controller     Cloud/Region   Version  SLA          Timestamp
 edge   aws-us-east-2  aws/us-east-2  2.9.42   unsupported  16:09:01-05:00
@@ -34,13 +34,13 @@ Machine  State    Address         Inst id                Series  AZ  Message
 
 Fetch the Access Gateway's `Hardware ID` and `Challenge Key` and note those values:
 
-```console
+```{code-block} shell
 juju run-action magma-access-gateway-operator/0 get-access-gateway-secrets --wait
 ```
 
 The output should look like:
 
-```console
+```{code-block} shell
 ubuntu@host:~$ juju run-action magma-access-gateway-operator/0 get-access-gateway-secrets --wait
 unit-magma-access-gateway-operator-0:
   UnitId: magma-access-gateway-operator/0
@@ -60,7 +60,7 @@ unit-magma-access-gateway-operator-0:
 ### Create a user in the `magma-test` organization:
 
 1. Login to the `host` Orchestrator organization at this address: `https://host.nms.<your domain>`.
-2. Click on the :fontawesome-solid-user-plus: icon next to the `magma-test` organization
+2. Click on the user+ icon next to the `magma-test` organization
 3. Add a user with the following attributes:
     * email: `admin@juju.com`
     * password: `password123`
