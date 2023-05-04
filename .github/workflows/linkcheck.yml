@@ -14,8 +14,8 @@ jobs:
 
       - name: Install the doc framework
         run: |
-          make install
+          cd docs && make install
 
       - name: Run linkchecker
         run: |
-          make linkcheck
+          cd docs && make linkcheck
