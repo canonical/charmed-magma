@@ -7,7 +7,7 @@ simulate usage of this network.
 Charmed Magma is a complex piece of software.
 
 This tutorial will introduce you to key concepts, tools, processes and
-operations, starting from your first installation to a cloud deployment.
+operations, guiding you through your first cloud deployment.
 Along the way it will give examples of good practice, and pointers to much
 more detailed information.
 
