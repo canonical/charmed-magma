@@ -14,7 +14,7 @@ Charmed Magma - it will save you many more hours later on. Follow the
 tutorial steps in sequence; they take you on a learning journey through Charmed Magma.
 
 The tutorial has been tested with a variety of users. We make every effort to
-keep it up-to-date and ensure that it’s reliable - but if you encounter any
+keep it up-to-date and ensure that it is reliable - but if you encounter any
 problems, we want to help you, so please let us know.
 
 Follow the core tutorial steps in sequence; they take you on a learning
