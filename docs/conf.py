@@ -15,7 +15,7 @@ copyright = "%s, %s" % (datetime.date.today().year, author)
 release = 'main'
 
 # Open Graph configuration - defines what is displayed in the website preview
-ogp_site_url = "https://canonical-charmed-5g.readthedocs-hosted.com/"
+ogp_site_url = "https://canonical-charmed-magma.readthedocs-hosted.com/"
 ogp_site_name = project
 ogp_image = "https://assets.ubuntu.com/v1/253da317-image-document-ubuntudocs.svg"
 
