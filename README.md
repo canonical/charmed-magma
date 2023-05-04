@@ -28,4 +28,4 @@ lifecycle management options.
   standard monitoring tools.
 - **Automation**: Charmed Magma automates the initial setup and most operations.
 
-[Get started here](https://canonical.github.io/charmed-magma/main/)
+[Get started here](https://canonical-charmed-magma.readthedocs-hosted.com/en/latest/)
