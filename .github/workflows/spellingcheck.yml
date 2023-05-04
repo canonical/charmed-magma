@@ -18,8 +18,8 @@ jobs:
 
       - name: Install the doc framework
         run: |
-          make install
+          cd docs && make install
 
       - name: Build docs and run spelling checker
         run: |
-          make spelling
+          cd docs && make spelling
