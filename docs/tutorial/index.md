@@ -10,7 +10,7 @@ This tutorial will introduce you to key concepts, tools, processes and
 operations, guiding you through your first cloud deployment.
 You can expect to spend one to two hours working through the complete
 tutorial. It is a strongly recommended investment of time if you are new to
-Charmed Magma - it will save you many more hours later on. Follow the
+Charmed Magma - it will save you many hours later on. Follow the
 tutorial steps in sequence; they take you on a learning journey through Charmed Magma.
 
 The tutorial has been tested with a variety of users. We make every effort to
