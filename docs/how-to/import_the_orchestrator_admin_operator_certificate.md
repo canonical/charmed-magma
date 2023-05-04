@@ -14,6 +14,6 @@ Then, retrieve the PFX package password:
 juju run orc8r-certifier/leader get-pfx-package-password
 ```
 
-```{info}
+```{note}
 The pfx package was copied to your current working directory. It can now be loaded in your browser or used to make API calls to Magma orchestrator.
 ```
