@@ -9,24 +9,24 @@ import sys
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Documentation starter pack'
+project = 'Charmed Magma'
 author = 'Canonical Group Ltd'
 copyright = "%s, %s" % (datetime.date.today().year, author)
-release = '1.0'
+release = 'main'
 
 # Open Graph configuration - defines what is displayed in the website preview
-ogp_site_url = "https://canonical-starter-pack.readthedocs-hosted.com/"
+ogp_site_url = "https://canonical-charmed-5g.readthedocs-hosted.com/"
 ogp_site_name = project
 ogp_image = "https://assets.ubuntu.com/v1/253da317-image-document-ubuntudocs.svg"
 
 html_context = {
     # Change to the discourse instance you want to be able to link to
-    "discourse": "https://discourse.ubuntu.com",
+    "discourse": "https://discourse.charmhub.io/",
     # Change to the GitHub info for your project
-    "github_url": "https://github.com/canonical/starter-pack",
+    "github_url": "https://github.com/canonical/charmed-magma",
     "github_version": "main",
-    "github_folder": "/",
-    "github_filetype": "rst"
+    "github_folder": "/docs/",
+    "github_filetype": "md"
 }
 
 # Used for related links - no need to change

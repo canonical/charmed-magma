@@ -2,8 +2,9 @@
 
 In this section, we will deploy Magma Orchestrator on AWS's managed Kubernetes service (EKS) using Juju.
 
-!!! note
-    :material-dns: The following steps assume that you have a domain name registered with a DNS provider and that you have a hosted zone in AWS's Route53 associated with this domain. Everywhere you see `<your domain name>` in the following steps, you should replace it with your domain name.
+```{note}
+The following steps assume that you have a domain name registered with a DNS provider and that you have a hosted zone in AWS's Route53 associated with this domain. Everywhere you see `<your domain name>` in the following steps, you should replace it with your domain name.
+```
 
 ## Create a Kubernetes cluster
 
@@ -11,7 +12,7 @@ In this section, we will deploy Magma Orchestrator on AWS's managed Kubernetes s
 
 Create a Kubernetes cluster on AWS using `eksctl`:
 
-```console
+```{code-block} shell
 eksctl create cluster --name magma-orc8r --region us-east-2 --node-type t2.xlarge --with-oidc
 ```
 
@@ -21,7 +22,7 @@ This step will take a couple of minutes. You can check that the cluster is runni
 
 Create an IAM service account:
 
-```console
+```{code-block} shell
 eksctl create iamserviceaccount \
   --name ebs-csi-controller-sa \
   --namespace kube-system \
@@ -34,7 +35,7 @@ eksctl create iamserviceaccount \
 
 Add the `aws-ebs-csi-driver` addon to the Kubernetes cluster:
 
-```console
+```{code-block} shell
 eksctl create addon --name aws-ebs-csi-driver --cluster magma-orc8r --service-account-role-arn arn:aws:iam::<your IAM user ID>:role/AmazonEKS_EBS_CSI_DriverRole
 ```
 
@@ -42,19 +43,20 @@ eksctl create addon --name aws-ebs-csi-driver --cluster magma-orc8r --service-ac
 
 Add the Kubernetes cloud to Juju:
 
-```console
+```{code-block} shell
 juju add-k8s eks-magma-orc8r --client --controller aws-us-east-2
 ```
 
 Create a Juju model:
 
-```console
+```{code-block} shell
 juju add-model orc8r eks-magma-orc8r/us-east-2
 ```
 
 Create a file called `overlay.yaml` in your current working directory and place the following content in it:
 
-```yaml title="overlay.yaml"
+```{code-block} yaml
+:caption: overlay.yaml
 applications:
   orc8r-certifier:
     options:
@@ -70,13 +72,13 @@ applications:
 
 Deploy Magma's Orchestrator with this overlay file:
 
-```console
+```{code-block} shell
 juju deploy magma-orc8r --overlay overlay.yaml --trust
 ```
 
 You can see the deployment's status by running `juju status`. The deployment is completed when all units are in the `Active-Idle` state.
 
-```console
+```{code-block} shell
 ubuntu@host:~$ juju status
 Model               Controller                          Cloud/Region                        Version  SLA          Timestamp
 magma-orchestrator  magma-orchestrator-k8s-localhost  magma-orchestrator-k8s/localhost  2.9.35   unsupported  18:19:48-04:00
@@ -124,13 +126,13 @@ tls-certificates-operator/0*      active    idle   10.1.50.121
 
 Retrieve the list of load balancer Kubernetes services:
 
-```console
+```{code-block} shell
 juju run-action orc8r-orchestrator/leader get-load-balancer-services --wait
 ```
 
 The result should look like so:
 
-```console
+```{code-block} shell
 ubuntu@host:~$ juju run-action orc8r-orchestrator/leader get-load-balancer-services --wait
 unit-orc8r-orchestrator-0:
   UnitId: orc8r-orchestrator/0
@@ -150,20 +152,24 @@ unit-orc8r-orchestrator-0:
 
 The hostnames associated to each service will differ from those shown here.
 
-!!! note
-    We will need to create CNAME DNS entries using the following mapping:
 
-    | Kubernetes LoadBalancer Service  | CNAME Entry                                  | 
-    |----------------------------------|----------------------------------------------|
-    | `<orc8r-bootstrap-nginx FQDN>`   | `bootstrapper-controller.<your domain name>` | 
-    | `<orc8r-nginx-proxy FQDN>`       | `api.<your domain name>`                     | 
-    | `<orc8r-clientcert-nginx FQDN>`  | `controller.<your domain name>`              | 
-    | `<nginx-proxy FQDN>`             | `*.nms.<your domain name>`                   | 
+```{note}
+We will need to create CNAME DNS entries using the following mapping:
 
+
+| Kubernetes LoadBalancer Service  | CNAME Entry                                  | 
+|----------------------------------|----------------------------------------------|
+| `<orc8r-bootstrap-nginx FQDN>`   | `bootstrapper-controller.<your domain name>` | 
+| `<orc8r-nginx-proxy FQDN>`       | `api.<your domain name>`                     | 
+| `<orc8r-clientcert-nginx FQDN>`  | `controller.<your domain name>`              | 
+| `<nginx-proxy FQDN>`             | `*.nms.<your domain name>`                   | 
+```
 
 Create a file named `dns.json` with the following content:
 
-```json title="dns.json" hl_lines="7 12 20 25 33 38 46 51"
+```{code-block} json
+:caption: dns.json
+
 {
   "Comment": "CREATE CNAME records",
   "Changes": [
@@ -223,11 +229,11 @@ Create a file named `dns.json` with the following content:
 }
 ```
 
-Each <mark>highlighted line</mark> needs to be modified using the mapping presented in the note above.
+Each `Value` field in `ResourceRecords` needs to be modified using the mapping presented in the note above.
 
 Create the CNAME records in Route53:
 
-```console
+```{code-block} shell
 aws route53 change-resource-record-sets --hosted-zone-id <your hosted zone ID> --change-batch file://dns.json
 ```
 
@@ -237,7 +243,7 @@ Now, navigate to `https://host.nms.<your domain name>`, you should receive a war
 
 Get the host organization's username and password:
 
-```console
+```{code-block} shell
 juju run-action nms-magmalte/leader get-host-admin-credentials --wait
 ```
 

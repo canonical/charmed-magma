@@ -4,19 +4,19 @@
 
 Offer the orchestrator relation outside the orchestrator model:
 
-```bash
+```{code-block} shell
 juju offer orc8r-nginx:orchestrator
 ```
 
 Configure the Access Gateway to connect to the Orchestrator:
 
-```bash
+```{code-block} shell
 juju relate magma-access-gateway-operator [[<controller>:]<user>/]<model-name>.orc8r-nginx
 ```
 
 Fetch the Access Gateway's `Hardware ID` and `Challenge Key`:
 
-```bash
+```{code-block} shell
 juju run-action magma-access-gateway-operator/<unit number> get-access-gateway-secrets --wait
 ```
 
@@ -26,10 +26,10 @@ Navigate to "Equipment" on the NMS via the left navigation bar, hit "Add Gateway
 
 Run the following command:
 
-```bash
+```{code-block} shell
 juju run-action magma-access-gateway-operator/<unit number> post-install-checks --wait
 ```
 
-!!! info
-
-    Successful Access Gateway deployment will be indicated by the `Magma AGW post-installation checks finished successfully.` message.
+```{info}
+Successful Access Gateway deployment will be indicated by the `Magma AGW post-installation checks finished successfully.` message.
+```
