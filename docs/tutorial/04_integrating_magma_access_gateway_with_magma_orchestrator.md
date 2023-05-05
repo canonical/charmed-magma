@@ -70,7 +70,7 @@ unit-magma-access-gateway-operator-0:
 
 1. Login to the `magma-test` organization at this address: `https://magma-test.nms.<your domain>`. Use the credentials from the previous step.
 2. Click on "Add Network"
-4. Fill in the following values:
+3. Fill in the following values:
     * Network ID: `my-network`
     * Network Name: `my-network`
     * Description: `my-network`
