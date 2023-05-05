@@ -79,7 +79,7 @@ unit-magma-access-gateway-operator-0:
 
 ### Change the Network configuration
 
-1. Click on the "Networks" tab on the left pane
+1. Click on the "Network" tab on the left pane
 2. Next to the "EPC" box, click on "Edit"
 3. Change the following values:
     * MCC: `001`
