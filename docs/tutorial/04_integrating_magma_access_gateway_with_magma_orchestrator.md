@@ -75,7 +75,6 @@ unit-magma-access-gateway-operator-0:
     * Network Name: `my-network`
     * Description: `my-network`
     * Network Type: `lte`
-5. Refresh the page. You should now see your network dashboard
 
 ### Change the Network configuration
 
