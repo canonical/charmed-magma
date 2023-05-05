@@ -2,6 +2,6 @@
 
 To relate Access Gateway to the [srsRAN operator](https://charmhub.io/srs-enb-ue):
 
-```bash
+```{code-block} shell
 juju relate magma-access-gateway-operator <srsRAN application name>
 ```

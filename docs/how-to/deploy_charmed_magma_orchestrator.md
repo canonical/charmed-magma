@@ -4,19 +4,20 @@
 
 The Orchestrator must be installed on a Kubernetes cluster with the following specifications:
 
-- **:material-kubernetes: Kubernetes**: A cluster with a total of a minimum of 6 vCPUs and 16 GB of RAM.
-- **:material-ubuntu: Juju 2.9**: A Juju controller with access to the Kubernetes cluster
+- **Kubernetes**: A cluster with a total of a minimum of 6 vCPUs and 16 GB of RAM.
+- **Juju 2.9**: A Juju controller with access to the Kubernetes cluster
 
-!!! note
-
-    If the Juju controller is running on your Kubernetes cluster, it should use a LoadBalancer
-    service type
+```{info}
+If the Juju controller is running on your Kubernetes cluster, it should use a LoadBalancer
+service type
+```
 
 ## Deploy the magma-orc8r bundle
 
 Create an `overlay.yaml` file that contains the following content:
 
-```yaml title="overlay.yaml"
+```{code-block} yaml
+:caption: overlay.yaml
 applications:
   fluentd:
     options:
@@ -37,18 +38,17 @@ applications:
       ca-common-name: rootca.<your domain name>
 ```
 
-!!! warning
-
-    This configuration is unsecure because it uses self-signed certificates.
-
-!!! info
-    
-    Elasticsearch is not part of the magma-orc8r bundle and needs to be deployed separately. 
-    For details regarding Elasticsearch integration please visit [Integrate Charmed Magma Orchestrator to Elasticsearch](integrate_charmed_magma_orchestrator_to_elasticsearch.md)
+```{warning}
+This configuration is unsecure because it uses self-signed certificates.
+```
+```{info}
+Elasticsearch is not part of the magma-orc8r bundle and needs to be deployed separately. 
+For details regarding Elasticsearch integration please visit [Integrate Charmed Magma Orchestrator to Elasticsearch](integrate_charmed_magma_orchestrator_to_elasticsearch.md)
+```
 
 Deploy Orchestrator:
 
-```bash
+```{code-block} shell
 juju deploy magma-orc8r --overlay overlay.yaml --trust --channel=1.6/stable
 ```
 
@@ -58,26 +58,26 @@ The deployment is completed when all services are in the `Active-Idle` state.
 
 Retrieve the PFX package that contains the certificates to authenticate against Magma Orchestrator:
 
-```bash
+```{code-block} shell
 juju scp --container="magma-orc8r-certifier" orc8r-certifier/0:/var/opt/magma/certs/admin_operator.pfx admin_operator.pfx
 ```
 
 Retrieve the pfx package password:
 
-```bash
+```{code-block} shell
 juju run-action orc8r-certifier/leader get-pfx-package-password --wait
 ```
 
-!!! info
-
-    The pfx package was copied to your current working directory. It can now be loaded in your browser or used
-    to make API calls to Magma orchestrator.
+```{note}
+The pfx package was copied to your current working directory. It can now be loaded in your browser or used
+to make API calls to Magma orchestrator.
+```
 
 ## Setup DNS
 
 Retrieve the services that need to be exposed:
 
-```bash
+```{code-block} shell
 juju run-action orc8r-orchestrator/leader get-load-balancer-services --wait
 ```
 
@@ -95,7 +95,7 @@ In your domain registrar, create A records for the following Kubernetes services
 
 Get the master organization's username and password:
 
-```bash
+```{code-block} shell
 juju run-action nms-magmalte/leader get-master-admin-credentials --wait
 ```
 
