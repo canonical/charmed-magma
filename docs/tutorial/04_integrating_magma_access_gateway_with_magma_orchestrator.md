@@ -69,8 +69,7 @@ unit-magma-access-gateway-operator-0:
 ### Create a network in the `magma-test` organization:
 
 1. Login to the `magma-test` organization at this address: `https://magma-test.nms.<your domain>`. Use the credentials from the previous step.
-2. On the left pane, click on "Networks"
-3. Click on "Add Network"
+2. Click on "Add Network"
 4. Fill in the following values:
     * Network ID: `my-network`
     * Network Name: `my-network`
