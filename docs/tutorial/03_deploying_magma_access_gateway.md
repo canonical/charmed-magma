@@ -6,7 +6,7 @@
 
 Create an AWS EC2 instance running Ubuntu 20.04:
 
-```console
+```{code-block} shell
 aws ec2 run-instances \
   --placement AvailabilityZone=us-east-2a \
   --security-group-ids <your security group ID> \
@@ -22,7 +22,7 @@ Replace `<your security group ID>` and `<your ssh key name>` with the appropriat
 
 Note the `InstanceId` of the created instance and use it to retrieve its public IP address:
 
-```console
+```{code-block} shell
 aws ec2 describe-instances --filters "Name=instance-id,Values=<your instance ID>" --query 'Reservations[*].Instances[*].[PublicIpAddress]' --output text
 ```
 
@@ -32,13 +32,13 @@ Note this address, you will need it very soon.
 
 Note the `SubnetId` and create a network interface on this subnet:
 
-```console
+```{code-block} shell
 aws ec2 create-network-interface --subnet-id <your subnet ID> --group <your security group> --tag-specifications 'ResourceType=network-interface,Tags=[{Key=Name,Value=agw-s1}]'
 ```
 
 Note the `NetworkInterfaceId` and use it to attach the network interface to the EC2 instance:
 
-```console
+```{code-block} shell
 aws ec2 attach-network-interface --network-interface-id <your network interface ID> --instance-id <your instance ID> --device-index 1
 ```
 
@@ -50,25 +50,25 @@ Unfortunately, the default kernel on the AWS Ubuntu 20.04 AMI image is too new f
 
 Create a new Juju model for machines:
 
-```console
+```{code-block} shell
 juju add-model edge aws/us-east-2
 ```
 
 Wait for the instance to boot up and be accessible via SSH, then add it as a Juju machine:
 
-```console
+```{code-block} shell
 juju add-machine --private-key=<path to your private key> ssh:ubuntu@<EC2 instance public IP address>
 ```
 
 Note the Juju machine ID and deploy Magma Access Gateway to it:
 
-```console
+```{code-block} shell
 juju deploy magma-access-gateway-operator --config sgi=eth0 --config s1=eth1 --channel=1.8/stable --to <Machine ID>
 ```
 
 You can see the deployment's status by running `juju status`. The deployment is completed when the application is in the `Active-Idle` state.
 
-```console
+```{code-block} shell
 ubuntu@host:~$ juju status
 Model  Controller     Cloud/Region   Version  SLA          Timestamp
 edge   aws-us-east-2  aws/us-east-2  2.9.42   unsupported  11:41:52Z
