@@ -10,4 +10,5 @@ deploy_charmed_magma_access_gateway
 integrate_charmed_magma_access_gateway_to_orchestrator
 integrate_charmed_magma_access_gateway_to_srsRAN
 integrate_charmed_magma_orchestrator_to_elasticsearch
+capture_S1_traffic_for_debugging
 ```
