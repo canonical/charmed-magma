@@ -71,7 +71,7 @@ work, detach the UE, restart Magma services from the AGW machine using:
 sudo service magma@* stop
 sudo service magma@magmad start
 
-Once Magma is up again, connect the simulated eNB and UE and try pinging something again.
+Once Magma is up again, connect the simulated eNodeB and UE and try pinging something again.
 
 Bug report: https://github.com/magma/magma/issues/15196
 ```

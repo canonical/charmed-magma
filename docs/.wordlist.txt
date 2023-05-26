@@ -1,6 +1,7 @@
 Permalink
 
 addon
+AGW
 AMI
 APN
 APNs
@@ -21,8 +22,10 @@ eNodeB
 eNodeBs
 EPC
 ethernet
+github
 hostname
 hostnames
+https
 IAM
 IMSI
 journald
@@ -33,6 +36,7 @@ kubernetes
 lifecycle
 LoadBalancer
 LTS
+magmad
 MCC
 MNC
 netplan
@@ -46,6 +50,7 @@ srsRAN
 subnet
 SSD
 subnets
+sudo
 srsran
 systemd
 TAC
