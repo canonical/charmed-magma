@@ -61,3 +61,17 @@ ping -I tun_srsue google.com
 ```
 
 Congratulations, you have a fully functioning 4G Network!
+
+```{note}
+Due to a bug in upstream Magma, it may happen that the UE simulator will not receive responses 
+to the above ping command. 
+In this situation try to ping the UE IP address from the AGW machine. If it still doesn't
+work, detach the UE, restart Magma services from the AGW machine using:
+
+sudo service magma@* stop
+sudo service magma@magmad start
+
+Once Magma is up again, connect the simulated eNodeB and UE and try pinging something again.
+
+Bug report: https://github.com/magma/magma/issues/15196
+```
